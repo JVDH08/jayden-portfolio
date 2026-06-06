@@ -61,7 +61,7 @@ export default function Contact() {
             <Eyebrow className="justify-center">{contact.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="mx-auto mt-7 max-w-3xl font-display text-[clamp(2.2rem,6vw,5rem)] font-extrabold leading-[1.02] tracking-[-0.02em] text-gradient">
+            <h2 className="mx-auto mt-7 max-w-3xl font-display text-[clamp(2.2rem,6vw,5rem)] font-extrabold leading-[1.08] tracking-[-0.02em] text-gradient">
               {contact.title}
             </h2>
           </Reveal>

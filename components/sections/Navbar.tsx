@@ -37,7 +37,7 @@ export default function Navbar() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
             <span className="relative h-2 w-2 rounded-full bg-accent" />
           </span>
-          Jayden<span className="text-text-secondary"> v.d. Hoek</span>
+          {site.brand}
         </a>
 
         {/* desktop nav */}

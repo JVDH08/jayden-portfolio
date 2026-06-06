@@ -7,8 +7,12 @@
  */
 
 export const site = {
-  name: "Jayden van den Hoek",
-  role: "Freelance Webdesigner",
+  // Wordmark in header/footer. TODO: vervang door jullie studio-/merknaam
+  // zodra die er is (bijv. "STUDIO ___").
+  brand: "Jayden & Bodhi",
+  name: "Jayden & Bodhi",
+  founders: ["Jayden", "Bodhi"],
+  role: "Freelance webdesign",
   location: "Haarlem, NL",
   email: "jaydenvdh88@gmail.com",
   whatsapp: "+31600000000", // TODO: vervang door echt nummer
@@ -25,7 +29,7 @@ export const nav = [
 export const hero = {
   eyebrow: "Freelance webdesign · Haarlem",
   // The one rake line.
-  titleLines: ["Ik bouw websites", "waar mensen niet", "omheen kunnen."],
+  titleLines: ["Wij bouwen websites", "waar mensen niet", "omheen kunnen."],
   highlightLine: 2, // index of the line shown in accent
   subtitle:
     "Modern, snel en op maat. Sites die voelen als een merk — niet als een template.",
@@ -35,20 +39,20 @@ export const hero = {
 };
 
 export const statement = {
-  eyebrow: "Wat ik doe",
+  eyebrow: "Wat we doen",
   // Each line reveals word-by-word on scroll.
   lines: [
     { text: "Een website is je eerste indruk.", highlight: [] as number[] },
-    { text: "Bij mij is dat geen sjabloon,", highlight: [] },
+    { text: "Bij ons is dat geen sjabloon,", highlight: [] },
     { text: "maar een ervaring die blijft hangen.", highlight: [4, 5] },
   ],
-  body: "Ik ontwerp en bouw cinematische websites die laden in een oogwenk, vloeiend bewegen en precies passen bij wat jouw merk wil zeggen. Van concept tot live — alles uit één hand.",
+  body: "Wij ontwerpen en bouwen cinematische websites die laden in een oogwenk, vloeiend bewegen en precies passen bij wat jouw merk wil zeggen. Van concept tot live — alles uit één hand.",
 };
 
 export const showcase = {
   // The scroll-scrub signature section.
   eyebrow: "Signature",
-  frameCount: 60,
+  frameCount: 90,
   steps: [
     {
       at: 0.04,
@@ -80,7 +84,7 @@ export const process = {
     {
       no: "02",
       title: "Ontwerp",
-      text: "Ik vertaal dat naar een ontwerp met karakter en bouw het meteen functioneel, snel en responsive.",
+      text: "Wij vertalen dat naar een ontwerp met karakter en bouwen het meteen functioneel, snel en responsive.",
     },
     {
       no: "03",
@@ -125,26 +129,40 @@ export const projects: Project[] = [
 ];
 
 export const about = {
-  eyebrow: "Over mij",
-  title: "Webdesigner uit Haarlem",
+  eyebrow: "Over ons",
+  title: "Webdesigners uit Haarlem",
   paragraphs: [
-    "Ik ben Jayden — ik bouw moderne websites voor ondernemers die opvallen willen. Geen standaard thema's, maar maatwerk dat klopt met jouw verhaal.",
-    "Werken met mij is direct en persoonlijk. Korte lijnen, snelle oplevering, en een resultaat waar je trots op bent. Of je nu een lokaal bedrijf bent of een merk dat de volgende stap zet.",
+    "Wij zijn Jayden en Bodhi — samen bouwen we moderne websites voor ondernemers die willen opvallen. Geen standaard thema's, maar maatwerk dat klopt met jouw verhaal.",
+    "Werken met ons is direct en persoonlijk. Korte lijnen, snelle oplevering, en een resultaat waar je trots op bent. Of je nu een lokaal bedrijf bent of een merk dat de volgende stap zet.",
+  ],
+  // Twee gelijkwaardige partners.
+  // TODO: plaats portretfoto's in /public/images/jayden.jpg en /public/images/bodhi.jpg
+  team: [
+    {
+      name: "Jayden",
+      role: "Design & Development",
+      photo: "/images/jayden.jpg",
+      initials: "J",
+    },
+    {
+      name: "Bodhi",
+      role: "Design & Strategie",
+      photo: "/images/bodhi.jpg",
+      initials: "B",
+    },
   ],
   stats: [
     { value: "100%", label: "Maatwerk" },
     { value: "<1s", label: "Laadtijd" },
     { value: "60fps", label: "Vloeiend" },
   ],
-  // TODO: plaats een portretfoto in /public/images/jayden.jpg
-  photo: "/images/jayden.jpg",
 };
 
 export const contact = {
   eyebrow: "Contact",
   title: "Klaar voor een website die opvalt?",
   subtitle:
-    "Vertel me kort over je project. Ik reageer meestal binnen een dag.",
+    "Vertel ons kort over je project. We reageren meestal binnen een dag.",
   // form field labels
   form: {
     name: "Je naam",
@@ -152,8 +170,8 @@ export const contact = {
     message: "Waar gaat het over?",
     submit: "Verstuur bericht",
     sending: "Versturen…",
-    success: "Bedankt! Je bericht is verzonden — ik neem snel contact op.",
-    error: "Er ging iets mis. Mail me gerust direct.",
+    success: "Bedankt! Je bericht is verzonden — we nemen snel contact op.",
+    error: "Er ging iets mis. Mail ons gerust direct.",
   },
 };
 
@@ -164,5 +182,5 @@ export const footer = {
     { label: "LinkedIn", href: "#" },
     { label: "GitHub", href: "https://github.com/JVDH08" },
   ],
-  madeBy: "Made by Jayden van den Hoek",
+  madeBy: "Made by Jayden & Bodhi",
 };

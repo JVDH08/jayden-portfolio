@@ -24,9 +24,9 @@ import { dirname, join } from "node:path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, "..", "public", "frames");
 
-const FRAMES = 60;
-const W = 1600;
-const H = 900;
+const FRAMES = 90;
+const W = 1920;
+const H = 1080;
 const CX = W / 2;
 const CY = H / 2;
 
@@ -117,7 +117,7 @@ async function main() {
     const svg = frameSVG(t);
     const n = String(i + 1).padStart(4, "0");
     await sharp(Buffer.from(svg))
-      .webp({ quality: 82 })
+      .webp({ quality: 90 })
       .toFile(join(OUT_DIR, `frame_${n}.webp`));
     process.stdout.write(`\r  frame_${n}.webp`);
   }

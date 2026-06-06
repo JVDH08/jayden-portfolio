@@ -16,7 +16,7 @@
   --color-accent-soft: #9a8bff;
   --color-accent-glow: rgba(110, 91, 255, 0.45);
 
-  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-src), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   --animate-float: float 7s ease-in-out infinite;
@@ -66,6 +66,12 @@ body {
   body { cursor: auto; }
 }
 
+/* Display font defaults: strak, licht negatieve tracking (niet expanded). */
+.font-display {
+  letter-spacing: -0.02em;
+  font-feature-settings: "ss01", "cv01";
+}
+
 ::selection {
   background: var(--color-accent);
   color: #fff;
@@ -84,11 +90,14 @@ body {
    REUSABLE UTILITIES
    ============================================================ */
 @layer utilities {
+  /* Gradient text. The padding-bottom + inline-block extend the clipped
+     background box so glyph descenders (g, p, j, y) are never cut off. */
   .text-gradient {
     background: linear-gradient(180deg, #ffffff 0%, #b9b9cc 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    padding-bottom: 0.08em;
   }
 
   .text-gradient-accent {
@@ -96,6 +105,7 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    padding-bottom: 0.08em;
   }
 
   .glass {

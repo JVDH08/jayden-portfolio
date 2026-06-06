@@ -98,21 +98,24 @@ export default function ScrollScrubSequence({
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.scale(dpr, dpr);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    // Track the canvas' real CSS size; the backing store is that size × DPR
+    // so frames are pixel-sharp on retina / high-DPI displays.
+    let cssW = 0;
+    let cssH = 0;
 
     // "cover" draw: fill the canvas box preserving aspect ratio.
     const draw = (index: number) => {
       const img = imagesRef.current[index];
       if (!img || !img.complete || img.naturalWidth === 0) return;
-      const cw = width;
-      const ch = height;
+      const cw = cssW;
+      const ch = cssH;
       const ir = img.naturalWidth / img.naturalHeight;
       const cr = cw / ch;
-      let dw = cw;
-      let dh = ch;
+      let dw: number;
+      let dh: number;
       if (ir > cr) {
         dh = ch;
         dw = ch * ir;
@@ -126,8 +129,6 @@ export default function ScrollScrubSequence({
       ctx.drawImage(img, dx, dy, dw, dh);
     };
 
-    draw(0);
-
     const render = () => {
       const idx = Math.min(
         frameCount - 1,
@@ -138,6 +139,26 @@ export default function ScrollScrubSequence({
         frameState.current.drawn = idx;
       }
     };
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      cssW = rect.width;
+      cssH = rect.height;
+      canvas.width = Math.round(cssW * dpr);
+      canvas.height = Math.round(cssH * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      frameState.current.drawn = -1; // force repaint at new resolution
+      render();
+    };
+
+    resize();
+
+    const ro = new ResizeObserver(() => resize());
+    ro.observe(canvas);
+
     gsap.ticker.add(render);
 
     const prefersReduced = window.matchMedia(
@@ -178,7 +199,7 @@ export default function ScrollScrubSequence({
         start: "top top",
         end: `+=${scrollLength * 100}%`,
         pin: true,
-        scrub: 0.6,
+        scrub: 0.5,
         onUpdate: (self) => {
           frameState.current.current = self.progress * (frameCount - 1);
           onProgress?.(self.progress);
@@ -189,6 +210,7 @@ export default function ScrollScrubSequence({
     ScrollTrigger.refresh();
 
     return () => {
+      ro.disconnect();
       gsap.ticker.remove(render);
       st?.kill();
     };

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-xs">
             <a href="#top" className="font-display text-lg font-bold">
-              Jayden<span className="text-text-secondary"> v.d. Hoek</span>
+              {site.brand}
             </a>
             <p className="mt-3 text-sm leading-relaxed text-text-secondary">
               {footer.tagline}

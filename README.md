@@ -81,12 +81,15 @@ later door een CMS-fetch).
 
 1. **Echte frames** plaatsen in `/public/frames/` — zie **README-ASSETS.md**.
 2. **Projectscreenshots** vervangen in `/public/images/` (`terra.jpg`, `victor.jpg`).
-3. **Portretfoto** toevoegen (`/public/images/jayden.jpg`) en in `About.tsx`
-   de placeholder vervangen door `<Image src={about.photo} … />`.
-4. **WhatsApp-nummer** invullen in `lib/content.ts` (`site.whatsapp`).
-5. **Contact-backend** koppelen — zie de `TODO` in `components/sections/Contact.tsx`
+3. **Portretfoto's** toevoegen — `/public/images/jayden.jpg` én `/public/images/bodhi.jpg` —
+   en in `About.tsx` per teamlid de placeholder vervangen door
+   `<Image src={member.photo} alt={member.name} fill className="object-cover" />`.
+4. **Merknaam** (optioneel): `site.brand` in `lib/content.ts` staat nu op
+   "Jayden & Bodhi" — vervang door een studio-/merknaam zodra die er is.
+5. **WhatsApp-nummer** invullen in `lib/content.ts` (`site.whatsapp`).
+6. **Contact-backend** koppelen — zie de `TODO` in `components/sections/Contact.tsx`
    (bv. een Resend API-route op `/api/contact`).
-6. **Deploy** naar Vercel + custom domein koppelen.
+7. **Deploy** naar Vercel + custom domein koppelen.
 
 ---
 

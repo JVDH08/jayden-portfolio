@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Syne, Inter } from "next/font/google";
+import { Inter_Tight, Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import CursorGlow from "@/components/ui/CursorGlow";
 
-const syne = Syne({
-  variable: "--font-syne",
+// Display: Inter Tight — modern, normale/compacte breedte, strak (niet expanded).
+const interTight = Inter_Tight({
+  variable: "--font-display-src",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -20,18 +21,18 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jaydenvandenhoek.nl"),
-  title: "Jayden van den Hoek — Freelance Webdesign uit Haarlem",
+  title: "Jayden & Bodhi — Freelance Webdesign uit Haarlem",
   description:
-    "Ik bouw cinematische, snelle websites op maat. Freelance webdesigner uit Haarlem. Modern, premium en gericht op resultaat.",
+    "Wij bouwen cinematische, snelle websites op maat. Freelance webdesign uit Haarlem. Modern, premium en gericht op resultaat.",
   keywords: [
     "webdesign Haarlem",
     "freelance webdesigner",
     "websites op maat",
     "Next.js developer",
-    "Jayden van den Hoek",
+    "Jayden en Bodhi",
   ],
   openGraph: {
-    title: "Jayden van den Hoek — Freelance Webdesign uit Haarlem",
+    title: "Jayden & Bodhi — Freelance Webdesign uit Haarlem",
     description:
       "Cinematische, snelle websites op maat. Modern, premium en gericht op resultaat.",
     locale: "nl_NL",
@@ -45,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl" className={`${syne.variable} ${inter.variable}`}>
+    <html lang="nl" className={`${interTight.variable} ${inter.variable}`}>
       <body className="min-h-screen bg-bg text-text-primary antialiased">
         {/* Global grain overlay for depth */}
         <div className="grain" aria-hidden />

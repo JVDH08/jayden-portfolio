@@ -133,7 +133,7 @@ export default function Projects() {
               <Eyebrow>Geselecteerd werk</Eyebrow>
             </Reveal>
             <Reveal delay={0.05}>
-              <h2 className="mt-6 max-w-xl font-display text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-gradient">
+              <h2 className="mt-6 max-w-xl font-display text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.12] tracking-tight text-gradient">
                 Projecten die voor zich spreken
               </h2>
             </Reveal>

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { hero } from "@/lib/content";
-import Aurora from "@/components/ui/Aurora";
+import HeroBackground from "@/components/ui/HeroBackground";
 import Eyebrow from "@/components/ui/Eyebrow";
 import MagneticButton from "@/components/ui/MagneticButton";
 
@@ -21,10 +21,11 @@ export default function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.06]);
 
   const lineVariant = {
-    hidden: { opacity: 0, y: reduce ? 0 : "0.9em" },
+    hidden: { opacity: 0, y: reduce ? 0 : "0.5em", filter: reduce ? "blur(0px)" : "blur(10px)" },
     show: (i: number) => ({
       opacity: 1,
       y: 0,
+      filter: "blur(0px)",
       transition: {
         duration: 0.9,
         delay: 0.35 + i * 0.12,
@@ -39,7 +40,7 @@ export default function Hero() {
       ref={ref}
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      <Aurora />
+      <HeroBackground />
       {/* grid lines for tech feel */}
       <div
         aria-hidden
@@ -65,23 +66,22 @@ export default function Hero() {
           <Eyebrow>{hero.eyebrow}</Eyebrow>
         </motion.div>
 
-        <h1 className="mt-7 font-display text-[clamp(2.6rem,8.5vw,7rem)] font-extrabold leading-[0.95] tracking-[-0.03em]">
+        <h1 className="mt-7 font-display text-[clamp(2.6rem,8.5vw,7rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
           {hero.titleLines.map((line, i) => (
-            <span key={i} className="block overflow-hidden">
-              <motion.span
-                custom={i}
-                variants={lineVariant}
-                initial="hidden"
-                animate="show"
-                className={`block ${
-                  i === hero.highlightLine
-                    ? "text-gradient-accent glow-text"
-                    : "text-gradient"
-                }`}
-              >
-                {line}
-              </motion.span>
-            </span>
+            <motion.span
+              key={i}
+              custom={i}
+              variants={lineVariant}
+              initial="hidden"
+              animate="show"
+              className={`block pb-[0.04em] ${
+                i === hero.highlightLine
+                  ? "text-gradient-accent glow-text"
+                  : "text-gradient"
+              }`}
+            >
+              {line}
+            </motion.span>
           ))}
         </h1>
 

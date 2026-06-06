@@ -12,8 +12,11 @@ type Props = {
 };
 
 /**
- * WordReveal — staggered word-by-word fade/slide reveal on scroll.
- * Used for the big statement lines.
+ * WordReveal — staggered word-by-word reveal on scroll.
+ *
+ * Deliberately NOT clipped with overflow-hidden: words fade + rise + unblur,
+ * so glyph ascenders/descenders are never cut off. Uses inline-block words so
+ * wrapping stays natural.
  */
 export default function WordReveal({
   text,
@@ -27,22 +30,27 @@ export default function WordReveal({
   const container: Variants = {
     hidden: {},
     show: {
-      transition: { staggerChildren: reduce ? 0 : 0.045, delayChildren: delay },
+      transition: { staggerChildren: reduce ? 0 : 0.05, delayChildren: delay },
     },
   };
 
   const word: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : "0.6em" },
+    hidden: {
+      opacity: 0,
+      y: reduce ? 0 : "0.35em",
+      filter: reduce ? "blur(0px)" : "blur(8px)",
+    },
     show: {
       opacity: 1,
       y: 0,
+      filter: "blur(0px)",
       transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
     },
   };
 
   return (
     <motion.span
-      className={`inline-block ${className}`}
+      className={`inline ${className}`}
       variants={container}
       initial="hidden"
       whileInView="show"
@@ -50,18 +58,17 @@ export default function WordReveal({
       aria-label={text}
     >
       {words.map((w, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom">
-          <motion.span
-            variants={word}
-            className={`inline-block ${
-              highlight.includes(i) ? "text-gradient-accent" : ""
-            }`}
-            aria-hidden
-          >
-            {w}
-            {i < words.length - 1 ? " " : ""}
-          </motion.span>
-        </span>
+        <motion.span
+          key={i}
+          variants={word}
+          className={`inline-block whitespace-pre ${
+            highlight.includes(i) ? "text-gradient-accent" : ""
+          }`}
+          aria-hidden
+        >
+          {w}
+          {i < words.length - 1 ? " " : ""}
+        </motion.span>
       ))}
     </motion.span>
   );
