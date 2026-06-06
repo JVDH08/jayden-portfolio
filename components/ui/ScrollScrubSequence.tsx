@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -13,9 +14,6 @@ type Props = {
   frameCount: number;
   /** builds a URL for frame index `i` (1-based) */
   getFrameUrl?: (i: number) => string;
-  /** intrinsic frame dimensions (for canvas backing store) */
-  width?: number;
-  height?: number;
   /** how many viewport-heights of scroll the scrub spans (desktop) */
   scrollLength?: number;
   /** overlay content rendered above the canvas, pinned with it */
@@ -25,44 +23,59 @@ type Props = {
   className?: string;
 };
 
+type Mode = "pending" | "scrub" | "static";
+
 /**
  * ScrollScrubSequence
  * -------------------
- * The site's signature moment. A frame sequence is drawn to a <canvas> and the
- * current frame is bound to scroll position via GSAP ScrollTrigger `scrub`.
- * Scroll down → frames advance; scroll up → frames rewind. The section is
- * pinned so the animation plays "in place" while you scroll.
+ * The site's signature moment, with a device-aware strategy:
  *
- * Performance:
- *  - All frames are preloaded (with a progress loader) before scrubbing starts.
- *  - Drawing happens via requestAnimationFrame; we only repaint when the
- *    frame index actually changes.
- *  - Honors prefers-reduced-motion and mobile: on those it skips the heavy
- *    pin/scrub and shows a single representative frame (graceful degrade).
+ *  • DESKTOP ("scrub"): the full frame sequence is preloaded and drawn to a
+ *    <canvas>, with the current frame bound to scroll position via GSAP
+ *    ScrollTrigger `scrub`. The section is pinned, so it plays "in place".
+ *    The canvas is sized to its real CSS box × devicePixelRatio for sharpness.
  *
- * Reusable: pass any `frameCount` + `getFrameUrl`.
+ *  • MOBILE / reduced-motion ("static"): scroll-linked scrubbing is JANKY and
+ *    memory-heavy on phones (decoding ~90 large frames). Instead we load a
+ *    SINGLE sharp representative frame and give it a subtle Framer Motion
+ *    parallax. Smooth beats spectacular on mobile. No pin, no heavy preload.
+ *
+ * The mode is decided once on mount from viewport width + touch + motion prefs.
  */
 export default function ScrollScrubSequence({
   frameCount,
-  getFrameUrl = (i) =>
-    `/frames/frame_${String(i).padStart(4, "0")}.webp`,
-  width = 1600,
-  height = 900,
+  getFrameUrl = (i) => `/frames/frame_${String(i).padStart(4, "0")}.webp`,
   scrollLength = 4,
   children,
   onProgress,
   className = "",
 }: Props) {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameState = useRef({ current: 0, drawn: -1 });
 
+  const [mode, setMode] = useState<Mode>("pending");
   const [progress, setProgress] = useState(0);
   const [ready, setReady] = useState(false);
+  const [staticLoaded, setStaticLoaded] = useState(false);
 
-  /* ---------- preload all frames ---------- */
+  const staticFrame = getFrameUrl(Math.max(1, Math.round(frameCount * 0.5)));
+
+  /* ---------- decide mode once (client only) ---------- */
   useEffect(() => {
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const narrow = window.matchMedia("(max-width: 820px)").matches;
+    const isMobile = narrow || (coarse && window.innerWidth < 1024);
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    setMode(isMobile || prefersReduced ? "static" : "scrub");
+  }, []);
+
+  /* ---------- preload (scrub mode only) ---------- */
+  useEffect(() => {
+    if (mode !== "scrub") return;
     let cancelled = false;
     let loaded = 0;
     const imgs: HTMLImageElement[] = [];
@@ -86,11 +99,11 @@ export default function ScrollScrubSequence({
     return () => {
       cancelled = true;
     };
-  }, [frameCount, getFrameUrl]);
+  }, [mode, frameCount, getFrameUrl]);
 
-  /* ---------- draw + scrub ---------- */
+  /* ---------- draw + scrub (scrub mode only) ---------- */
   useEffect(() => {
-    if (!ready) return;
+    if (mode !== "scrub" || !ready) return;
     const canvas = canvasRef.current;
     const section = sectionRef.current;
     if (!canvas || !section) return;
@@ -161,90 +174,82 @@ export default function ScrollScrubSequence({
 
     gsap.ticker.add(render);
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-    let st: ScrollTrigger | undefined;
-
-    if (prefersReduced) {
-      // Static, representative frame — no pin, no scrub.
-      frameState.current.current = Math.floor(frameCount * 0.5);
-      render();
-    } else if (isMobile) {
-      // Light fallback: auto-advance the loop slowly while the section is
-      // in view, without pinning (keeps mobile scroll snappy).
-      const obj = { f: 0 };
-      const tween = gsap.to(obj, {
-        f: frameCount - 1,
-        duration: 6,
-        ease: "none",
-        repeat: -1,
-        paused: true,
-        onUpdate: () => {
-          frameState.current.current = obj.f;
-        },
-      });
-      st = ScrollTrigger.create({
-        trigger: section,
-        start: "top 80%",
-        end: "bottom 20%",
-        onToggle: (self) => (self.isActive ? tween.play() : tween.pause()),
-      });
-    } else {
-      // Desktop: pin + scrub the full sequence to scroll position.
-      st = ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: `+=${scrollLength * 100}%`,
-        pin: true,
-        scrub: 0.5,
-        onUpdate: (self) => {
-          frameState.current.current = self.progress * (frameCount - 1);
-          onProgress?.(self.progress);
-        },
-      });
-    }
+    const st = ScrollTrigger.create({
+      trigger: section,
+      start: "top top",
+      end: `+=${scrollLength * 100}%`,
+      pin: true,
+      scrub: 0.5,
+      onUpdate: (self) => {
+        frameState.current.current = self.progress * (frameCount - 1);
+        onProgress?.(self.progress);
+      },
+    });
 
     ScrollTrigger.refresh();
 
     return () => {
       ro.disconnect();
       gsap.ticker.remove(render);
-      st?.kill();
+      st.kill();
     };
-  }, [ready, frameCount, width, height, scrollLength, onProgress]);
+  }, [mode, ready, frameCount, scrollLength, onProgress]);
+
+  /* ---------- static-mode subtle parallax ---------- */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+  const parallaxScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1.14, 1.08]);
 
   return (
     <section
       ref={sectionRef}
       className={`relative h-screen w-full overflow-hidden bg-bg ${className}`}
     >
-      {/* Loader */}
-      {!ready && (
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-5 bg-bg">
-          <div className="font-display text-sm uppercase tracking-[0.3em] text-text-secondary">
-            Sequence laden
-          </div>
-          <div className="h-px w-56 overflow-hidden bg-white/10">
-            <div
-              className="h-full bg-accent glow-accent transition-[width] duration-200"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-          <div className="font-display text-2xl tabular-nums text-text-primary">
-            {progress}%
-          </div>
-        </div>
+      {/* ---- DESKTOP: canvas scrub ---- */}
+      {mode === "scrub" && (
+        <>
+          {!ready && (
+            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-5 bg-bg">
+              <div className="font-display text-sm uppercase tracking-[0.3em] text-text-secondary">
+                Sequence laden
+              </div>
+              <div className="h-px w-56 overflow-hidden bg-white/10">
+                <div
+                  className="h-full bg-accent glow-accent transition-[width] duration-200"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <div className="font-display text-2xl tabular-nums text-text-primary">
+                {progress}%
+              </div>
+            </div>
+          )}
+          <canvas
+            ref={canvasRef}
+            className="absolute inset-0 h-full w-full"
+            style={{ opacity: ready ? 1 : 0, transition: "opacity 0.6s ease" }}
+            aria-hidden
+          />
+        </>
       )}
 
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 h-full w-full object-cover"
-        style={{ opacity: ready ? 1 : 0, transition: "opacity 0.6s ease" }}
-        aria-hidden
-      />
+      {/* ---- MOBILE / reduced-motion: single sharp frame + parallax ---- */}
+      {mode === "static" && (
+        <motion.img
+          src={staticFrame}
+          alt=""
+          aria-hidden
+          onLoad={() => setStaticLoaded(true)}
+          style={{ y: parallaxY, scale: parallaxScale, willChange: "transform" }}
+          className="absolute inset-0 h-full w-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: staticLoaded ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+        />
+      )}
 
       {/* readability gradient */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-bg/40 via-transparent to-bg/80" />

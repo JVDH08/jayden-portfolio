@@ -1,24 +1,47 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { showcase } from "@/lib/content";
 import ScrollScrubSequence from "@/components/ui/ScrollScrubSequence";
 import Eyebrow from "@/components/ui/Eyebrow";
 
 /**
- * Showcase — the signature, scroll-scrubbed canvas moment.
- * Overlay step copy crossfades as the scrub progresses.
+ * Showcase — the signature canvas moment.
+ * Desktop: overlay step copy crossfades as the scrub progresses.
+ * Mobile: there is no scrub, so the steps auto-cycle on a gentle timer.
  */
 export default function Showcase() {
   const [progress, setProgress] = useState(0);
+  const [mobile, setMobile] = useState(false);
+  const [mobileStep, setMobileStep] = useState(0);
 
   const handleProgress = useCallback((p: number) => setProgress(p), []);
 
-  // Which step is "active" based on scrub progress.
-  const activeIndex = showcase.steps.reduce((acc, step, i) => {
-    return progress >= step.at ? i : acc;
-  }, 0);
+  // Detect mobile once (matches ScrollScrubSequence's static-mode breakpoint).
+  useEffect(() => {
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const narrow = window.matchMedia("(max-width: 820px)").matches;
+    setMobile(narrow || (coarse && window.innerWidth < 1024));
+  }, []);
+
+  // On mobile, cycle through the steps on a timer.
+  useEffect(() => {
+    if (!mobile) return;
+    const id = setInterval(
+      () => setMobileStep((s) => (s + 1) % showcase.steps.length),
+      3000
+    );
+    return () => clearInterval(id);
+  }, [mobile]);
+
+  // Which step is "active": timer on mobile, scrub progress on desktop.
+  const activeIndex = mobile
+    ? mobileStep
+    : showcase.steps.reduce(
+        (acc, step, i) => (progress >= step.at ? i : acc),
+        0
+      );
 
   return (
     <section id="showcase" className="relative">
@@ -29,9 +52,9 @@ export default function Showcase() {
       >
         <div className="container-x grid w-full grid-cols-1 items-center gap-8 md:grid-cols-2">
           {/* left: persistent label */}
-          <div className="hidden md:block">
+          <div>
             <Eyebrow>{showcase.eyebrow}</Eyebrow>
-            <h2 className="mt-6 max-w-md font-display text-4xl font-bold leading-tight tracking-tight text-gradient lg:text-5xl">
+            <h2 className="mt-6 hidden max-w-md font-display text-4xl font-bold leading-tight tracking-tight text-gradient md:block lg:text-5xl">
               De scroll bestuurt
               <span className="text-gradient-accent"> de beweging.</span>
             </h2>

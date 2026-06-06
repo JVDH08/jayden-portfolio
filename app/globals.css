@@ -47,17 +47,26 @@
 }
 
 html {
+  background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   scroll-behavior: auto; /* Lenis handles smooth scroll */
+  overflow-x: hidden; /* no horizontal scroll / empty side gutters at any zoom */
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-body);
+  width: 100%;
   overflow-x: hidden;
   cursor: none;
+}
+
+/* Headings must never push content outside the viewport on small screens. */
+h1, h2, h3, h4 {
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 /* Hide native cursor only on devices with a fine pointer (mouse).

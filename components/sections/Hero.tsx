@@ -66,7 +66,7 @@ export default function Hero() {
           <Eyebrow>{hero.eyebrow}</Eyebrow>
         </motion.div>
 
-        <h1 className="mt-7 font-display text-[clamp(2.6rem,8.5vw,7rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
+        <h1 className="mt-7 font-display text-[clamp(2.15rem,8.5vw,7rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
           {hero.titleLines.map((line, i) => (
             <motion.span
               key={i}

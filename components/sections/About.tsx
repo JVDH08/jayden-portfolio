@@ -48,8 +48,8 @@ export default function About() {
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {site.location}
               </div>
-              {/* floating accent ring */}
-              <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full border border-accent/30 animate-spin-slow" />
+              {/* floating accent ring (desktop only — avoids edge overflow on mobile) */}
+              <div className="pointer-events-none absolute -right-6 -top-6 hidden h-24 w-24 rounded-full border border-accent/30 animate-spin-slow md:block" />
             </div>
           </Reveal>
 

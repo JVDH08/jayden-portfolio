@@ -120,7 +120,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   return (
-    <section id="projecten" className="relative py-28 md:py-40">
+    <section id="projecten" className="relative overflow-hidden py-28 md:py-40">
       {/* soft ambient */}
       <div
         aria-hidden

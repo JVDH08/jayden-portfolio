@@ -171,7 +171,7 @@ export default function Contact() {
                   <p className="text-sm text-red-400">{contact.form.error}</p>
                 )}
 
-                <div className="flex items-center justify-between gap-4 pt-1">
+                <div className="flex flex-col items-stretch gap-4 pt-1 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-xs text-text-secondary">
                     Of mail direct naar{" "}
                     <a
