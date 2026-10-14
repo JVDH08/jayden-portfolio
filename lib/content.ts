@@ -221,6 +221,20 @@ export const projectsSection = {
 
 export const projects: Project[] = [
   {
+    name: "Victor Brands",
+    tagline: "Strak zakelijk merkplatform",
+    description:
+      "Live op eigen domein, met een contactflow die direct in de inbox landt. Helder, snel en klaar om te groeien.",
+    url: "https://victorbrands.nl",
+    year: "2026",
+    tags: ["Corporate", "Next.js", "Resend"],
+    image: "/images/projecten/victor/victor-groep.jpg",
+    imageAlt:
+      "Lachende ondernemer in overleg aan tafel, beeld uit de Victor Brands-site",
+    imagePosition: "50% 35%",
+    featured: true,
+  },
+  {
     name: "VAEKST Hospitality",
     tagline: "Premium hospitality-opleider",
     description:
@@ -232,7 +246,18 @@ export const projects: Project[] = [
     imageAlt:
       "Gouden lichtlijn die vertakt over donker marmer, beeld uit de VAEKST-site",
     imagePosition: "50% 60%",
-    featured: true,
+  },
+  {
+    name: "TERRA Ceramics",
+    tagline: "Quiet-luxury keramiekmerk",
+    description:
+      "Rustige, tactiele beweging voor een merk dat met de hand werkt. Elke overgang net zo bedachtzaam als het ambacht zelf.",
+    url: "https://terra-three-zeta.vercel.app",
+    year: "2026",
+    tags: ["Branding", "Next.js", "Motion"],
+    image: "/images/projecten/terra/process-throwing.webp",
+    imageAlt: "Handen vormen klei op een draaischijf, beeld uit de TERRA-site",
+    imagePosition: "50% 42%",
   },
   {
     name: "NOORDVAART",
@@ -246,31 +271,6 @@ export const projects: Project[] = [
     imageAlt:
       "Witte jachtromp op de waterlijn in de mist, beeld uit de NOORDVAART-site",
     imagePosition: "50% 45%",
-  },
-  {
-    name: "TERRA Ceramics",
-    tagline: "Quiet-luxury keramiekmerk",
-    description:
-      "Rustige, tactiele beweging voor een merk dat met de hand werkt. Elke overgang net zo bedachtzaam als het ambacht zelf.",
-    url: "https://terra-three-zeta.vercel.app",
-    year: "2025",
-    tags: ["Branding", "Next.js", "Motion"],
-    image: "/images/projecten/terra/process-throwing.webp",
-    imageAlt: "Handen vormen klei op een draaischijf, beeld uit de TERRA-site",
-    imagePosition: "50% 42%",
-  },
-  {
-    name: "Victor Brands",
-    tagline: "Strak zakelijk merkplatform",
-    description:
-      "Live op eigen domein, met een contactflow die direct in de inbox landt. Helder, snel en klaar om te groeien.",
-    url: "https://victorbrands.nl",
-    year: "2025",
-    tags: ["Corporate", "Next.js", "Resend"],
-    image: "/images/projecten/victor/victor-groep.jpg",
-    imageAlt:
-      "Lachende ondernemer in overleg aan tafel, beeld uit de Victor Brands-site",
-    imagePosition: "50% 35%",
   },
 ];
 
