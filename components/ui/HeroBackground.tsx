@@ -9,6 +9,10 @@ import { useEffect, useRef } from "react";
  * Several large radial-gradient blobs (violet / cyan / indigo) drift and
  * breathe using additive blending, producing a soft, premium living gradient.
  *
+ * Composition is art-directed, not random: the light sits to the right and
+ * top, away from the headline column, and a shade layer keeps the text zone
+ * dark (left on desktop, lower half on phones).
+ *
  * Performance:
  *  - Renders at a downscaled internal resolution (RENDER_SCALE) and is
  *    CSS-blurred, so per-frame cost stays tiny even on large screens.
@@ -48,11 +52,35 @@ export default function HeroBackground() {
       r: number;
     };
 
-    const palette: Array<[string, string]> = [
-      ["rgba(110,91,255,0.9)", "rgba(110,91,255,0)"], // violet
-      ["rgba(61,214,245,0.7)", "rgba(61,214,245,0)"], // cyan
-      ["rgba(154,139,255,0.8)", "rgba(154,139,255,0)"], // soft violet
-      ["rgba(80,60,200,0.7)", "rgba(80,60,200,0)"], // indigo
+    /** Fractions of the canvas: position, drift amplitude, radius. */
+    type Layout = {
+      hue: [string, string];
+      x: number;
+      y: number;
+      ax: number;
+      ay: number;
+      r: number;
+      phase: number;
+    };
+
+    const violet: [string, string] = ["rgba(110,91,255,0.9)", "rgba(110,91,255,0)"];
+    const cyan: [string, string] = ["rgba(61,214,245,0.5)", "rgba(61,214,245,0)"];
+    const soft: [string, string] = ["rgba(154,139,255,0.75)", "rgba(154,139,255,0)"];
+    const indigo: [string, string] = ["rgba(80,60,200,0.7)", "rgba(80,60,200,0)"];
+
+    // The headline block sits left/centre (x 0.08–0.86, y 0.2–0.6 on desktop,
+    // full width y 0.28–0.55 on phones). Light centres stay outside that block:
+    // top-right and right edge, with a deep indigo under the buttons.
+    const desktop: Layout[] = [
+      { hue: violet, x: 0.8, y: 0.18, ax: 0.07, ay: 0.08, r: 0.55, phase: 0.4 },
+      { hue: cyan, x: 0.93, y: 0.72, ax: 0.05, ay: 0.08, r: 0.4, phase: 2.1 },
+      { hue: soft, x: 0.5, y: 0.02, ax: 0.1, ay: 0.05, r: 0.45, phase: 3.6 },
+      { hue: indigo, x: 0.22, y: 0.98, ax: 0.12, ay: 0.05, r: 0.5, phase: 5.0 },
+    ];
+    const phone: Layout[] = [
+      { hue: violet, x: 0.7, y: 0.08, ax: 0.1, ay: 0.06, r: 0.6, phase: 0.4 },
+      { hue: cyan, x: 0.98, y: 0.3, ax: 0.06, ay: 0.08, r: 0.4, phase: 2.1 },
+      { hue: indigo, x: 0.25, y: 1.0, ax: 0.12, ay: 0.05, r: 0.55, phase: 5.0 },
     ];
 
     let blobs: Blob[] = [];
@@ -66,22 +94,19 @@ export default function HeroBackground() {
       canvas.width = w;
       canvas.height = h;
 
-      const count = isMobile ? 3 : 4;
-      blobs = Array.from({ length: count }, (_, i) => {
-        const [a, b] = palette[i % palette.length];
-        return {
-          hueA: a,
-          hueB: b,
-          baseX: (0.2 + 0.6 * Math.random()) * w,
-          baseY: (0.2 + 0.6 * Math.random()) * h,
-          ax: (0.12 + 0.16 * Math.random()) * w,
-          ay: (0.12 + 0.16 * Math.random()) * h,
-          sx: 0.04 + Math.random() * 0.05,
-          sy: 0.03 + Math.random() * 0.05,
-          phase: Math.random() * Math.PI * 2,
-          r: (0.45 + 0.25 * Math.random()) * Math.max(w, h),
-        };
-      });
+      const layout = isMobile ? phone : desktop;
+      blobs = layout.map((l, i) => ({
+        hueA: l.hue[0],
+        hueB: l.hue[1],
+        baseX: l.x * w,
+        baseY: l.y * h,
+        ax: l.ax * w,
+        ay: l.ay * h,
+        sx: 0.05 + i * 0.012,
+        sy: 0.04 + i * 0.01,
+        phase: l.phase,
+        r: l.r * Math.max(w, h),
+      }));
     };
 
     const drawFrame = (t: number) => {
@@ -154,7 +179,12 @@ export default function HeroBackground() {
   }, []);
 
   return (
-    <div aria-hidden className="absolute inset-0 overflow-hidden">
+    // The whole backdrop dissolves into the page over its lower third, so the
+    // hero hands over to the page-wide light instead of ending on a line.
+    <div
+      aria-hidden
+      className="absolute inset-0 overflow-hidden [mask-image:linear-gradient(180deg,#000_64%,transparent_100%)]"
+    >
       <canvas
         ref={canvasRef}
         className="h-full w-full"
@@ -166,6 +196,9 @@ export default function HeroBackground() {
       {/* readability vignette over the moving gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,rgba(8,8,12,0.55)_75%,rgba(8,8,12,0.9)_100%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-bg/30 via-transparent to-bg" />
+      {/* shade behind the headline column (desktop: left; phone: lower half) */}
+      <div className="absolute inset-0 hidden bg-[radial-gradient(60%_75%_at_16%_50%,rgba(8,8,12,0.6)_0%,rgba(8,8,12,0.3)_45%,transparent_80%)] md:block" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,12,0.05)_0%,rgba(8,8,12,0.4)_38%,rgba(8,8,12,0.72)_70%,rgba(8,8,12,1)_100%)] md:hidden" />
     </div>
   );
 }

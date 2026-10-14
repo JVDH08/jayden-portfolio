@@ -49,8 +49,10 @@ export default function MagneticButton({
     y.set(0);
   };
 
+  // `scale` is its own CSS property in Tailwind v4, so the press feedback
+  // composes with the magnetic translate that Framer writes to `transform`.
   const base =
-    "group relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium tracking-wide transition-colors duration-300 select-none";
+    "group relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium tracking-wide transition-[color,background-color,scale] duration-300 ease-out-expo select-none active:scale-[0.97]";
 
   const styles =
     variant === "primary"

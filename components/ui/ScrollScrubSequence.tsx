@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
+
+export type ScrubMode = "pending" | "scrub" | "static";
 
 type Props = {
   /** total number of frames in the sequence */
@@ -18,12 +20,13 @@ type Props = {
   scrollLength?: number;
   /** overlay content rendered above the canvas, pinned with it */
   children?: ReactNode;
-  /** receives scrub progress 0..1 (desktop scrub only) */
-  onProgress?: (p: number) => void;
+  /**
+   * Receives progress 0..1 and the active mode. Scrub: the pinned scrub
+   * progress. Static: how far the section has travelled through the viewport.
+   */
+  onProgress?: (p: number, mode: ScrubMode) => void;
   className?: string;
 };
-
-type Mode = "pending" | "scrub" | "static";
 
 /**
  * ScrollScrubSequence
@@ -38,7 +41,8 @@ type Mode = "pending" | "scrub" | "static";
  *  • MOBILE / reduced-motion ("static"): scroll-linked scrubbing is JANKY and
  *    memory-heavy on phones (decoding ~90 large frames). Instead we load a
  *    SINGLE sharp representative frame and give it a subtle Framer Motion
- *    parallax. Smooth beats spectacular on mobile. No pin, no heavy preload.
+ *    parallax. On phones the frame sits in the upper part of the section and
+ *    fades out above the overlay copy, so image and text never collide.
  *
  * The mode is decided once on mount from viewport width + touch + motion prefs.
  */
@@ -55,7 +59,7 @@ export default function ScrollScrubSequence({
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameState = useRef({ current: 0, drawn: -1 });
 
-  const [mode, setMode] = useState<Mode>("pending");
+  const [mode, setMode] = useState<ScrubMode>("pending");
   const [progress, setProgress] = useState(0);
   const [ready, setReady] = useState(false);
   const [staticLoaded, setStaticLoaded] = useState(false);
@@ -182,7 +186,7 @@ export default function ScrollScrubSequence({
       scrub: 0.5,
       onUpdate: (self) => {
         frameState.current.current = self.progress * (frameCount - 1);
-        onProgress?.(self.progress);
+        onProgress?.(self.progress, "scrub");
       },
     });
 
@@ -195,7 +199,7 @@ export default function ScrollScrubSequence({
     };
   }, [mode, ready, frameCount, scrollLength, onProgress]);
 
-  /* ---------- static-mode subtle parallax ---------- */
+  /* ---------- static-mode subtle parallax + progress ---------- */
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -203,16 +207,23 @@ export default function ScrollScrubSequence({
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
   const parallaxScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1.14, 1.08]);
 
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (mode === "static") onProgress?.(p, "static");
+  });
+
   return (
+    // Transparent section: the frames dissolve at their edges (masks below),
+    // so the page-wide light runs on behind the pinned scene and the section
+    // never enters or leaves on a hard line.
     <section
       ref={sectionRef}
-      className={`relative h-screen w-full overflow-hidden bg-bg ${className}`}
+      className={`relative h-screen w-full overflow-hidden ${className}`}
     >
       {/* ---- DESKTOP: canvas scrub ---- */}
       {mode === "scrub" && (
         <>
           {!ready && (
-            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-5 bg-bg">
+            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-5">
               <div className="font-display text-sm uppercase tracking-[0.3em] text-text-secondary">
                 Sequence laden
               </div>
@@ -229,34 +240,36 @@ export default function ScrollScrubSequence({
           )}
           <canvas
             ref={canvasRef}
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 h-full w-full [mask-image:linear-gradient(180deg,transparent_0%,#000_14%,#000_86%,transparent_100%)]"
             style={{ opacity: ready ? 1 : 0, transition: "opacity 0.6s ease" }}
             aria-hidden
           />
         </>
       )}
 
-      {/* ---- MOBILE / reduced-motion: single sharp frame + parallax ---- */}
+      {/* ---- MOBILE / reduced-motion: single sharp frame + parallax ----
+           On phones the frame sits in the upper two thirds behind a radial
+           mask, so the sphere floats in the page (no box) and the overlay
+           copy below never collides with it. */}
       {mode === "static" && (
-        <motion.img
-          src={staticFrame}
-          alt=""
-          aria-hidden
-          onLoad={() => setStaticLoaded(true)}
-          style={{ y: parallaxY, scale: parallaxScale, willChange: "transform" }}
-          className="absolute inset-0 h-full w-full object-cover"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: staticLoaded ? 1 : 0 }}
-          transition={{ duration: 0.6 }}
-        />
+        <div className="absolute inset-x-0 top-0 h-[66%] overflow-hidden [mask-image:radial-gradient(ellipse_82%_50%_at_50%_50%,#000_26%,transparent_100%)] md:inset-0 md:h-full md:[mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,#000_34%,transparent_100%)]">
+          <motion.img
+            src={staticFrame}
+            alt=""
+            aria-hidden
+            onLoad={() => setStaticLoaded(true)}
+            style={{ y: parallaxY, scale: parallaxScale }}
+            className="absolute inset-0 h-full w-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: staticLoaded ? 1 : 0 }}
+            transition={{ duration: 0.6 }}
+          />
+        </div>
       )}
 
-      {/* readability gradient */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-bg/40 via-transparent to-bg/80" />
-
-      {/* overlay content */}
+      {/* overlay content: bottom-aligned on phones, centred on desktop */}
       {children && (
-        <div className="relative z-20 flex h-full w-full items-center">
+        <div className="relative z-20 flex h-full w-full items-end pb-10 md:items-center md:pb-0">
           {children}
         </div>
       )}

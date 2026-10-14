@@ -73,10 +73,13 @@ npm run frames
 Dat script staat in `scripts/generate-frames.mjs` (gebruikt `sharp`). Verwijder
 het gerust zodra je echte frames hebt.
 
-## 5. Project-previews & portret
+## 5. Projectbeelden & portretten
 
-- `/public/images/terra.jpg` en `victor.jpg` zijn placeholder-previews —
-  vervang door echte screenshots (16:10 ziet er het beste uit).
-- `/public/images/jayden.jpg` — plaats hier je portretfoto en vervang in
-  `components/sections/About.tsx` de gradient-placeholder door een `<Image>`.
-- Placeholder-previews opnieuw genereren: `npm run previews`.
+- Projectbeelden staan in `/public/images/projecten/<project>/`; welk beeld
+  en welke uitsnede per project gebruikt wordt staat in `lib/content.ts`
+  (`projects[].image` en `imagePosition`). 16:10 of breder werkt het beste.
+- `/public/images/jayden.jpg` en `/public/images/bodhi.jpg` — plaats hier de
+  portretfoto's (3:4) en vervang in `components/sections/About.tsx` de
+  initialen-placeholder door een `<Image>`.
+- `npm run previews` genereert nog de oude placeholder-previews; die worden
+  niet meer gebruikt.

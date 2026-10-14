@@ -8,7 +8,7 @@ import Reveal from "@/components/ui/Reveal";
 export default function Statement() {
   return (
     <section className="relative py-32 md:py-48">
-      <div className="container-x">
+      <div className="container-x relative">
         <Reveal>
           <Eyebrow>{statement.eyebrow}</Eyebrow>
         </Reveal>

@@ -22,6 +22,10 @@
   --animate-float: float 7s ease-in-out infinite;
   --animate-spin-slow: spin 24s linear infinite;
   --animate-pulse-glow: pulseGlow 4s ease-in-out infinite;
+
+  /* Motion curves: entrances decelerate exponentially, no bounce. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 @keyframes float {
@@ -59,7 +63,9 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-body);
   width: 100%;
-  overflow-x: hidden;
+  /* `clip`, not `hidden`: hidden would make body a scroll container and
+     position: sticky (FAQ column) would have nothing to stick to. */
+  overflow-x: clip;
   cursor: none;
 }
 
@@ -67,6 +73,10 @@ body {
 h1, h2, h3, h4 {
   overflow-wrap: break-word;
   max-width: 100%;
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 
 /* Hide native cursor only on devices with a fine pointer (mouse).
@@ -84,6 +94,50 @@ h1, h2, h3, h4 {
 ::selection {
   background: var(--color-accent);
   color: #fff;
+}
+
+/* Keyboard focus: always visible, in the accent colour (≥ 3:1 on the dark bg).
+   Mouse focus is handled by the hover states, so only :focus-visible is styled. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-soft);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none; /* fields use their own ring */
+}
+
+/* Anchor targets never hide under the floating navbar. */
+[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Skip link: visually hidden until it receives keyboard focus. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: 9999px;
+  background: var(--color-accent);
+  color: #fff;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-color: #fff;
+}
+
+/* Native <select> on the dark theme: options inherit the surface colour. */
+select option {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
 }
 
 /* Custom thin scrollbar (visual only; Lenis owns the motion) */
@@ -127,6 +181,18 @@ h1, h2, h3, h4 {
       0 30px 80px -40px rgba(0, 0, 0, 0.9);
   }
 
+  /* Glass with its own ink: readable even where backdrop-filter is skipped
+     (older GPUs, screenshots, battery savers). Navbar, showcase card. */
+  .glass-deep {
+    background: rgba(8, 8, 12, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px) saturate(1.3);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+      0 24px 60px -30px rgba(0, 0, 0, 0.9);
+  }
+
   .glow-accent {
     box-shadow:
       0 0 0 1px rgba(110, 91, 255, 0.4),
@@ -136,6 +202,89 @@ h1, h2, h3, h4 {
 
   .glow-text {
     text-shadow: 0 0 32px rgba(110, 91, 255, 0.55);
+  }
+
+  /* Dark halo under light type that sits on the moving hero gradient. */
+  .shadow-ink {
+    filter: drop-shadow(0 2px 2px rgba(8, 8, 12, 0.35))
+      drop-shadow(0 12px 28px rgba(8, 8, 12, 0.6));
+  }
+
+  /* Outlined display glyph (monogram tiles). */
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.16);
+  }
+
+  /* Accent light that follows the pointer over a card (vars set in JS). */
+  .card-sheen {
+    --sx: 50;
+    --sy: 50;
+  }
+  .card-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      55% 55% at calc(var(--sx) * 1%) calc(var(--sy) * 1%),
+      rgba(154, 139, 255, 0.16) 0%,
+      transparent 70%
+    );
+    transition: opacity 0.6s var(--ease-out-expo);
+  }
+  .card-sheen:hover::after {
+    opacity: 1;
+  }
+
+  /* Page-wide light (AmbientField): three soft glows behind every section.
+     Plain radial gradients, no filter: the layer only ever moves. */
+  .glow {
+    position: absolute;
+    border-radius: 9999px;
+    will-change: transform;
+  }
+  .glow-violet {
+    background: radial-gradient(
+      circle,
+      rgba(110, 91, 255, 0.22) 0%,
+      rgba(110, 91, 255, 0.11) 30%,
+      rgba(110, 91, 255, 0.035) 55%,
+      rgba(110, 91, 255, 0) 72%
+    );
+  }
+  .glow-cyan {
+    background: radial-gradient(
+      circle,
+      rgba(61, 214, 245, 0.13) 0%,
+      rgba(61, 214, 245, 0.06) 32%,
+      rgba(61, 214, 245, 0.02) 56%,
+      rgba(61, 214, 245, 0) 72%
+    );
+  }
+  .glow-soft {
+    background: radial-gradient(
+      circle,
+      rgba(154, 139, 255, 0.14) 0%,
+      rgba(154, 139, 255, 0.06) 34%,
+      rgba(154, 139, 255, 0.02) 58%,
+      rgba(154, 139, 255, 0) 72%
+    );
+  }
+
+  /* Edges of a horizontal strip (ticker) dissolve instead of being cut. */
+  .fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  }
+
+  /* Aurora that fades out at its top and bottom edge instead of being cut. */
+  .aurora-fade {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
   }
 
   /* Grain overlay (applied to a fixed element in layout) */
@@ -158,6 +307,36 @@ h1, h2, h3, h4 {
   @media (min-width: 768px) {
     .container-x { padding-inline: 2.5rem; }
   }
+}
+
+/* ============================================================
+   LINE REVEAL (GSAP SplitText, mask: "lines")
+   Each line slides up out of its own clipped mask. The mask gets a little
+   extra room at the bottom so descenders (g, j, p, y) are never cut off.
+   A gradient heading hands its gradient to the lines while split, because
+   background-clip:text on the parent cannot paint into transformed children.
+   ============================================================ */
+.reveal-line-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.text-gradient.is-split {
+  background: none;
+  color: var(--color-text-primary);
+}
+.text-gradient.is-split .reveal-line {
+  background: linear-gradient(180deg, #ffffff 0%, #b9b9cc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Navbar: slides away while scrolling down, returns on the way up. */
+.site-header {
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.site-header[data-hidden="true"] {
+  transform: translateY(-115%);
 }
 
 /* ============================================================

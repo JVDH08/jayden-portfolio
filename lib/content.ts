@@ -2,39 +2,62 @@
  * content.ts — single source of truth for all copy & data.
  * --------------------------------------------------------
  * Keeping content here (not in JSX) makes the site CMS-ready: swap this file
- * for a CMS fetch later without touching components. Same pattern as the
- * TERRA / Victor Brands builds.
+ * for a CMS fetch later without touching components.
+ *
+ * Alles wat de klant nog moet bevestigen staat in CONTENT-CHECK.md.
  */
 
 export const site = {
-  // Wordmark in header/footer. TODO: vervang door jullie studio-/merknaam
-  // zodra die er is (bijv. "STUDIO ___").
-  brand: "Jayden & Bodhi",
-  name: "Jayden & Bodhi",
+  brand: "Sixtyfold",
+  name: "Sixtyfold",
+  /** Klein merkdetail naast het wordmark (60 = zestigvoudig / 60 fps). */
+  mark: "/60",
+  tagline: "Websites op maat uit Haarlem.",
   founders: ["Jayden", "Bodhi"],
-  role: "Freelance webdesign",
-  location: "Haarlem, NL",
+  role: "Webstudio",
+  location: "Haarlem",
+  region: "Noord-Holland",
+  country: "NL",
   email: "jaydenvdh88@gmail.com",
-  whatsapp: "+31600000000", // TODO: vervang door echt nummer
-  whatsappDisplay: "WhatsApp",
+  url: "https://sixtyfold.nl",
+  github: "https://github.com/JVDH08",
+};
+
+export const seo = {
+  title: "Sixtyfold · Websites op maat uit Haarlem",
+  description:
+    "Webdesign uit Haarlem. Websites op maat met scroll-animaties, eigen beeld en een snelle laadtijd. Je ziet je site vóór je betaalt: vraag een gratis demo aan.",
+  keywords: [
+    "webdesign Haarlem",
+    "website laten maken Haarlem",
+    "websites op maat",
+    "webstudio Haarlem",
+    "scroll-animaties",
+    "gratis demo website",
+    "Sixtyfold",
+  ],
+  ogAlt: "Sixtyfold, websites op maat uit Haarlem",
 };
 
 export const nav = [
   { label: "Werk", href: "#projecten" },
-  { label: "Werkwijze", href: "#werkwijze" },
+  { label: "Aanpak", href: "#werkwijze" },
+  { label: "Pakketten", href: "#pakketten" },
   { label: "Over", href: "#over" },
   { label: "Contact", href: "#contact" },
 ];
 
+export const navCta = { label: "Gratis demo", href: "#contact" };
+
 export const hero = {
-  eyebrow: "Freelance webdesign · Haarlem",
-  // The one rake line.
-  titleLines: ["Wij bouwen websites", "waar mensen niet", "omheen kunnen."],
-  highlightLine: 2, // index of the line shown in accent
+  eyebrow: "Sixtyfold · Webstudio uit Haarlem",
+  titleLines: ["Websites die", "niemand wegklikt.", "Op maat. In beweging."],
+  highlightLine: 1, // index of the line shown in accent
   subtitle:
-    "Modern, snel en op maat. Sites die voelen als een merk — niet als een template.",
-  cta: { label: "Start een project", href: "#contact" },
-  ctaSecondary: { label: "Bekijk werk", href: "#projecten" },
+    "Maatwerk met scroll-animaties, eigen beeld en een site die laadt in een oogwenk. En het mooiste: je ziet je nieuwe site vóór je betaalt.",
+  cta: { label: "Vraag je gratis demo aan", href: "#contact" },
+  ctaSecondary: { label: "Bekijk ons werk", href: "#projecten" },
+  trust: ["Gratis demo", "Vaste prijzen", "Reactie binnen 24 uur"],
   scrollHint: "Scroll",
 };
 
@@ -43,53 +66,132 @@ export const statement = {
   // Each line reveals word-by-word on scroll.
   lines: [
     { text: "Een website is je eerste indruk.", highlight: [] as number[] },
-    { text: "Bij ons is dat geen sjabloon,", highlight: [] },
+    { text: "Bij ons geen sjabloon,", highlight: [] as number[] },
     { text: "maar een ervaring die blijft hangen.", highlight: [4, 5] },
   ],
-  body: "Wij ontwerpen en bouwen cinematische websites die laden in een oogwenk, vloeiend bewegen en precies passen bij wat jouw merk wil zeggen. Van concept tot live — alles uit één hand.",
+  body: "Wij ontwerpen en bouwen websites op maat die laden in een oogwenk, vloeiend bewegen en precies zeggen wat jouw zaak wil zeggen. Van eerste schets tot live: alles uit één hand.",
+};
+
+/** Lopende regel tussen Statement en Waarom (decoratief; loopt mee met de scroll). */
+export const ticker = {
+  words: [
+    "Maatwerk",
+    "60 fps",
+    "Eigen beeld",
+    "Gratis demo",
+    "Snel en vindbaar",
+    "Haarlem",
+  ],
+};
+
+export type WhyIcon =
+  | "custom"
+  | "motion"
+  | "camera"
+  | "eye"
+  | "bolt"
+  | "shield";
+
+export const why = {
+  eyebrow: "Waarom Sixtyfold",
+  title: "Het verschil met een site van de plank",
+  intro:
+    "Zes dingen die je van ons mag verwachten. Van een template krijg je ze niet.",
+  points: [
+    {
+      icon: "custom" as WhyIcon,
+      title: "Maatwerk, geen template.",
+      text: "Geen WordPress- of Elementor-thema dat op duizend andere sites lijkt. Elk ontwerp begint bij jouw zaak.",
+    },
+    {
+      icon: "motion" as WhyIcon,
+      title: "Beweging op 60 fps.",
+      text: "Scroll-animaties die vloeiend en snel zijn, ook op je telefoon. Daar komt onze naam vandaan.",
+    },
+    {
+      icon: "camera" as WhyIcon,
+      title: "Eigen beeld en video.",
+      text: "Geen stockfoto's. We maken beeld en video op maat die bij jouw sfeer passen.",
+    },
+    {
+      icon: "eye" as WhyIcon,
+      title: "Je ziet je site vóór je betaalt.",
+      text: "Na een kort gesprek bouwen we een demo van jóuw site. Pas als je hem goed vindt, gaan we verder.",
+    },
+    {
+      icon: "bolt" as WhyIcon,
+      title: "Snel en vindbaar.",
+      text: "Laadt in een oogwenk, scoort hoog in Google Lighthouse en is technisch klaar voor Google.",
+    },
+    {
+      icon: "shield" as WhyIcon,
+      title: "Ook ná de livegang.",
+      text: "We houden je site in de gaten (online, SSL, snelheid) en je krijgt elke maand een kort rapport.",
+    },
+  ],
+  compare: {
+    title: "In het kort",
+    columns: { a: "Template-bureau", b: "Sixtyfold" },
+    rows: [
+      { label: "Ontwerp", a: "Thema van de plank", b: "Op maat voor jouw zaak" },
+      { label: "Beweging", a: "Statisch of hakkelig", b: "Vloeiend op 60 fps" },
+      { label: "Beeld", a: "Stockfoto's", b: "Eigen beeld en video" },
+      { label: "Betalen", a: "Eerst betalen, dan zien", b: "Eerst zien, dan betalen" },
+    ],
+  },
 };
 
 export const showcase = {
   // The scroll-scrub signature section.
   eyebrow: "Signature",
+  title: ["De scroll bestuurt", "de beweging."],
   frameCount: 90,
+  /** Label van de framecounter (desktop): "Frame 045 / 090". */
+  frameLabel: "Frame",
   steps: [
     {
       at: 0.04,
       title: "Beweging met betekenis",
-      text: "Animaties die reageren op jouw scroll — vooruit en terug, naadloos.",
+      text: "Animaties die reageren op jouw scroll. Vooruit en terug, zonder haperen.",
     },
     {
       at: 0.5,
-      title: "Gebouwd voor 60fps",
-      text: "Frame-perfect canvas-rendering. Geen haperingen, alleen flow.",
+      title: "Gebouwd op 60 fps",
+      text: "Frame voor frame getekend op canvas. Vloeiend op elk scherm, ook je telefoon.",
     },
     {
       at: 0.92,
       title: "Premium tot in het detail",
-      text: "Elke pixel, elke overgang, elk randje — bewust gekozen.",
+      text: "Elke pixel, elke overgang, elk randje: bewust gekozen.",
     },
   ],
 };
 
 export const process = {
-  eyebrow: "Werkwijze",
-  title: "Van idee naar live in drie stappen",
+  eyebrow: "Aanpak",
+  title: "Van eerste gesprek tot live, zonder verrassingen",
+  intro:
+    "Vier stappen, en je weet bij elke stap waar je aan toe bent. Betalen doe je pas als de demo goed is.",
   steps: [
     {
       no: "01",
-      title: "Gesprek",
-      text: "We bespreken je merk, doelen en wat je wil uitstralen. Geen verkooppraat — gewoon helder krijgen wat werkt.",
+      title: "Kennismaking",
+      text: "Gratis, 30 minuten, bij jou of online. We vragen naar je zaak, je klanten en wat je wilt uitstralen.",
     },
     {
       no: "02",
-      title: "Ontwerp",
-      text: "Wij vertalen dat naar een ontwerp met karakter en bouwen het meteen functioneel, snel en responsive.",
+      title: "Gratis demo",
+      text: "Binnen een paar dagen zie je een eerste versie van jóuw site. Niet goed? Dan betaal je niets.",
     },
     {
       no: "03",
-      title: "Live",
-      text: "Je site gaat de lucht in op een razendsnelle hosting, klaar om te groeien. Aanpassen kan altijd.",
+      title: "Bouwen en verfijnen",
+      text: "We maken hem af, met correctierondes tot hij klopt. Teksten, beeld, animaties, SEO.",
+    },
+    {
+      no: "04",
+      title: "Live en zorg",
+      text: "We koppelen je domein, zetten hem live en houden hem daarna in de gaten.",
     },
   ],
 };
@@ -101,42 +203,172 @@ export type Project = {
   url: string;
   year: string;
   tags: string[];
-  /** local preview image in /public/images — placeholder for now */
+  /** local image in /public/images/projecten */
   image: string;
+  imageAlt: string;
+  /** CSS object-position for the crop */
+  imagePosition?: string;
+  featured?: boolean;
+};
+
+export const projectsSection = {
+  eyebrow: "Werk",
+  title: "Projecten die voor zich spreken",
+  intro:
+    "Een greep uit recent werk. Elk merk een eigen wereld, elke site op maat gebouwd.",
+  visit: "Bekijk live",
+  newTab: "(opent in een nieuw tabblad)",
 };
 
 export const projects: Project[] = [
   {
+    name: "VAEKST Hospitality",
+    tagline: "Premium hospitality-opleider",
+    description:
+      "Cinematische site met hero-video, gouden accenten, gepinde scroll-scènes en 3D-detail. Gebouwd om de opleiding te laten voelen zoals hij is: hoogwaardig en persoonlijk.",
+    url: "https://vaekst.vercel.app",
+    year: "2026",
+    tags: ["Hospitality", "Next.js", "GSAP", "3D"],
+    image: "/images/projecten/vaekst/hero.jpg",
+    imageAlt:
+      "Gouden lichtlijn die vertakt over donker marmer, beeld uit de VAEKST-site",
+    imagePosition: "50% 60%",
+    featured: true,
+  },
+  {
+    name: "NOORDVAART",
+    tagline: "Luxe jachten, filmisch gepresenteerd",
+    description:
+      "Donkere, filmische webshop voor luxe jachten. Conceptproject waarin beeld en scroll de hele ervaring dragen.",
+    url: "https://noordvaart.vercel.app",
+    year: "2026",
+    tags: ["E-commerce", "Cinematic", "Motion"],
+    image: "/images/projecten/noordvaart/waterlijn.webp",
+    imageAlt:
+      "Witte jachtromp op de waterlijn in de mist, beeld uit de NOORDVAART-site",
+    imagePosition: "50% 45%",
+  },
+  {
     name: "TERRA Ceramics",
     tagline: "Quiet-luxury keramiekmerk",
     description:
-      "Cinematische merksite met rustige, verfijnde beweging en een warme, tactiele uitstraling.",
+      "Rustige, tactiele beweging voor een merk dat met de hand werkt. Elke overgang net zo bedachtzaam als het ambacht zelf.",
     url: "https://terra-three-zeta.vercel.app",
     year: "2025",
     tags: ["Branding", "Next.js", "Motion"],
-    image: "/images/terra.jpg",
+    image: "/images/projecten/terra/process-throwing.webp",
+    imageAlt: "Handen vormen klei op een draaischijf, beeld uit de TERRA-site",
+    imagePosition: "50% 42%",
   },
   {
     name: "Victor Brands",
-    tagline: "Strak & zakelijk merkplatform",
+    tagline: "Strak zakelijk merkplatform",
     description:
-      "Helder, wit-blauw platform met een contactflow die direct in de inbox landt. CMS-ready opgezet.",
-    url: "https://victor-brands.vercel.app",
+      "Live op eigen domein, met een contactflow die direct in de inbox landt. Helder, snel en klaar om te groeien.",
+    url: "https://victorbrands.nl",
     year: "2025",
     tags: ["Corporate", "Next.js", "Resend"],
-    image: "/images/victor.jpg",
+    image: "/images/projecten/victor/victor-groep.jpg",
+    imageAlt:
+      "Lachende ondernemer in overleg aan tafel, beeld uit de Victor Brands-site",
+    imagePosition: "50% 35%",
   },
 ];
 
+export type PackageId = "start" | "plus" | "signature";
+
+export type Tier = {
+  id: PackageId;
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  badge?: string;
+};
+
+export const packages = {
+  eyebrow: "Pakketten",
+  title: "Vaste prijzen. Geen verrassingen.",
+  intro:
+    "Elk pakket begint met een gratis demo. Prijzen zijn vanaf-prijzen, excl. btw.",
+  pricePrefix: "vanaf",
+  cta: "Vraag een demo aan",
+  tiers: [
+    {
+      id: "start",
+      name: "Start",
+      price: "€ 750",
+      description:
+        "Een strakke onepager waarmee je snel en professioneel online staat.",
+      features: [
+        "Onepager met eigen ontwerp",
+        "Contactformulier",
+        "Basis-SEO",
+        "Koppeling van je domein",
+        "1 correctieronde",
+        "Live in ± 1 week",
+      ],
+    },
+    {
+      id: "plus",
+      name: "Plus",
+      price: "€ 1.400",
+      badge: "Meest gekozen",
+      description:
+        "Een site die opvalt: eigen ontwerp met scroll-animaties, tot 5 pagina's, en zelf teksten aanpassen.",
+      features: [
+        "Tot 5 pagina's",
+        "Scroll-animaties op maat",
+        "Zelf aanpassen via CMS",
+        "Contactformulier",
+        "SEO + Google Search Console",
+        "2 correctierondes",
+        "Live in ± 2–3 weken",
+      ],
+    },
+    {
+      id: "signature",
+      name: "Signature",
+      price: "€ 2.500",
+      description: "Maatwerk voor een merk dat een ervaring wil.",
+      features: [
+        "Ontwerp en opbouw op maat",
+        "Filmische scroll of 3D",
+        "Beeld en video op maat",
+        "CMS",
+        "Uitgebreide SEO",
+        "3 correctierondes",
+        "Planning in overleg",
+      ],
+    },
+  ] as Tier[],
+  care: {
+    name: "Sixtyfold Zorg",
+    price: "€ 29",
+    period: "per maand",
+    description:
+      "Je site blijft online, snel en veilig. Wij letten op, zodat jij dat niet hoeft.",
+    features: [
+      "Hosting en SSL",
+      "24/7 bewaking: je hoort het van ons als er iets mis is",
+      "Elke maand een kort rapport",
+      "Kleine wijzigingen inbegrepen",
+    ],
+    note: "Maandelijks opzegbaar.",
+    cta: "Vraag een demo aan",
+  },
+  payment:
+    "Betalen in twee delen: de helft bij akkoord op de demo, de rest bij livegang.",
+};
+
 export const about = {
   eyebrow: "Over ons",
-  title: "Webdesigners uit Haarlem",
+  title: "Twee makers uit Haarlem",
   paragraphs: [
-    "Wij zijn Jayden en Bodhi — samen bouwen we moderne websites voor ondernemers die willen opvallen. Geen standaard thema's, maar maatwerk dat klopt met jouw verhaal.",
-    "Werken met ons is direct en persoonlijk. Korte lijnen, snelle oplevering, en een resultaat waar je trots op bent. Of je nu een lokaal bedrijf bent of een merk dat de volgende stap zet.",
+    "Wij zijn Jayden en Bodhi. Jong, perfectionistisch en allergisch voor sites die op elkaar lijken. Je werkt direct met ons, de lijnen zijn kort en we gaan door tot elk detail klopt.",
+    "Sixtyfold betekent zestigvoudig. Een knipoog naar 60 frames per seconde, want alles wat we bouwen beweegt vloeiend. En naar wat een goede site oplevert: niet een beetje beter, maar zestig keer.",
   ],
-  // Twee gelijkwaardige partners.
-  // TODO: plaats portretfoto's in /public/images/jayden.jpg en /public/images/bodhi.jpg
+  // Portretfoto's bestaan nog niet; zie CONTENT-CHECK.md.
   team: [
     {
       name: "Jayden",
@@ -154,33 +386,98 @@ export const about = {
   stats: [
     { value: "100%", label: "Maatwerk" },
     { value: "<1s", label: "Laadtijd" },
-    { value: "60fps", label: "Vloeiend" },
+    { value: "60 fps", label: "Vloeiend" },
+  ],
+};
+
+export const faq = {
+  eyebrow: "Veelgestelde vragen",
+  title: "Wat mensen ons vaak vragen",
+  intro: "Staat je vraag er niet tussen? Mail ons, je hoort binnen 24 uur van ons.",
+  items: [
+    {
+      q: "Wat kost een website?",
+      a: "Vanaf € 750 voor een onepager, € 1.400 voor een site met meerdere pagina's en animaties, vanaf € 2.500 voor volledig maatwerk. Na de demo krijg je een vaste prijs.",
+    },
+    {
+      q: "Moet ik betalen voor de demo?",
+      a: "Nee. Vind je de demo niet goed, dan stopt het daar en betaal je niets.",
+    },
+    {
+      q: "Hoe snel staat mijn site online?",
+      a: "Een onepager meestal binnen een week, grotere sites in twee tot drie weken.",
+    },
+    {
+      q: "Kan ik zelf teksten aanpassen?",
+      a: "Ja, vanaf Plus krijg je een eenvoudig CMS.",
+    },
+    {
+      q: "Regelen jullie domein en hosting?",
+      a: "Ja. We koppelen je domein en hosten je site snel en veilig; met Sixtyfold Zorg hoef je er niet meer naar om te kijken.",
+    },
+    {
+      q: "Is de site van mij?",
+      a: "Ja. Na oplevering is de site van jou, inclusief alle teksten en beelden.",
+    },
   ],
 };
 
 export const contact = {
   eyebrow: "Contact",
-  title: "Klaar voor een website die opvalt?",
+  title: "Benieuwd hoe jouw site eruit kan zien?",
   subtitle:
-    "Vertel ons kort over je project. We reageren meestal binnen een dag.",
-  // form field labels
+    "Vertel kort over je zaak. Binnen 24 uur hoor je van ons, en daarna maken we gratis een demo.",
   form: {
-    name: "Je naam",
-    email: "E-mailadres",
-    message: "Waar gaat het over?",
-    submit: "Verstuur bericht",
+    name: { label: "Je naam", placeholder: "Voor- en achternaam" },
+    email: { label: "E-mailadres", placeholder: "naam@jouwzaak.nl" },
+    company: { label: "Bedrijf", placeholder: "Naam van je zaak" },
+    website: {
+      label: "Huidige website (optioneel)",
+      placeholder: "www.jouwzaak.nl",
+    },
+    package: {
+      label: "Pakket",
+      options: [
+        { value: "start", label: "Start" },
+        { value: "plus", label: "Plus" },
+        { value: "signature", label: "Signature" },
+        { value: "unknown", label: "Weet ik nog niet" },
+      ],
+    },
+    message: {
+      label: "Bericht",
+      placeholder: "Wat doet je zaak en wat moet de site voor je doen?",
+    },
+    submit: "Vraag je gratis demo aan",
     sending: "Versturen…",
-    success: "Bedankt! Je bericht is verzonden — we nemen snel contact op.",
-    error: "Er ging iets mis. Mail ons gerust direct.",
+    direct: "Of mail direct naar",
+    success: {
+      title: "Bedankt, je bericht is binnen.",
+      text: "Binnen 24 uur hoor je van ons. Daarna maken we gratis een demo van jouw site.",
+    },
+    error:
+      "Het versturen is niet gelukt. Probeer het nog eens of mail ons direct.",
+    rate: "Je hebt net al een bericht gestuurd. Probeer het over een paar minuten opnieuw.",
+    unconfigured: {
+      title: "Mail ons direct",
+      text: "Het formulier kan op dit moment niet versturen. Met de knop hieronder open je een e-mail met je bericht alvast ingevuld.",
+      button: "Open je e-mail",
+    },
+    errors: {
+      name: "Vul je naam in.",
+      email: "Vul je e-mailadres in.",
+      emailInvalid: "Dit lijkt geen geldig e-mailadres.",
+      message: "Vertel kort waar het over gaat.",
+    },
   },
 };
 
 export const footer = {
-  tagline: "Cinematische websites op maat.",
-  socials: [
-    { label: "Instagram", href: "#" },
-    { label: "LinkedIn", href: "#" },
-    { label: "GitHub", href: "https://github.com/JVDH08" },
-  ],
-  madeBy: "Made by Jayden & Bodhi",
+  tagline: "Websites op maat uit Haarlem.",
+  navTitle: "Navigatie",
+  contactTitle: "Contact",
+  /** Externe links, in de contactkolom onder het e-mailadres. */
+  links: [{ label: "GitHub", href: "https://github.com/JVDH08" }],
+  copyright: "Sixtyfold · Haarlem",
+  toTop: "Naar boven",
 };

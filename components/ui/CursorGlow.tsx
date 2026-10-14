@@ -30,11 +30,25 @@ export default function CursorGlow() {
     let glowY = mouseY;
     let raf = 0;
 
+    // Nothing shows until the pointer has actually moved (no dot parked in
+    // the corner on load), and both fade out when the pointer leaves the page.
+    const setVisible = (on: boolean) => {
+      glowRef.current?.setAttribute("data-visible", String(on));
+      dotRef.current?.setAttribute("data-visible", String(on));
+    };
+    const onLeave = () => setVisible(false);
+    const onEnter = () => setVisible(true);
+
     const onMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      }
+      if (glowRef.current?.dataset.visible !== "true") {
+        glowX = mouseX;
+        glowY = mouseY;
+        setVisible(true);
       }
 
       const target = e.target as HTMLElement;
@@ -57,10 +71,14 @@ export default function CursorGlow() {
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onLeave);
+    document.documentElement.addEventListener("mouseenter", onEnter);
     raf = requestAnimationFrame(loop);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
+      document.documentElement.removeEventListener("mouseleave", onLeave);
+      document.documentElement.removeEventListener("mouseenter", onEnter);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -73,7 +91,8 @@ export default function CursorGlow() {
         ref={glowRef}
         aria-hidden
         data-hover="false"
-        className="pointer-events-none fixed left-0 top-0 z-[70] h-[26rem] w-[26rem] rounded-full opacity-60 mix-blend-screen transition-[width,height,opacity] duration-300 data-[hover=true]:opacity-90"
+        data-visible="false"
+        className="pointer-events-none fixed left-0 top-0 z-[70] h-[26rem] w-[26rem] rounded-full opacity-0 mix-blend-screen transition-[width,height,opacity] duration-300 data-[visible=true]:opacity-60 data-[visible=true]:data-[hover=true]:opacity-90"
         style={{
           background:
             "radial-gradient(circle, rgba(110,91,255,0.22) 0%, rgba(110,91,255,0.05) 40%, transparent 70%)",
@@ -82,7 +101,8 @@ export default function CursorGlow() {
       <div
         ref={dotRef}
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[71] h-1.5 w-1.5 rounded-full bg-accent-soft mix-blend-screen"
+        data-visible="false"
+        className="pointer-events-none fixed left-0 top-0 z-[71] h-1.5 w-1.5 rounded-full bg-accent-soft opacity-0 mix-blend-screen transition-opacity duration-300 data-[visible=true]:opacity-100"
       />
     </>
   );
