@@ -18,13 +18,13 @@ met voorbeeld- of voorlopige inhoud toont, en wat er nog ingesteld moet worden.
 - [ ] **VAEKST-beeld**: `hero.jpg` is 1280×720; voor het grote uitgelichte kaartje is een 1920-brede versie scherper op retina-schermen.
 
 ## Bevestigen (tekst en cijfers)
-- [ ] **Prijzen** en wat erin zit: Start € 750 · Plus € 1.400 · Signature € 2.500 · Zorg € 29 p/m (allemaal "vanaf", excl. btw).
+- [ ] **Prijzen** en wat erin zit: Start € 750 · Plus € 1.400 · Signature € 2.500 · Care € 24,99 p/m · Care Plus € 49,99 p/m (allemaal "vanaf", excl. btw).
 - [ ] **Doorlooptijden**: Start ± 1 week, Plus ± 2–3 weken, Signature in overleg.
 - [ ] **Correctierondes**: 1 / 2 / 3.
 - [ ] **Betaling in twee delen**: helft bij akkoord op de demo, rest bij livegang.
 - [ ] **Reactietermijn**: "binnen 24 uur" (hero, contact, FAQ).
 - [ ] **Kennismaking**: gratis, 30 minuten, bij jou of online.
-- [ ] **Sixtyfold Zorg**: hosting + SSL, 24/7 bewaking, maandrapport, kleine wijzigingen inbegrepen, maandelijks opzegbaar.
+- [ ] **Sixtyfold Care**: Care € 24,99 (hosting + SSL, 24/7 bewaking, maandrapport, updates/back-ups) en Care Plus € 49,99 (alles uit Care + tot 1 uur aanpassingen p/m, reactie binnen 1 werkdag, kwartaalcheck). Maandelijks automatisch afgeschreven (Stripe), maandelijks opzegbaar.
 - [ ] **Rollen**: Jayden (Design & Development), Bodhi (Design & Strategie).
 - [ ] **Betekenis van de naam** (Over ons): "zestigvoudig", 60 fps, zestig keer beter.
 - [ ] **Projectomschrijvingen en jaartallen** (VAEKST 2026, NOORDVAART 2026, TERRA 2025, Victor Brands 2025) en de live-links.

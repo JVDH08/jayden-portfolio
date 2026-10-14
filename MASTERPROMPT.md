@@ -70,7 +70,10 @@ Drie kaarten (op mobiel onder elkaar, middelste "Meest gekozen" accent), daarond
 - **Start, vanaf € 750**: Een strakke onepager waarmee je snel en professioneel online staat. ✓ onepager met eigen ontwerp ✓ contactformulier ✓ basis-SEO ✓ koppeling van je domein ✓ 1 correctieronde ✓ live in ± 1 week
 - **Plus, vanaf € 1.400** (Meest gekozen): Een site die opvalt: eigen ontwerp met scroll-animaties, tot 5 pagina's, en zelf teksten aanpassen. ✓ tot 5 pagina's ✓ scroll-animaties op maat ✓ zelf aanpassen via CMS ✓ contactformulier ✓ SEO + Google Search Console ✓ 2 correctierondes ✓ live in ± 2–3 weken
 - **Signature, vanaf € 2.500**: Maatwerk voor een merk dat een ervaring wil. ✓ ontwerp en opbouw op maat ✓ filmische scroll of 3D ✓ beeld en video op maat ✓ CMS ✓ uitgebreide SEO ✓ 3 correctierondes ✓ planning in overleg
-- **Sixtyfold Zorg, vanaf € 29 per maand**: hosting en SSL, 24/7 bewaking (je hoort het van ons als er iets mis is), elke maand een kort rapport, kleine wijzigingen inbegrepen. Maandelijks opzegbaar.
+- **Sixtyfold Care** (twee onderhoudspakketten, maandelijks automatisch afgeschreven, maandelijks opzegbaar):
+  - **Care, € 24,99 per maand**: hosting en SSL, 24/7 bewaking (je hoort het van ons als er iets mis is), elke maand een kort rapport, updates en back-ups.
+  - **Care Plus, € 49,99 per maand**: alles uit Care, plus tot 1 uur aanpassingen per maand (teksten, foto's, openingstijden), voorrang met reactie binnen 1 werkdag, elk kwartaal een check op snelheid en vindbaarheid.
+  - Ongebruikte uren schuiven niet door; grotere wijzigingen krijgen een losse prijs.
 Onder de kaarten één regel: `Betalen in twee delen: de helft bij akkoord op de demo, de rest bij livegang.`
 Knoppen op elke kaart: `Vraag een demo aan` → `#contact` (en zet het pakket alvast in het formulier, via `?pakket=` of state).
 Gebruik de vinkjes als nette iconen (geen emoji ✓-tekens), consistent uitgelijnd; gelijke kaarthoogtes.
@@ -84,7 +87,7 @@ Accordeon (toegankelijk: `<details>/<summary>` of buttons met aria-expanded), 6 
 2. *Moet ik betalen voor de demo?* Nee. Vind je de demo niet goed, dan stopt het daar en betaal je niets.
 3. *Hoe snel staat mijn site online?* Een onepager meestal binnen een week, grotere sites in twee tot drie weken.
 4. *Kan ik zelf teksten aanpassen?* Ja, vanaf Plus krijg je een eenvoudig CMS.
-5. *Regelen jullie domein en hosting?* Ja. We koppelen je domein en hosten je site snel en veilig; met Sixtyfold Zorg hoef je er niet meer naar om te kijken.
+5. *Regelen jullie domein en hosting?* Ja. We koppelen je domein en hosten je site snel en veilig; met Sixtyfold Care hoef je er niet meer naar om te kijken.
 6. *Is de site van mij?* Ja. Na oplevering is de site van jou, inclusief alle teksten en beelden.
 
 ### 3.10 Contact (bestaand, echte verzending)

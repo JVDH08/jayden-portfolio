@@ -343,18 +343,37 @@ export const packages = {
     },
   ] as Tier[],
   care: {
-    name: "Sixtyfold Zorg",
-    price: "€ 29",
-    period: "per maand",
-    description:
-      "Je site blijft online, snel en veilig. Wij letten op, zodat jij dat niet hoeft.",
-    features: [
-      "Hosting en SSL",
-      "24/7 bewaking: je hoort het van ons als er iets mis is",
-      "Elke maand een kort rapport",
-      "Kleine wijzigingen inbegrepen",
+    title: "Sixtyfold Care",
+    intro:
+      "Na livegang houden wij je site online, snel en veilig. Maandelijks automatisch afgeschreven, maandelijks opzegbaar.",
+    tiers: [
+      {
+        name: "Care",
+        price: "€ 24,99",
+        period: "per maand",
+        description: "Je site blijft online, snel en veilig. Wij letten op, zodat jij dat niet hoeft.",
+        features: [
+          "Hosting en SSL",
+          "24/7 bewaking: je hoort het van ons als er iets mis is",
+          "Elke maand een kort rapport",
+          "Updates en back-ups",
+        ],
+      },
+      {
+        name: "Care Plus",
+        price: "€ 49,99",
+        period: "per maand",
+        badge: "Zorgeloos",
+        description: "Alles uit Care, plus een vast uur per maand voor aanpassingen.",
+        features: [
+          "Alles uit Care",
+          "Tot 1 uur aanpassingen per maand: teksten, foto's, openingstijden",
+          "Voorrang: reactie binnen 1 werkdag",
+          "Elk kwartaal een check op snelheid en vindbaarheid",
+        ],
+      },
     ],
-    note: "Maandelijks opzegbaar.",
+    note: "Ongebruikte uren schuiven niet door. Grotere wijzigingen, zoals een nieuwe pagina, krijgen een losse prijs.",
     cta: "Vraag een demo aan",
   },
   payment:
@@ -413,7 +432,7 @@ export const faq = {
     },
     {
       q: "Regelen jullie domein en hosting?",
-      a: "Ja. We koppelen je domein en hosten je site snel en veilig; met Sixtyfold Zorg hoef je er niet meer naar om te kijken.",
+      a: "Ja. We koppelen je domein en hosten je site snel en veilig; met Sixtyfold Care hoef je er niet meer naar om te kijken.",
     },
     {
       q: "Is de site van mij?",

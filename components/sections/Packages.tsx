@@ -124,39 +124,60 @@ export default function Packages() {
           })}
         </ul>
 
-        {/* Sixtyfold Zorg: brede kaart */}
+        {/* Sixtyfold Care: twee onderhoudspakketten */}
         <Reveal delay={0.15}>
-          <article className="mt-5 grid gap-8 rounded-3xl glass p-8 md:grid-cols-[1.1fr_1.5fr] md:p-10 xl:grid-cols-[1fr_1.4fr_auto] xl:items-center">
-            <div>
-              <h3 className="font-display text-2xl font-bold text-text-primary">
-                {care.name}
+          <div className="mt-20 md:mt-24">
+            <div className="mx-auto max-w-2xl text-center">
+              <h3 className="font-display text-3xl font-bold tracking-tight text-text-primary md:text-4xl">
+                {care.title}
               </h3>
-              <div className="mt-5">
-                <Price
-                  value={care.price}
-                  prefix={packages.pricePrefix}
-                  suffix={care.period}
-                />
-              </div>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed text-text-secondary">
-                {care.description}
+              <p className="mt-4 text-sm leading-relaxed text-text-secondary md:text-base">
+                {care.intro}
               </p>
             </div>
 
-            <ul className="grid gap-3 sm:grid-cols-2 sm:gap-x-6 md:self-center">
-              {care.features.map((f) => (
-                <Feature key={f}>{f}</Feature>
+            <ul className="mx-auto mt-10 grid max-w-4xl gap-5 md:grid-cols-2">
+              {care.tiers.map((tier) => (
+                <li key={tier.name}>
+                  <article
+                    className={`relative flex h-full flex-col rounded-3xl glass p-8 md:p-10 ${
+                      tier.badge ? "ring-1 ring-accent/40" : ""
+                    }`}
+                  >
+                    {tier.badge ? (
+                      <span className="absolute -top-3 left-8 rounded-full bg-accent px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-white glow-accent">
+                        {tier.badge}
+                      </span>
+                    ) : null}
+                    <h4 className="font-display text-2xl font-bold text-text-primary">
+                      {tier.name}
+                    </h4>
+                    <div className="mt-5">
+                      <Price value={tier.price} suffix={tier.period} />
+                    </div>
+                    <p className="mt-4 text-sm leading-relaxed text-text-secondary">
+                      {tier.description}
+                    </p>
+                    <ul className="mt-6 grid gap-3">
+                      {tier.features.map((f) => (
+                        <Feature key={f}>{f}</Feature>
+                      ))}
+                    </ul>
+                    <div className="mt-auto pt-8">
+                      <MagneticButton href="#contact" variant="ghost" strength={0.2}>
+                        {care.cta}
+                        <span className="sr-only"> voor {tier.name}</span>
+                      </MagneticButton>
+                    </div>
+                  </article>
+                </li>
               ))}
             </ul>
 
-            <div className="flex flex-col items-start gap-3 md:col-span-2 md:flex-row md:items-center md:justify-between xl:col-span-1 xl:flex-col xl:items-end">
-              <MagneticButton href="#contact" variant="ghost" strength={0.2}>
-                {care.cta}
-                <span className="sr-only"> voor {care.name}</span>
-              </MagneticButton>
-              <span className="text-xs text-text-secondary">{care.note}</span>
-            </div>
-          </article>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-xs leading-relaxed text-text-secondary">
+              {care.note}
+            </p>
+          </div>
         </Reveal>
 
         <Reveal delay={0.2}>
