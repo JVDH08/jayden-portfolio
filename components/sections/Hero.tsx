@@ -16,21 +16,20 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax: title drifts up & fades as you leave the hero.
+  // Parallax: title drifts up & fades as you leave the hero. Translate and
+  // opacity only (no scale), on its own layer, so the big headline is never
+  // re-rasterised while scrolling.
   const y = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -120]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.06]);
 
   const lineVariant = {
     hidden: {
       opacity: 0,
       y: reduce ? 0 : "0.5em",
-      filter: reduce ? "blur(0px)" : "blur(10px)",
     },
     show: (i: number) => ({
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
         duration: 0.9,
         delay: 0.35 + i * 0.12,
@@ -60,8 +59,8 @@ export default function Hero() {
       />
 
       <motion.div
-        style={{ y, opacity, scale }}
-        className="container-x relative z-10 pb-28 pt-28"
+        style={{ y, opacity }}
+        className="container-x relative z-10 pb-28 pt-28 will-change-transform"
       >
         <motion.div
           initial={{ opacity: 0, y: 12 }}

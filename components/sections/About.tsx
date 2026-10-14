@@ -7,10 +7,9 @@ import LineReveal from "@/components/ui/LineReveal";
 import CountUp from "@/components/ui/CountUp";
 
 /**
- * Over ons. Portraits don't exist yet, so each maker gets a monogram tile
- * that is designed rather than "photo to follow": a coloured depth, a large
- * outlined initial and the name. Swap the tile body for <Image> later.
- * Phones read heading and copy first, then the tiles.
+ * Over Sixtyfold. No portraits: a designed studio card instead, with the
+ * outlined "60" bleeding off the edge and the three working principles.
+ * Phones read heading and copy first, then the card.
  */
 export default function About() {
   return (
@@ -55,53 +54,53 @@ export default function About() {
             </Reveal>
           </div>
 
-          {/* two makers */}
+          {/* studio card */}
           <Reveal className="md:order-first">
-            <div className="grid grid-cols-2 gap-4">
-              {about.team.map((member, i) => (
-                <div
-                  key={member.name}
-                  className="group relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-white/10 bg-surface shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
-                >
-                  {/* TODO: vervang door <Image src={member.photo} alt={member.name} fill className="object-cover" /> */}
-                  <div
-                    className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105"
-                    style={{
-                      background:
-                        i === 0
-                          ? "radial-gradient(120% 90% at 20% 15%, rgba(110,91,255,0.5), transparent 60%), radial-gradient(80% 60% at 90% 100%, rgba(61,214,245,0.14), transparent 60%), #0c0c16"
-                          : "radial-gradient(120% 90% at 80% 15%, rgba(61,214,245,0.34), transparent 60%), radial-gradient(80% 60% at 10% 100%, rgba(110,91,255,0.22), transparent 60%), #0c0c16",
-                    }}
-                  />
-                  {/* hairline grid, like the hero */}
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 opacity-[0.06]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
-                      backgroundSize: "28px 28px",
-                    }}
-                  />
-                  {/* outlined monogram, bleeding off the tile */}
-                  <span
-                    aria-hidden
-                    className="text-outline absolute -bottom-[0.18em] -right-[0.06em] font-display text-[9rem] font-extrabold leading-none tracking-[-0.06em] transition-transform duration-700 ease-out-expo group-hover:-translate-y-2 sm:text-[11rem] md:text-[9rem] lg:text-[12rem]"
-                  >
-                    {member.initials}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="absolute left-4 top-4 h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_rgba(110,91,255,0.9)]"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg/90 via-bg/40 to-transparent p-4 pt-10">
-                    <div className="font-display text-base font-bold text-text-primary">
-                      {member.name}
-                    </div>
-                    <div className="text-xs text-text-secondary">{member.role}</div>
-                  </div>
+            <div className="group relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-white/10 bg-surface shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:aspect-[5/4] md:aspect-[4/5]">
+              <div
+                aria-hidden
+                className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105"
+                style={{
+                  background:
+                    "radial-gradient(110% 80% at 18% 12%, rgba(110,91,255,0.48), transparent 60%), radial-gradient(90% 70% at 100% 100%, rgba(61,214,245,0.2), transparent 60%), #0c0c16",
+                }}
+              />
+              {/* hairline grid, like the hero */}
+              <div
+                aria-hidden
+                className="absolute inset-0 opacity-[0.06]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+                  backgroundSize: "28px 28px",
+                }}
+              />
+              {/* outlined numeral, bleeding off the card */}
+              <span
+                aria-hidden
+                className="absolute -right-[0.06em] -top-[0.16em] font-display text-[13rem] font-extrabold leading-none tracking-[-0.07em] text-transparent transition-transform duration-700 ease-out-expo [-webkit-text-stroke:1.5px_rgba(154,139,255,0.38)] group-hover:translate-y-2 sm:text-[16rem] md:text-[14rem] lg:text-[19rem]"
+              >
+                {about.card.numeral}
+              </span>
+
+              <div className="relative flex h-full flex-col p-7 md:p-9">
+                <div className="flex items-center gap-2.5 text-[11px] uppercase tracking-[0.25em] text-text-secondary">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_rgba(110,91,255,0.9)]" />
+                  {about.card.label}
                 </div>
-              ))}
+                <ul className="mt-auto space-y-4">
+                  {about.card.principles.map((line, i) => (
+                    <li key={line} className="flex items-baseline gap-4">
+                      <span className="font-display text-sm font-bold tabular-nums text-accent-soft">
+                        0{i + 1}
+                      </span>
+                      <span className="font-display text-lg font-semibold leading-snug text-text-primary md:text-xl">
+                        {line}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </Reveal>
         </div>

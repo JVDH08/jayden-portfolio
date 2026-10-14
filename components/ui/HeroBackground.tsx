@@ -35,8 +35,11 @@ export default function HeroBackground() {
     ).matches;
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-    const RENDER_SCALE = isMobile ? 0.28 : 0.4; // low internal res → cheap + smooth
-    const FPS = isMobile ? 30 : 48;
+    // Very low internal resolution: the browser's bilinear upscale is the
+    // softening, so no CSS blur filter is needed (that blur was re-run over
+    // the full hero on every frame and made the first scroll stutter).
+    const RENDER_SCALE = isMobile ? 0.1 : 0.12;
+    const FPS = isMobile ? 30 : 40;
     const frameInterval = 1000 / FPS;
 
     type Blob = {
@@ -134,7 +137,7 @@ export default function HeroBackground() {
 
     let raf = 0;
     let last = 0;
-    let startTime = performance.now();
+    const startTime = performance.now();
 
     const loop = (now: number) => {
       raf = requestAnimationFrame(loop);
@@ -143,20 +146,29 @@ export default function HeroBackground() {
       drawFrame((now - startTime) / 1000);
     };
 
-    if (prefersReduced) {
-      drawFrame(0); // single static frame
-    } else {
-      raf = requestAnimationFrame(loop);
-    }
-
-    const onVisibility = () => {
-      if (document.hidden) {
-        cancelAnimationFrame(raf);
-      } else if (!prefersReduced) {
+    // Only animate while the hero is on screen and the tab is visible.
+    let onScreen = true;
+    const start = () => {
+      cancelAnimationFrame(raf);
+      if (!prefersReduced && onScreen && !document.hidden) {
         last = 0;
-        startTime = performance.now() - 0;
         raf = requestAnimationFrame(loop);
       }
+    };
+
+    drawFrame(0);
+    start();
+
+    const io = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      if (onScreen) start();
+      else cancelAnimationFrame(raf);
+    });
+    io.observe(canvas);
+
+    const onVisibility = () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else start();
     };
     document.addEventListener("visibilitychange", onVisibility);
 
@@ -173,6 +185,7 @@ export default function HeroBackground() {
     return () => {
       cancelAnimationFrame(raf);
       cancelAnimationFrame(resizeRaf);
+      io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", onResize);
     };
@@ -188,10 +201,7 @@ export default function HeroBackground() {
       <canvas
         ref={canvasRef}
         className="h-full w-full"
-        style={{
-          filter: "blur(60px) saturate(1.2)",
-          transform: "scale(1.15)", // hide blurred edges
-        }}
+        style={{ filter: "saturate(1.2)" }}
       />
       {/* readability vignette over the moving gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,rgba(8,8,12,0.55)_75%,rgba(8,8,12,0.9)_100%)]" />

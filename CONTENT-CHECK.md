@@ -13,7 +13,7 @@ met voorbeeld- of voorlopige inhoud toont, en wat er nog ingesteld moet worden.
 - [ ] **Google Search Console**: sitemap `https://sixtyfold.nl/sitemap.xml` indienen na livegang.
 
 ## Aanleveren (beeld)
-- [ ] **Portretfoto's** Jayden en Bodhi (staand, 3:4, ≥ 1200 px breed) → `public/images/jayden.jpg` en `public/images/bodhi.jpg`, daarna in `components/sections/About.tsx` de initialen-weergave vervangen door `<Image>`.
+- [ ] **Portretfoto**: voorlopig niet. Over Sixtyfold heeft een studiokaart zonder foto en noemt geen aantal makers ("je praat direct met wie je site ontwerpt én bouwt"), dus dit hoeft niet aangepast als Bodhi later instapt.
 - [ ] **NOORDVAART-beeld**: de projectmap bevat alleen placeholders met ingebrande tekst. De site gebruikt nu het enige echte beeld uit de NOORDVAART-repo (jacht op de waterlijn, 1280×720, `waterlijn.webp`). Een scherper beeld of een screenshot van de live site is welkom.
 - [ ] **VAEKST-beeld**: `hero.jpg` is 1280×720; voor het grote uitgelichte kaartje is een 1920-brede versie scherper op retina-schermen.
 
@@ -25,7 +25,7 @@ met voorbeeld- of voorlopige inhoud toont, en wat er nog ingesteld moet worden.
 - [ ] **Reactietermijn**: "binnen 24 uur" (hero, contact, FAQ).
 - [ ] **Kennismaking**: gratis, 30 minuten, bij jou of online.
 - [ ] **Sixtyfold Care**: Care € 24,99 (hosting + SSL, 24/7 bewaking, maandrapport, updates/back-ups) en Care Plus € 49,99 (alles uit Care + tot 1 uur aanpassingen p/m, reactie binnen 1 werkdag, kwartaalcheck). Maandelijks automatisch afgeschreven (Stripe), maandelijks opzegbaar.
-- [ ] **Rollen**: Jayden (Design & Development), Bodhi (Design & Strategie).
+- [ ] **Oprichter** in de structured data (`site.founders`): nu alleen Jayden van den Hoek.
 - [ ] **Betekenis van de naam** (Over ons): "zestigvoudig", 60 fps, zestig keer beter.
 - [ ] **Projectomschrijvingen en jaartallen** (VAEKST 2026, NOORDVAART 2026, TERRA 2025, Victor Brands 2025) en de live-links.
 - [ ] **Stats** in Over ons: 100% maatwerk · <1s laadtijd · 60 fps.

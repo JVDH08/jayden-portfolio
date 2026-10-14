@@ -13,7 +13,7 @@ export const site = {
   /** Klein merkdetail naast het wordmark (60 = zestigvoudig / 60 fps). */
   mark: "/60",
   tagline: "Websites op maat uit Haarlem.",
-  founders: ["Jayden", "Bodhi"],
+  founders: ["Jayden van den Hoek"],
   role: "Webstudio",
   location: "Haarlem",
   region: "Noord-Holland",
@@ -142,25 +142,24 @@ export const why = {
 };
 
 export const showcase = {
-  // The scroll-scrub signature section.
+  // The scroll-driven signature section (live vector scene, see OrbitScene).
   eyebrow: "Signature",
   title: ["De scroll bestuurt", "de beweging."],
-  frameCount: 90,
-  /** Label van de framecounter (desktop): "Frame 045 / 090". */
-  frameLabel: "Frame",
+  /** Label bij de voortgangsteller (desktop): "Live gerenderd 045 / 100". */
+  liveLabel: "Live gerenderd",
   steps: [
     {
-      at: 0.04,
+      at: 0,
       title: "Beweging met betekenis",
       text: "Animaties die reageren op jouw scroll. Vooruit en terug, zonder haperen.",
     },
     {
-      at: 0.5,
+      at: 0.42,
       title: "Gebouwd op 60 fps",
-      text: "Frame voor frame getekend op canvas. Vloeiend op elk scherm, ook je telefoon.",
+      text: "Live getekend door je browser, geen video of plaatjes. Vloeiend en haarscherp op elk scherm.",
     },
     {
-      at: 0.92,
+      at: 0.82,
       title: "Premium tot in het detail",
       text: "Elke pixel, elke overgang, elk randje: bewust gekozen.",
     },
@@ -381,27 +380,22 @@ export const packages = {
 };
 
 export const about = {
-  eyebrow: "Over ons",
-  title: "Twee makers uit Haarlem",
+  eyebrow: "Over Sixtyfold",
+  title: "Een studio, geen fabriek",
   paragraphs: [
-    "Wij zijn Jayden en Bodhi. Jong, perfectionistisch en allergisch voor sites die op elkaar lijken. Je werkt direct met ons, de lijnen zijn kort en we gaan door tot elk detail klopt.",
+    "Sixtyfold is een kleine webstudio uit Haarlem. Je praat direct met wie je site ontwerpt én bouwt: geen accountmanager ertussen, korte lijnen en snel antwoord. Perfectionistisch en allergisch voor sites die op elkaar lijken, dus we gaan door tot elk detail klopt.",
     "Sixtyfold betekent zestigvoudig. Een knipoog naar 60 frames per seconde, want alles wat we bouwen beweegt vloeiend. En naar wat een goede site oplevert: niet een beetje beter, maar zestig keer.",
   ],
-  // Portretfoto's bestaan nog niet; zie CONTENT-CHECK.md.
-  team: [
-    {
-      name: "Jayden",
-      role: "Design & Development",
-      photo: "/images/jayden.jpg",
-      initials: "J",
-    },
-    {
-      name: "Bodhi",
-      role: "Design & Strategie",
-      photo: "/images/bodhi.jpg",
-      initials: "B",
-    },
-  ],
+  /** De studiokaart naast de tekst (geen portretfoto's). */
+  card: {
+    numeral: "60",
+    label: "Sixtyfold · Haarlem",
+    principles: [
+      "Ontwerp en code uit één hand",
+      "Geen templates, alles op maat",
+      "Je ziet je site vóór je betaalt",
+    ],
+  },
   stats: [
     { value: "100%", label: "Maatwerk" },
     { value: "<1s", label: "Laadtijd" },

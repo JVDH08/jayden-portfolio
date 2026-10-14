@@ -38,7 +38,7 @@ app/
   api/contact/route.ts  # POST → Resend (503 zonder sleutel → mailto-fallback)
 components/
   providers/          # SmoothScrollProvider (Lenis + GSAP ticker)
-  ui/                 # ScrollScrubSequence, MagneticButton, Reveal, WordReveal, LineReveal,
+  ui/                 # OrbitScene, MagneticButton, Reveal, WordReveal, LineReveal,
                       # AmbientField (lichtveld achter de hele pagina), Ticker, CountUp,
                       # Aurora, Eyebrow, CursorGlow, Icons
   sections/           # Navbar, Hero, Statement, Why, Showcase, Process, Projects,
@@ -47,7 +47,6 @@ lib/
   content.ts          # ALLE teksten & data (één bron van waarheid)
   packageSelect.ts    # pakketkaart → contactformulier (event + ?pakket=)
   seo.ts              # indexeer-schakelaar (NOINDEX=1)
-public/frames/        # frame-sequence voor de scroll-scrub (zie README-ASSETS.md)
 public/images/projecten/  # projectbeelden
 ```
 
