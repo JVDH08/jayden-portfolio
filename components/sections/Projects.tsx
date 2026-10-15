@@ -10,7 +10,7 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
-import { projects, projectsSection, type Project } from "@/lib/content";
+import { concepts, conceptsSection, projects, projectsSection, type Project } from "@/lib/content";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import LineReveal from "@/components/ui/LineReveal";
@@ -218,6 +218,23 @@ export default function Projects() {
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <ProjectCard project={featured} index={0} featured />
           {rest.map((p, i) => (
+            <ProjectCard key={p.name} project={p} index={i + 1} />
+          ))}
+        </div>
+
+        {/* concept-redesigns: ongevraagd, duidelijk geen klantwerk */}
+        <div className="mt-24 flex flex-col gap-4 border-t border-white/10 pt-14 md:flex-row md:items-end md:justify-between">
+          <Reveal>
+            <h3 className="font-display text-2xl font-bold tracking-tight text-text-primary md:text-3xl">
+              {conceptsSection.title}
+            </h3>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="max-w-md text-sm leading-relaxed text-text-secondary">{conceptsSection.intro}</p>
+          </Reveal>
+        </div>
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {concepts.map((p, i) => (
             <ProjectCard key={p.name} project={p} index={i + 1} />
           ))}
         </div>

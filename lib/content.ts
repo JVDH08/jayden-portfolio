@@ -274,6 +274,56 @@ export const projects: Project[] = [
   },
 ];
 
+/**
+ * Concept-redesigns: ongevraagd gemaakt voor lokale zaken, om te laten zien wat er kan.
+ * Nadrukkelijk geen klantwerk: het label "Concept" en de tekst zeggen dat, en elke site
+ * zelf heeft in de footer "niet in opdracht van …".
+ */
+export const conceptsSection = {
+  title: "Concept-redesigns",
+  intro:
+    "Ongevraagd ontworpen voor drie zaken in Zandvoort, om te laten zien wat er kan met hun eigen verhaal. Geen opdrachten: zo zou hun site eruit kunnen zien.",
+};
+
+export const concepts: Project[] = [
+  {
+    name: "Visrestaurant De Meerpaal",
+    tagline: "Concept · visrestaurant in Zandvoort",
+    description:
+      "Het oudste visrestaurant van Zandvoort, filmisch verteld: de zee bij zonsondergang, de echte kaart en de geschiedenis van het vissersdorp.",
+    url: "https://visrestaurant-de-meerpaal.vercel.app",
+    year: "2026",
+    tags: ["Concept", "Horeca", "Scroll"],
+    image: "/images/projecten/visrestaurant-de-meerpaal/site.jpg",
+    imageAlt: "Concept-redesign van Visrestaurant De Meerpaal: zonsondergang bij een paal in zee",
+    imagePosition: "50% 30%",
+  },
+  {
+    name: "Hotel Faber",
+    tagline: "Concept · familiehotel in Zandvoort",
+    description:
+      "Rustig en licht, zoals een weekend aan zee hoort te voelen: de kamers in beeld en alles op loopafstand, vijf minuten van het strand.",
+    url: "https://hotel-faber.vercel.app",
+    year: "2026",
+    tags: ["Concept", "Hotel", "Editorial"],
+    image: "/images/projecten/hotel-faber/site.jpg",
+    imageAlt: "Concept-redesign van Hotel Faber: lichte homepage met de zee",
+    imagePosition: "50% 35%",
+  },
+  {
+    name: "Khao Thai",
+    tagline: "Concept · Thais afhaalrestaurant",
+    description:
+      "Wok-vuur, kruiden en een kaart per smaak: zoet, zuur, pittig, zout. Eén grote belknop, want bestellen gaat hier gewoon telefonisch.",
+    url: "https://khao-thai.vercel.app",
+    year: "2026",
+    tags: ["Concept", "Afhaal", "Motion"],
+    image: "/images/projecten/khao-thai/site.jpg",
+    imageAlt: "Concept-redesign van Khao Thai: wok met vlammen en kruiden",
+    imagePosition: "50% 40%",
+  },
+];
+
 export type PackageId = "start" | "plus" | "signature";
 
 export type Tier = {
