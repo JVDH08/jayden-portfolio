@@ -3,7 +3,7 @@ import { Inter_Tight, Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import CursorGlow from "@/components/ui/CursorGlow";
-import { seo, site } from "@/lib/content";
+import { faq, packages, seo, site } from "@/lib/content";
 import { ALLOW_INDEXING } from "@/lib/seo";
 
 // Display: Inter Tight — modern, normale/compacte breedte, strak (niet expanded).
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: seo.title,
   description: seo.description,
-  keywords: seo.keywords,
   applicationName: site.brand,
   authors: [{ name: site.brand, url: site.url }],
   creator: site.brand,
@@ -35,12 +34,12 @@ export const metadata: Metadata = {
     locale: "nl_NL",
     url: site.url,
     siteName: site.brand,
-    title: seo.title,
+    title: `${site.brand} · ${seo.title}`,
     description: seo.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: seo.title,
+    title: `${site.brand} · ${seo.title}`,
     description: seo.description,
   },
   robots: ALLOW_INDEXING
@@ -53,31 +52,76 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-/** ProfessionalService: alleen wat echt is (geen adres, reviews of cijfers). */
+/** Prijs "€ 1.400" -> "1400" voor schema. */
+const toPrice = (p: string) => p.replace(/[^\d,]/g, "").replace(",", ".");
+
+/**
+ * Structured data. Alleen wat echt is: geen straatadres, geen reviews of
+ * ratings (pas toevoegen als er echte Google-reviews zijn).
+ */
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "@id": `${site.url}/#organization`,
-  name: site.name,
-  url: site.url,
-  email: site.email,
-  description: seo.description,
-  image: `${site.url}/opengraph-image`,
-  logo: `${site.url}/icon.svg`,
-  priceRange: "€€",
-  areaServed: [
-    { "@type": "City", name: site.location },
-    { "@type": "AdministrativeArea", name: site.region },
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": `${site.url}/#organization`,
+      name: site.name,
+      url: site.url,
+      email: site.email,
+      description: seo.description,
+      image: `${site.url}/opengraph-image`,
+      logo: `${site.url}/icon.svg`,
+      priceRange: "€€",
+      areaServed: [
+        ...seo.areaServed.map((name) => ({ "@type": "City", name })),
+        { "@type": "AdministrativeArea", name: site.region },
+      ],
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: site.location,
+        addressRegion: site.region,
+        addressCountry: site.country,
+      },
+      founder: site.founders.map((name) => ({ "@type": "Person", name })),
+      knowsAbout: [
+        "Webdesign",
+        "Website laten maken",
+        "Webdevelopment",
+        "Scroll-animaties",
+        "SEO",
+      ],
+      makesOffer: packages.tiers.map((tier) => ({
+        "@type": "Offer",
+        name: `Website ${tier.name}`,
+        description: tier.description,
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          price: toPrice(tier.price),
+          priceCurrency: "EUR",
+          minPrice: toPrice(tier.price),
+          valueAddedTaxIncluded: false,
+        },
+      })),
+      sameAs: [site.github],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: site.url,
+      name: site.brand,
+      inLanguage: "nl-NL",
+      publisher: { "@id": `${site.url}/#organization` },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${site.url}/#faq`,
+      mainEntity: faq.items.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    },
   ],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: site.location,
-    addressRegion: site.region,
-    addressCountry: site.country,
-  },
-  founder: site.founders.map((name) => ({ "@type": "Person", name })),
-  knowsAbout: ["Webdesign", "Webdevelopment", "Scroll-animaties", "SEO"],
-  sameAs: [site.github],
 };
 
 export default function RootLayout({

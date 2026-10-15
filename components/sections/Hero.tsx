@@ -71,6 +71,7 @@ export default function Hero() {
         </motion.div>
 
         <h1 className="shadow-ink mt-7 font-display text-[clamp(2rem,8.5vw,7rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
+          <span className="sr-only">{hero.titleSeoPrefix}</span>
           {hero.titleLines.map((line, i) => (
             <motion.span
               key={i}
