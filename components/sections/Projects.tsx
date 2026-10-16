@@ -27,6 +27,9 @@ function ProjectCard({
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const reduce = useReducedMotion();
+  // Met een case-pagina linkt de kaart naar de case (die linkt weer door naar de live site).
+  const href = project.caseSlug ? `/werk/${project.caseSlug}` : project.url;
+  const external = !project.caseSlug;
 
   // Subtle 3D tilt toward the cursor; the wide featured card tilts less.
   const amount = featured ? 3.5 : 6;
@@ -76,9 +79,9 @@ function ProjectCard({
     >
       <motion.a
         ref={ref}
-        href={project.url}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
         data-cursor
         onMouseMove={onMove}
         onMouseLeave={onLeave}
@@ -178,8 +181,12 @@ function ProjectCard({
             </ul>
 
             <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-text-primary">
-              {projectsSection.visit}
-              <span className="sr-only"> {project.name} {projectsSection.newTab}</span>
+              {external ? projectsSection.visit : projectsSection.case}
+              <span className="sr-only">
+                {" "}
+                {project.name}
+                {external ? ` ${projectsSection.newTab}` : ""}
+              </span>
               <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </span>
           </div>

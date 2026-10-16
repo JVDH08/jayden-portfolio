@@ -203,6 +203,8 @@ export type Project = {
   /** CSS object-position for the crop */
   imagePosition?: string;
   featured?: boolean;
+  /** Heeft een case-pagina op /werk/<caseSlug>; de kaart linkt dan daarheen. */
+  caseSlug?: string;
 };
 
 export const projectsSection = {
@@ -211,6 +213,7 @@ export const projectsSection = {
   intro:
     "Een greep uit recent werk. Elk merk een eigen wereld, elke site op maat gebouwd.",
   visit: "Bekijk live",
+  case: "Bekijk de case",
   newTab: "(opent in een nieuw tabblad)",
 };
 
@@ -228,6 +231,7 @@ export const projects: Project[] = [
       "Lachende ondernemer in overleg aan tafel, beeld uit de Victor Brands-site",
     imagePosition: "50% 35%",
     featured: true,
+    caseSlug: "victor-brands",
   },
   {
     name: "VAEKST Hospitality",
@@ -241,10 +245,11 @@ export const projects: Project[] = [
     imageAlt:
       "Gouden lichtlijn die vertakt over donker marmer, beeld uit de VAEKST-site",
     imagePosition: "50% 60%",
+    caseSlug: "vaekst",
   },
   {
     name: "TERRA Ceramics",
-    tagline: "Quiet-luxury keramiekmerk",
+    tagline: "Concept · quiet-luxury keramiekmerk",
     description:
       "Rustige, tactiele beweging voor een merk dat met de hand werkt. Elke overgang net zo bedachtzaam als het ambacht zelf.",
     url: "https://terra-three-zeta.vercel.app",
@@ -253,10 +258,11 @@ export const projects: Project[] = [
     image: "/images/projecten/terra/process-throwing.webp",
     imageAlt: "Handen vormen klei op een draaischijf, beeld uit de TERRA-site",
     imagePosition: "50% 42%",
+    caseSlug: "terra",
   },
   {
     name: "NOORDVAART",
-    tagline: "Luxe jachten, filmisch gepresenteerd",
+    tagline: "Concept · luxe jachten, filmisch gepresenteerd",
     description:
       "Donkere, filmische webshop voor luxe jachten. Conceptproject waarin beeld en scroll de hele ervaring dragen.",
     url: "https://noordvaart.vercel.app",
@@ -266,6 +272,7 @@ export const projects: Project[] = [
     imageAlt:
       "Witte jachtromp op de waterlijn in de mist, beeld uit de NOORDVAART-site",
     imagePosition: "50% 45%",
+    caseSlug: "noordvaart",
   },
 ];
 
