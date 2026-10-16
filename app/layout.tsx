@@ -70,7 +70,7 @@ const jsonLd = {
       email: site.email,
       description: seo.description,
       image: `${site.url}/opengraph-image`,
-      logo: `${site.url}/icon.svg`,
+      logo: `${site.url}/icon.png`,
       priceRange: "€€",
       areaServed: [
         ...seo.areaServed.map((name) => ({ "@type": "City", name })),
