@@ -10,6 +10,8 @@ type Props = {
   variant?: "primary" | "ghost";
   className?: string;
   strength?: number;
+  /** Opens `href` in a new tab (for links to other sites). */
+  external?: boolean;
 };
 
 /**
@@ -26,6 +28,7 @@ export default function MagneticButton({
   variant = "primary",
   className = "",
   strength = 0.35,
+  external = false,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
@@ -65,6 +68,8 @@ export default function MagneticButton({
     <MotionTag
       ref={ref as never}
       href={href}
+      target={href && external ? "_blank" : undefined}
+      rel={href && external ? "noopener noreferrer" : undefined}
       onClick={onClick}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}

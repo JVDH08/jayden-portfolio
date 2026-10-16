@@ -5,7 +5,8 @@ const linkClass =
   "text-sm text-text-primary/80 transition-colors hover:text-accent-soft";
 const headingClass = "text-xs uppercase tracking-[0.2em] text-text-secondary";
 
-export default function Footer() {
+/** `base` = "/" op subpagina's zonder de homepage-secties, zodat de ankers naar de homepage gaan. */
+export default function Footer({ base = "" }: { base?: string } = {}) {
   const year = new Date().getFullYear();
   return (
     <footer className="relative overflow-hidden border-t border-white/10 pt-14">
@@ -32,7 +33,7 @@ export default function Footer() {
               <ul className="mt-4 space-y-2.5">
                 {nav.map((n) => (
                   <li key={n.href}>
-                    <a href={n.href} className={linkClass}>
+                    <a href={`${base}${n.href}`} className={linkClass}>
                       {n.label}
                     </a>
                   </li>

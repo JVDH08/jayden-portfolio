@@ -11,8 +11,10 @@ import MagneticButton from "@/components/ui/MagneticButton";
  * - Hides while scrolling down, returns on the way up; an in-page anchor
  *   click keeps it visible until the visitor scrolls themselves.
  * - Marks the section in view (aria-current="location").
+ * - `base` ("/" on pages without the homepage sections) points the anchors
+ *   at the homepage; the homepage itself keeps plain "#..." anchors.
  */
-export default function Navbar() {
+export default function Navbar({ base = "" }: { base?: string } = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
@@ -139,7 +141,7 @@ export default function Navbar() {
             return (
               <a
                 key={item.href}
-                href={item.href}
+                href={`${base}${item.href}`}
                 data-cursor
                 onClick={anchorClick}
                 aria-current={current ? "location" : undefined}
@@ -160,7 +162,7 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:block">
-          <MagneticButton href={navCta.href} onClick={anchorClick} className="px-5 py-2.5 text-xs">
+          <MagneticButton href={`${base}${navCta.href}`} onClick={anchorClick} className="px-5 py-2.5 text-xs">
             {navCta.label}
           </MagneticButton>
         </div>
@@ -205,7 +207,7 @@ export default function Navbar() {
             {nav.map((item, i) => (
               <motion.a
                 key={item.href}
-                href={item.href}
+                href={`${base}${item.href}`}
                 onClick={anchorClick}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -222,7 +224,7 @@ export default function Navbar() {
               </motion.a>
             ))}
             <a
-              href={navCta.href}
+              href={`${base}${navCta.href}`}
               onClick={anchorClick}
               className="mt-2 rounded-2xl bg-accent px-4 py-3.5 text-center font-medium text-white glow-accent"
             >

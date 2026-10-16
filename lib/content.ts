@@ -625,3 +625,211 @@ export const haarlem = {
     ],
   },
 };
+
+/* ------------------------------------------------------------------ */
+/* Cases: /werk/<slug>                                                  */
+/* Alleen feiten die op de live sites te zien zijn. Conceptprojecten    */
+/* staan er eerlijk als concept bij.                                    */
+/* ------------------------------------------------------------------ */
+
+export type CaseImage = { src: string; alt: string; position?: string };
+
+export type CaseStudy = {
+  slug: string;
+  /** Naam zoals in `projects` (koppelt jaar, tags en live-link). */
+  project: string;
+  soort: "Klantproject" | "Conceptproject";
+  /** Voor wie (of: wat het concept is). */
+  voor: string;
+  lead: string;
+  opdracht: string;
+  aanpak: { title: string; text: string }[];
+  inhoud: string[];
+  techniek: string[];
+  resultaat: string;
+  images: CaseImage[];
+  seo: { title: string; description: string };
+};
+
+export const caseSection = {
+  eyebrow: "Case",
+  back: "Alle projecten",
+  live: "Bekijk de live site",
+  labels: {
+    soort: "Soort",
+    voor: "Voor",
+    jaar: "Jaar",
+    techniek: "Techniek",
+    opdracht: "De opdracht",
+    aanpak: "De aanpak",
+    inhoud: "Wat erin zit",
+    resultaat: "Het resultaat",
+  },
+  conceptNote:
+    "Dit is een conceptproject: een fictief merk dat we zelf hebben bedacht en uitgewerkt, om te laten zien wat er kan. Geen opdracht van een klant.",
+  next: "Volgende case",
+  cta: {
+    title: "Zo'n site voor jouw zaak?",
+    text: "Vertel kort over je zaak. Daarna maken we gratis een demo, zodat je eerst ziet wat je krijgt.",
+    button: "Vraag je gratis demo aan",
+    href: "/#contact",
+  },
+};
+
+export const cases: CaseStudy[] = [
+  {
+    slug: "victor-brands",
+    project: "Victor Brands",
+    soort: "Klantproject",
+    voor: "Victor Brands, trainer, trainingsacteur en teamcoach uit Haarlem",
+    lead: "Een nieuwe site voor een trainer met een verhaal dat niemand verzint: van KLM-manager en acteur tot coach van managementteams bij overheid en bedrijfsleven.",
+    opdracht:
+      "Victor had een verouderde WordPress-site. De nieuwe site moest helder laten zien wat hij doet en voor wie, met zijn echte referenties en klanten, en een contactformulier dat gewoon werkt.",
+    aanpak: [
+      {
+        title: "Eerst het verhaal",
+        text: "Zijn loopbaan werd een tijdlijn: van grondsteward tot manager, het podium en de televisie, de jaren die alles veranderden en wat hij er nu mee doet. Eerlijk verteld, zoals hij het zelf vertelt.",
+      },
+      {
+        title: "Wat hij doet, zonder omwegen",
+        text: "Expertise, visie en zijn drie rollen (trainer, trainingsacteur en coach) staan helder op een rij, met de methodieken waar hij mee werkt.",
+      },
+      {
+        title: "Alles meegenomen",
+        text: "De referenties en klantnamen van de oude site zijn overgezet. Zijn feedback is punt voor punt verwerkt voordat de site live ging.",
+      },
+    ],
+    inhoud: [
+      "Tijdlijn van zijn loopbaan en levensverhaal",
+      "Expertisegebieden, visie en de drie rollen",
+      "Klantnamen en referenties van de oude site",
+      "Contactformulier dat via zijn eigen domein in zijn inbox landt",
+      "Live op zijn eigen domein, de oude WordPress-site vervangen",
+    ],
+    techniek: ["Next.js", "Tailwind CSS", "Framer Motion", "Resend"],
+    resultaat:
+      "De site staat live op victorbrands.nl en vervangt de oude WordPress-site. Aanvragen via het formulier komen direct bij Victor binnen.",
+    images: [
+      { src: "/images/projecten/victor/victor-groep.jpg", alt: "Victor Brands aan het werk met een groep, beeld uit de site", position: "50% 35%" },
+      { src: "/images/projecten/victor/victor-hero.jpeg", alt: "Portret van Victor Brands uit de site", position: "50% 25%" },
+      { src: "/images/projecten/victor/victor-verhaal.jpg", alt: "Still uit de NPO-serie Stanley H, waarin Victor de rol van Grote Gijs speelt", position: "50% 40%" },
+    ],
+    seo: {
+      title: "Case: Victor Brands | Sixtyfold",
+      description:
+        "Hoe Sixtyfold de site van trainer en teamcoach Victor Brands bouwde: zijn verhaal als tijdlijn, zijn referenties en een formulier dat werkt. Live op victorbrands.nl.",
+    },
+  },
+  {
+    slug: "vaekst",
+    project: "VAEKST Hospitality",
+    soort: "Klantproject",
+    voor: "Jeroen Ketel, trainer, coach en docent in hospitality",
+    lead: "Een filmische site voor een trainer die al sinds 2007 in hospitality werkt, in drie werelden: hotellerie, luxe retail en onderwijs.",
+    opdracht:
+      "Jeroen vroeg om een site die laat voelen hoe hij werkt: persoonlijk, interactief en hoogwaardig. Alles over zijn loopbaan moest kloppen.",
+    aanpak: [
+      {
+        title: "Een sfeer, geen sjabloon",
+        text: "Hero-video, gouden accenten en gepinde scroll-scènes. VAEKST (Deens voor groei) kreeg een eigen beeldtaal in plaats van stockfoto's.",
+      },
+      {
+        title: "Drie werelden, één loopbaan",
+        text: "Hotellerie, luxe retail en onderwijs staan als drie werelden naast elkaar, met daaronder zijn loopbaan van 2007 tot nu.",
+      },
+      {
+        title: "Zijn manier van werken",
+        text: "Manifest, vakgebieden, methode (afgestemd, samen, intrinsiek) en voor wie hij werkt. In zijn eigen woorden.",
+      },
+    ],
+    inhoud: [
+      "Hero-video en filmische scroll-scènes",
+      "Vier vakgebieden: leidinggeven, gastvrijheid, samenwerken, verandermanagement",
+      "Drie werelden en een loopbaan-tijdlijn vanaf 2007",
+      "Zijn methode en voor wie hij werkt",
+      "Contact via e-mail, LinkedIn en een formulier",
+    ],
+    techniek: ["Next.js", "GSAP", "3D", "Higgsfield (beeld en video)"],
+    resultaat: "De site staat live en wordt verder aangescherpt.",
+    images: [
+      { src: "/images/projecten/vaekst/hero.jpg", alt: "Gouden lichtlijn die vertakt over donker marmer, beeld uit de VAEKST-site", position: "50% 60%" },
+      { src: "/images/projecten/vaekst/hero-jeroen-groep.webp", alt: "Jeroen Ketel met studenten in de Johan Cruijff ArenA, beeld uit de VAEKST-site", position: "50% 40%" },
+      { src: "/images/projecten/vaekst/pillar-01.jpg", alt: "Vergaderruimte, beeld uit de VAEKST-site", position: "50% 50%" },
+    ],
+    seo: {
+      title: "Case: VAEKST Hospitality | Sixtyfold",
+      description:
+        "Hoe Sixtyfold een filmische site bouwde voor trainer en docent Jeroen Ketel (VAEKST Hospitality): hero-video, scroll-scènes en zijn loopbaan in drie werelden.",
+    },
+  },
+  {
+    slug: "terra",
+    project: "TERRA Ceramics",
+    soort: "Conceptproject",
+    voor: "TERRA, een fictief keramiekatelier",
+    lead: "Een rustige, tactiele site voor een keramiekmerk dat alles met de hand maakt. Elke overgang net zo bedachtzaam als het ambacht zelf.",
+    opdracht:
+      "Hoe laat je op een website voelen dat iets langzaam en met de hand is gemaakt? Met TERRA wilden we laten zien dat beweging ook rustig kan zijn: geen effecten om de effecten, maar het tempo van een pottenbakker.",
+    aanpak: [
+      {
+        title: "Het maken als verhaal",
+        text: "Het proces (draaien, afdraaien, glazuren, stoken) volg je tijdens het scrollen, stap voor stap.",
+      },
+      {
+        title: "Quiet luxury",
+        text: "Veel ruimte, warme aardetinten en grote beelden. De collectie, materialen en het atelier krijgen elk een eigen moment.",
+      },
+      {
+        title: "Klaar voor een echte winkel",
+        text: "Collectie met stukken en maten, een bezoekpagina en een aanvraagformulier: alles wat een echt atelier nodig heeft.",
+      },
+    ],
+    inhoud: ["Scroll-verhaal van het maakproces", "Collectie met losse stukken", "Materialen en atelier", "Bezoek en aanvraagformulier"],
+    techniek: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    resultaat: "Een complete conceptsite die laat zien hoe een ambachtelijk merk zich online kan onderscheiden.",
+    images: [
+      { src: "/images/projecten/terra/process-throwing.webp", alt: "Handen vormen klei op een draaischijf, beeld uit de TERRA-site", position: "50% 42%" },
+      { src: "/images/projecten/terra/hero-vessel.webp", alt: "Keramische vaas uit de hero van de TERRA-site", position: "50% 50%" },
+      { src: "/images/projecten/terra/atelier.webp", alt: "Het atelier met planken vol keramiek, beeld uit de TERRA-site", position: "50% 50%" },
+    ],
+    seo: {
+      title: "Case: TERRA Ceramics (concept) | Sixtyfold",
+      description:
+        "TERRA Ceramics: een conceptsite van Sixtyfold voor een ambachtelijk keramiekmerk, met een rustig scroll-verhaal van het maakproces.",
+    },
+  },
+  {
+    slug: "noordvaart",
+    project: "NOORDVAART",
+    soort: "Conceptproject",
+    voor: "NOORDVAART, een fictieve jachtwerf",
+    lead: "Een donkere, filmische site voor luxe jachten, waarin beeld en scroll de hele ervaring dragen.",
+    opdracht:
+      "Kun je een product van miljoenen online net zo laten voelen als een bezoek aan de werf? NOORDVAART is ons antwoord: een conceptsite voor handgebouwde jachten, waar je het schip ervaart in plaats van leest.",
+    aanpak: [
+      {
+        title: "Filmisch vanaf de eerste seconde",
+        text: "Een hero-video van een echt schip, bewerkt en opgeschaald met Higgsfield, en scènes die je met je scroll bestuurt.",
+      },
+      {
+        title: "Van boven en onder water",
+        text: "De vloot, een duik onder de waterlijn met de specificaties en de werf in details: teak, messing, leer en lijnwerk.",
+      },
+      {
+        title: "Zelf samenstellen",
+        text: "Een configurator voor rompkleur, dekhout en interieur, die je meeneemt naar je aanvraag.",
+      },
+    ],
+    inhoud: ["Hero-video en scroll-gestuurde scènes", "Vloot met drie modellen", "Onderwater-sectie met specificaties", "Configurator voor romp, dek en interieur", "Aanvraag voor een werfbezoek"],
+    techniek: ["Next.js", "GSAP", "Lenis", "Framer Motion", "Higgsfield"],
+    resultaat: "Ons visitekaartje voor filmische scroll: een conceptsite die laat zien wat er kan als beeld en beweging het werk doen.",
+    images: [
+      { src: "/images/projecten/noordvaart/waterlijn.webp", alt: "Witte jachtromp op de waterlijn in de mist, beeld uit de NOORDVAART-site", position: "50% 45%" },
+    ],
+    seo: {
+      title: "Case: NOORDVAART (concept) | Sixtyfold",
+      description:
+        "NOORDVAART: een filmische conceptsite van Sixtyfold voor handgebouwde jachten, met hero-video, scroll-scènes en een configurator.",
+    },
+  },
+];
