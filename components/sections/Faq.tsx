@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { faq, site } from "@/lib/content";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
@@ -56,27 +56,26 @@ function FaqItem({
         </button>
       </h3>
 
-      <AnimatePresence initial={false}>
-        {open ? (
-          <motion.div
-            id={panelId}
-            role="region"
-            aria-labelledby={buttonId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{
-              duration: reduce ? 0 : 0.45,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="overflow-hidden"
-          >
-            <p className="max-w-xl pb-7 text-base leading-relaxed text-text-secondary">
-              {item.a}
-            </p>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {/* Het antwoord staat altijd in de HTML (vindbaar voor Google);
+          dichtgeklapt is het 0px hoog, onzichtbaar en niet focusbaar. */}
+      <motion.div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        aria-hidden={!open}
+        inert={!open}
+        initial={false}
+        animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        transition={{
+          duration: reduce ? 0 : 0.45,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="overflow-hidden"
+      >
+        <p className="max-w-xl pb-7 text-base leading-relaxed text-text-secondary">
+          {item.a}
+        </p>
+      </motion.div>
     </li>
   );
 }

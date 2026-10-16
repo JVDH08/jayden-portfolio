@@ -24,18 +24,11 @@ export const site = {
 };
 
 export const seo = {
-  title: "Sixtyfold · Websites op maat uit Haarlem",
+  title: "Website laten maken Haarlem | Eerst zien, dan betalen",
   description:
-    "Webdesign uit Haarlem. Websites op maat met scroll-animaties, eigen beeld en een snelle laadtijd. Je ziet je site vóór je betaalt: vraag een gratis demo aan.",
-  keywords: [
-    "webdesign Haarlem",
-    "website laten maken Haarlem",
-    "websites op maat",
-    "webstudio Haarlem",
-    "scroll-animaties",
-    "gratis demo website",
-    "Sixtyfold",
-  ],
+    "Website laten maken in Haarlem? Maatwerk met scroll-animaties en een snelle laadtijd. Je ziet je site vóór je betaalt: vraag een gratis demo aan.",
+  /** Plaatsen waar we werken (schema areaServed). */
+  areaServed: ["Haarlem", "Heemstede", "Bloemendaal", "Zandvoort"],
   ogAlt: "Sixtyfold, websites op maat uit Haarlem",
 };
 
@@ -51,6 +44,8 @@ export const navCta = { label: "Gratis demo", href: "#contact" };
 
 export const hero = {
   eyebrow: "Sixtyfold · Webstudio uit Haarlem",
+  /** Alleen voor Google/schermlezers (sr-only), niet zichtbaar. */
+  titleSeoPrefix: "Website laten maken in Haarlem: ",
   titleLines: ["Websites die", "niemand wegklikt.", "Op maat. In beweging."],
   highlightLine: 1, // index of the line shown in accent
   subtitle:
