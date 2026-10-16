@@ -546,6 +546,7 @@ export const footer = {
   /** Losse pagina's, in de navigatiekolom onder de ankers. */
   pages: [
     { label: "Website laten maken Haarlem", href: "/website-laten-maken-haarlem" },
+    { label: "Privacy", href: "/privacy" },
   ],
   copyright: "Sixtyfold · Haarlem",
   toTop: "Naar boven",
@@ -840,3 +841,70 @@ export const cases: CaseStudy[] = [
     },
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/* Privacyverklaring: /privacy                                          */
+/* Klopt met wat de site echt doet: geen cookies, geen analytics; alleen */
+/* het contactformulier verwerkt gegevens.                              */
+/* ------------------------------------------------------------------ */
+
+export const privacy = {
+  path: "/privacy",
+  updated: "17 oktober 2026",
+  seo: {
+    title: "Privacyverklaring | Sixtyfold",
+    description: "Hoe Sixtyfold omgaat met je gegevens: wat we bewaren, waarom, hoe lang en welke rechten je hebt.",
+  },
+  title: "Privacyverklaring",
+  intro:
+    "Sixtyfold gaat zorgvuldig om met je gegevens. Hieronder lees je precies wat we verzamelen, waarom, hoe lang we het bewaren en wat je rechten zijn. Kort gezegd: we gebruiken alleen wat je ons zelf stuurt, en alleen om je te helpen.",
+  sections: [
+    {
+      title: "Wie zijn wij",
+      paragraphs: [
+        "Sixtyfold is een webstudio uit Haarlem van Jayden van den Hoek. Wij zijn verantwoordelijk voor de verwerking van je gegevens zoals in deze verklaring beschreven.",
+      ],
+    },
+    {
+      title: "Welke gegevens en waarom",
+      paragraphs: [
+        "Via het contactformulier vraag je een gratis demo aan of stel je een vraag. Daarvoor vragen we je naam, e-mailadres en bericht, en als je dat wilt je bedrijfsnaam, je huidige website en het pakket dat je interesseert.",
+        "We gebruiken deze gegevens om je te antwoorden, je demo te maken en je een offerte te sturen. Word je klant, dan gebruiken we je gegevens ook om de opdracht uit te voeren en te factureren.",
+        "Dit doen we omdat je ons er zelf om vraagt (een verzoek vóór een overeenkomst) en, als je klant wordt, omdat het nodig is voor de overeenkomst.",
+      ],
+    },
+    {
+      title: "Geen cookies, geen tracking",
+      paragraphs: [
+        "Deze website plaatst geen cookies en gebruikt geen analytics of advertentietrackers. We volgen je dus niet. Onze hostingpartij houdt, zoals elke webserver, korte tijd technische logbestanden bij (zoals je IP-adres) om de site veilig en bereikbaar te houden.",
+      ],
+    },
+    {
+      title: "Hoe lang we gegevens bewaren",
+      paragraphs: [
+        "Aanvragen en mails die niet tot een opdracht leiden, bewaren we maximaal een jaar. Gegevens van klanten bewaren we zolang we voor je werken. Facturen en de administratie daarbij bewaren we zeven jaar, omdat de wet dat verplicht.",
+      ],
+    },
+    {
+      title: "Met wie we gegevens delen",
+      paragraphs: [
+        "We verkopen je gegevens nooit. We gebruiken een paar diensten die nodig zijn om de site en onze mail te laten werken: Vercel (hosting van de website), Resend (versturen van het contactformulier naar onze mailbox) en Google (onze e-mail). Deze partijen verwerken gegevens alleen voor ons en kunnen servers buiten de EU gebruiken; zij werken met de afspraken die de Europese regels daarvoor voorschrijven.",
+      ],
+    },
+    {
+      title: "Je rechten",
+      paragraphs: [
+        "Je mag altijd vragen welke gegevens we van je hebben, ze laten aanpassen of laten verwijderen. Je kunt ook bezwaar maken tegen het gebruik ervan of je gegevens opvragen om mee te nemen. Mail ons en je krijgt binnen een maand antwoord.",
+        "Ben je niet tevreden over hoe we met je gegevens omgaan? Laat het ons weten. Je kunt ook een klacht indienen bij de Autoriteit Persoonsgegevens.",
+      ],
+    },
+    {
+      title: "Beveiliging",
+      paragraphs: [
+        "De site werkt alleen via een beveiligde verbinding (https), en alleen wij hebben toegang tot de mailbox waar je bericht binnenkomt.",
+      ],
+    },
+  ],
+  contactTitle: "Vragen?",
+  contactText: "Mail ons via",
+};

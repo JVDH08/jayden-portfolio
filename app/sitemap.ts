@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { cases, haarlem, site } from "@/lib/content";
+import { cases, haarlem, privacy, site } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
+    },
+    {
+      url: `${site.url}${privacy.path}`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.2,
     },
     ...cases.map((c) => ({
       url: `${site.url}/werk/${c.slug}`,
