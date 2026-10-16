@@ -12,11 +12,13 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import AmbientField from "@/components/ui/AmbientField";
 import Ticker from "@/components/ui/Ticker";
-import { ticker } from "@/lib/content";
+import { faq, site, ticker } from "@/lib/content";
+import JsonLd, { faqSchema } from "@/lib/jsonld";
 
 export default function Home() {
   return (
     <>
+      <JsonLd data={faqSchema(`${site.url}/`, faq.items)} />
       <Navbar />
       {/* `isolate`: the light field sits at z -1 inside main, behind every
           section but above the page background. */}

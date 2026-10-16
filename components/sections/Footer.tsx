@@ -37,6 +37,17 @@ export default function Footer() {
                     </a>
                   </li>
                 ))}
+                {footer.pages.map((p) => (
+                  <li key={p.href}>
+                    {/* Narrow on phones so both footer columns stay side by side. */}
+                    <a
+                      href={p.href}
+                      className={`${linkClass} inline-block max-w-[7.5rem] leading-snug sm:max-w-none`}
+                    >
+                      {p.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </nav>
             <div>

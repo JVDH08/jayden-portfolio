@@ -536,6 +536,92 @@ export const footer = {
   contactTitle: "Contact",
   /** Externe links, in de contactkolom onder het e-mailadres. */
   links: [{ label: "GitHub", href: "https://github.com/JVDH08" }],
+  /** Losse pagina's, in de navigatiekolom onder de ankers. */
+  pages: [
+    { label: "Website laten maken Haarlem", href: "/website-laten-maken-haarlem" },
+  ],
   copyright: "Sixtyfold · Haarlem",
   toTop: "Naar boven",
+};
+
+/* ------------------------------------------------------------------ */
+/* Landingspagina: /website-laten-maken-haarlem                         */
+/* ------------------------------------------------------------------ */
+
+export const haarlem = {
+  path: "/website-laten-maken-haarlem",
+  seo: {
+    title: "Website laten maken in Haarlem | Vanaf € 750 · Sixtyfold",
+    description:
+      "Website laten maken in Haarlem? Sixtyfold bouwt websites op maat voor ondernemers in Haarlem en omgeving. Vaste prijzen vanaf € 750 en eerst een gratis demo.",
+    breadcrumb: "Website laten maken Haarlem",
+  },
+  hero: {
+    eyebrow: "Webdesign · Haarlem en omgeving",
+    titleSeoPrefix: "",
+    titleLines: ["Website laten", "maken in Haarlem.", "Eerst zien, dan betalen."],
+    highlightLine: 1,
+    subtitle:
+      "Een website op maat voor jouw zaak in Haarlem, Heemstede, Bloemendaal of Zandvoort. Je ziet eerst gratis een demo van je nieuwe site, en pas als je hem goed vindt, gaan we verder.",
+    cta: { label: "Vraag je gratis demo aan", href: "#contact" },
+    ctaSecondary: { label: "Bekijk de prijzen", href: "#pakketten" },
+    trust: ["Gratis demo", "Vanaf € 750", "Reactie binnen 24 uur"],
+    scrollHint: "Scroll",
+  },
+  intro: {
+    eyebrow: "Webdesign uit Haarlem",
+    title: "Een website laten maken die bij jouw zaak past",
+    paragraphs: [
+      "Sixtyfold is een kleine webstudio uit Haarlem. We maken websites voor ondernemers in Haarlem en omgeving: van restaurants en hotels tot kappers, ambachtslieden en dienstverleners. Geen site van de plank, maar een eigen ontwerp dat laat zien wie je bent.",
+      "Je praat direct met degene die je site ontwerpt en bouwt. Na een kort gesprek, bij jou in de zaak of online, maken we gratis een demo van jóuw website. Pas als je die goed vindt, bouwen we hem af. Zo weet je precies wat je krijgt voordat je iets betaalt.",
+      "Elke site bouwen we met moderne code in plaats van een WordPress-thema. Dat betekent: snel laden, ook op je telefoon, en technisch klaar om gevonden te worden in Google. Met scroll-animaties en eigen beeld blijven bezoekers langer kijken.",
+    ],
+    areasTitle: "Hier werken we",
+    areas: ["Haarlem", "Heemstede", "Bloemendaal", "Zandvoort"],
+    areasNote:
+      "Zit je ergens anders? Dan doen we het gewoon online. Kennismaken kan bij jou of via een videogesprek.",
+    forTitle: "Voor wie",
+    forList: [
+      "Horeca: restaurants, cafés en afhaalzaken",
+      "Hotels en B&B's",
+      "Kappers, salons en studio's",
+      "Ambacht en lokale merken",
+      "Coaches, trainers en dienstverleners",
+    ],
+  },
+  faq: {
+    eyebrow: "Veelgestelde vragen",
+    title: "Website laten maken in Haarlem: vragen",
+    intro: "Staat je vraag er niet tussen? Mail ons, je hoort binnen 24 uur van ons.",
+    items: [
+      {
+        q: "Wat kost een website laten maken in Haarlem?",
+        a: "Bij Sixtyfold betaal je vanaf € 750 voor een onepager, vanaf € 1.400 voor een site tot 5 pagina's met scroll-animaties en vanaf € 2.500 voor volledig maatwerk. Prijzen zijn excl. btw. Na de gratis demo krijg je een vaste prijs, zonder verrassingen achteraf.",
+      },
+      {
+        q: "Hoe lang duurt het om een website te laten maken?",
+        a: "Een onepager staat meestal binnen een week online. Een site met meerdere pagina's duurt twee tot drie weken. Bij volledig maatwerk spreken we samen een planning af.",
+      },
+      {
+        q: "Kan ik eerst zien hoe mijn website eruit komt te zien?",
+        a: "Ja. Na een kort gesprek maken we gratis een demo van jouw site. Vind je hem niet goed, dan stopt het daar en betaal je niets.",
+      },
+      {
+        q: "Komen jullie langs voor een kennismaking?",
+        a: "In Haarlem en omgeving komen we graag bij je langs. Liever online? Dan plannen we een videogesprek van ongeveer 30 minuten.",
+      },
+      {
+        q: "Bouwen jullie in WordPress?",
+        a: "Nee. We bouwen elke site op maat met moderne code. Daardoor laadt hij snel en is hij veilig. Wil je zelf teksten en foto's aanpassen? Vanaf het pakket Plus krijg je daar een eenvoudig CMS voor.",
+      },
+      {
+        q: "Wordt mijn website goed gevonden in Google?",
+        a: "Elke site is technisch klaar voor Google: snelle laadtijd, nette code, goede titels en beschrijvingen. Vanaf Plus koppelen we ook Google Search Console, zodat je ziet waarop je gevonden wordt. Een plek bovenaan kan niemand garanderen, maar met deze basis geef je je zaak de beste kans.",
+      },
+      {
+        q: "Ik heb al een website. Kunnen jullie die vernieuwen?",
+        a: "Zeker. We laten je in de demo zien hoe je huidige site eruit kan zien als hij opnieuw wordt ontworpen. Je teksten en beelden kunnen we waar nodig meenemen.",
+      },
+    ],
+  },
 };

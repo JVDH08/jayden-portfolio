@@ -3,7 +3,7 @@ import { Inter_Tight, Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import CursorGlow from "@/components/ui/CursorGlow";
-import { faq, packages, seo, site } from "@/lib/content";
+import { packages, seo, site } from "@/lib/content";
 import { ALLOW_INDEXING } from "@/lib/seo";
 
 // Display: Inter Tight — modern, normale/compacte breedte, strak (niet expanded).
@@ -111,15 +111,6 @@ const jsonLd = {
       name: site.brand,
       inLanguage: "nl-NL",
       publisher: { "@id": `${site.url}/#organization` },
-    },
-    {
-      "@type": "FAQPage",
-      "@id": `${site.url}/#faq`,
-      mainEntity: faq.items.map((item) => ({
-        "@type": "Question",
-        name: item.q,
-        acceptedAnswer: { "@type": "Answer", text: item.a },
-      })),
     },
   ],
 };

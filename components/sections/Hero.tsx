@@ -8,7 +8,10 @@ import Eyebrow from "@/components/ui/Eyebrow";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { ArrowRightIcon, CheckIcon } from "@/components/ui/Icons";
 
-export default function Hero() {
+type HeroContent = Omit<typeof hero, "titleSeoPrefix"> & { titleSeoPrefix?: string };
+
+/** `content` defaults to the homepage hero; landing pages pass their own. */
+export default function Hero({ content = hero }: { content?: HeroContent } = {}) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -67,12 +70,12 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
         >
-          <Eyebrow size="sm">{hero.eyebrow}</Eyebrow>
+          <Eyebrow size="sm">{content.eyebrow}</Eyebrow>
         </motion.div>
 
         <h1 className="shadow-ink mt-7 font-display text-[clamp(2rem,8.5vw,7rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
-          <span className="sr-only">{hero.titleSeoPrefix}</span>
-          {hero.titleLines.map((line, i) => (
+          {content.titleSeoPrefix ? <span className="sr-only">{content.titleSeoPrefix}</span> : null}
+          {content.titleLines.map((line, i) => (
             <motion.span
               key={i}
               custom={i}
@@ -80,7 +83,7 @@ export default function Hero() {
               initial="hidden"
               animate="show"
               className={`block pb-[0.04em] ${
-                i === hero.highlightLine ? "text-gradient-accent" : "text-gradient"
+                i === content.highlightLine ? "text-gradient-accent" : "text-gradient"
               }`}
             >
               {line}
@@ -94,7 +97,7 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 0.9 }}
           className="mt-8 max-w-xl text-base leading-relaxed text-text-primary/85 md:text-lg"
         >
-          {hero.subtitle}
+          {content.subtitle}
         </motion.p>
 
         <motion.div
@@ -103,12 +106,12 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 1.05 }}
           className="mt-10 flex flex-wrap items-center gap-4"
         >
-          <MagneticButton href={hero.cta.href}>
-            {hero.cta.label}
+          <MagneticButton href={content.cta.href}>
+            {content.cta.label}
             <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </MagneticButton>
-          <MagneticButton href={hero.ctaSecondary.href} variant="ghost">
-            {hero.ctaSecondary.label}
+          <MagneticButton href={content.ctaSecondary.href} variant="ghost">
+            {content.ctaSecondary.label}
           </MagneticButton>
         </motion.div>
 
@@ -120,7 +123,7 @@ export default function Hero() {
           aria-label="Waar je op kunt rekenen"
           className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-text-primary/70 sm:text-sm"
         >
-          {hero.trust.map((item) => (
+          {content.trust.map((item) => (
             <li key={item} className="inline-flex items-center gap-2">
               <CheckIcon className="h-3.5 w-3.5 text-accent-soft" />
               {item}
@@ -139,7 +142,7 @@ export default function Hero() {
       >
         <div className="flex flex-col items-center gap-2.5">
           <span className="text-[10px] uppercase tracking-[0.3em] text-text-secondary">
-            {hero.scrollHint}
+            {content.scrollHint}
           </span>
           <div className="flex h-9 w-5 justify-center rounded-full border border-white/15 pt-1.5">
             <motion.span

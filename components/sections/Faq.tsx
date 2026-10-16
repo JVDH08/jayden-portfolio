@@ -9,7 +9,8 @@ import LineReveal from "@/components/ui/LineReveal";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { MailIcon, PlusIcon } from "@/components/ui/Icons";
 
-type Item = (typeof faq.items)[number];
+type FaqContent = typeof faq;
+type Item = FaqContent["items"][number];
 
 function FaqItem({
   item,
@@ -80,7 +81,8 @@ function FaqItem({
   );
 }
 
-export default function Faq() {
+/** `data` defaults to the homepage FAQ; landing pages pass their own. */
+export default function Faq({ data = faq }: { data?: FaqContent } = {}) {
   const baseId = useId();
   // De eerste vraag (prijs) staat open: dat is wat de meeste bezoekers willen weten.
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -92,17 +94,17 @@ export default function Faq() {
         <div className="grid gap-12 md:grid-cols-[1fr_1.6fr] md:gap-20">
           <div className="md:sticky md:top-32 md:self-start">
             <Reveal>
-              <Eyebrow>{faq.eyebrow}</Eyebrow>
+              <Eyebrow>{data.eyebrow}</Eyebrow>
             </Reveal>
             <LineReveal
               as="h2"
               className="mt-6 font-display text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.12] tracking-tight text-gradient"
             >
-              {faq.title}
+              {data.title}
             </LineReveal>
             <Reveal delay={0.1}>
               <p className="mt-5 max-w-sm text-base leading-relaxed text-text-secondary md:text-lg">
-                {faq.intro}
+                {data.intro}
               </p>
             </Reveal>
             <Reveal delay={0.15}>
@@ -117,7 +119,7 @@ export default function Faq() {
 
           <Reveal delay={0.1}>
             <ul>
-              {faq.items.map((item, i) => (
+              {data.items.map((item, i) => (
                 <FaqItem
                   key={item.q}
                   item={item}
