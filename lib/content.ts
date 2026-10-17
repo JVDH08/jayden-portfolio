@@ -888,7 +888,7 @@ export const privacy = {
     {
       title: "Met wie we gegevens delen",
       paragraphs: [
-        "We verkopen je gegevens nooit. We gebruiken een paar diensten die nodig zijn om de site en onze mail te laten werken: Vercel (hosting van de website), Resend (versturen van het contactformulier naar onze mailbox) en Google (onze e-mail). Deze partijen verwerken gegevens alleen voor ons en kunnen servers buiten de EU gebruiken; zij werken met de afspraken die de Europese regels daarvoor voorschrijven.",
+        "We verkopen je gegevens nooit. We gebruiken een paar diensten die nodig zijn om de site en onze mail te laten werken: Vercel (hosting van de website), Resend (versturen van het contactformulier naar onze mailbox), Google (onze e-mail) en Telegram (een melding op onze telefoon, zodat we snel reageren). Deze partijen verwerken gegevens alleen voor ons en kunnen servers buiten de EU gebruiken; zij werken met de afspraken die de Europese regels daarvoor voorschrijven.",
       ],
     },
     {

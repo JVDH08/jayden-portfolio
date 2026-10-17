@@ -46,15 +46,21 @@ function limited(ip: string) {
 }
 
 /**
- * Verstuurt het contactformulier via de Resend REST-API.
- * Env: RESEND_API_KEY (verplicht), CONTACT_TO (fallback: site.email),
- * CONTACT_FROM (fallback: "Sixtyfold <onboarding@resend.dev>").
- * Zonder sleutel antwoordt de route 503; het formulier toont dan een mailto-fallback.
+ * Verstuurt het contactformulier via de Resend REST-API, en (als ingesteld)
+ * ook als melding naar Telegram, zodat geen aanvraag blijft liggen als de
+ * mailbox vol of traag is.
+ * Env: RESEND_API_KEY, CONTACT_TO (fallback: site.email),
+ * CONTACT_FROM (fallback: "Sixtyfold <onboarding@resend.dev>"),
+ * TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID (optioneel).
+ * Is er geen enkel kanaal ingesteld, dan antwoordt de route 503; het formulier
+ * toont dan een mailto-fallback. Gelukt = minstens één kanaal kwam aan.
  */
 export async function POST(request: Request) {
   const key = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO ?? site.email;
-  if (!key) {
+  const tgToken = process.env.TELEGRAM_BOT_TOKEN;
+  const tgChat = process.env.TELEGRAM_CHAT_ID;
+  if (!key && !(tgToken && tgChat)) {
     return NextResponse.json({ ok: false, reason: "unconfigured" }, { status: 503 });
   }
 
@@ -105,21 +111,44 @@ export async function POST(request: Request) {
     company ? ` (${company})` : ""
   }`;
 
-  let res: Response;
-  try {
-    res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${key}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ from, to, reply_to: email, subject, text }),
-    });
-  } catch {
-    return NextResponse.json({ ok: false, reason: "send" }, { status: 502 });
-  }
+  const sendMail = async () => {
+    if (!key) return false;
+    try {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${key}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ from, to, reply_to: email, subject, text }),
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  };
 
-  if (!res.ok) {
+  const sendTelegram = async () => {
+    if (!tgToken || !tgChat) return false;
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: tgChat,
+          text: `📩 ${subject}\n\n${text}`.slice(0, 4000),
+          disable_web_page_preview: true,
+        }),
+        signal: AbortSignal.timeout(8000),
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  };
+
+  const [mailOk, telegramOk] = await Promise.all([sendMail(), sendTelegram()]);
+  if (!mailOk && !telegramOk) {
     return NextResponse.json({ ok: false, reason: "send" }, { status: 502 });
   }
   return NextResponse.json({ ok: true });
