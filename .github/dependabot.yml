@@ -1,0 +1,14 @@
+# Automatische updates (Care-belofte "updates"): één keer per maand een
+# gebundelde update van kleine/patch-versies, en direct bij beveiligingsfixes.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    groups:
+      kleine-updates:
+        update-types: ["minor", "patch"]
+    commit-message:
+      prefix: "updates"
