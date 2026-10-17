@@ -50,7 +50,7 @@ function limited(ip: string) {
  * ook als melding naar Telegram, zodat geen aanvraag blijft liggen als de
  * mailbox vol of traag is.
  * Env: RESEND_API_KEY, CONTACT_TO (fallback: site.email),
- * CONTACT_FROM (fallback: "Sixtyfold <onboarding@resend.dev>"),
+ * CONTACT_FROM (fallback: "Sixtyfold <website@sixtyfold.nl>", domein geverifieerd in Resend),
  * TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID (optioneel).
  * Is er geen enkel kanaal ingesteld, dan antwoordt de route 503; het formulier
  * toont dan een mailto-fallback. Gelukt = minstens één kanaal kwam aan.
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, reason: "invalid" }, { status: 400 });
   }
 
-  const from = process.env.CONTACT_FROM ?? `${site.brand} <onboarding@resend.dev>`;
+  const from = process.env.CONTACT_FROM ?? `${site.brand} <website@sixtyfold.nl>`;
   const packageLabel = PACKAGE_LABEL[pkg] ?? "";
   const text = [
     `Naam: ${name}`,

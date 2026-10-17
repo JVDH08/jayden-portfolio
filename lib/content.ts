@@ -18,7 +18,7 @@ export const site = {
   location: "Haarlem",
   region: "Noord-Holland",
   country: "NL",
-  email: "jaydenvdh88@gmail.com",
+  email: "jayden@sixtyfold.nl",
   url: "https://sixtyfold.nl",
   github: "https://github.com/JVDH08",
 };
