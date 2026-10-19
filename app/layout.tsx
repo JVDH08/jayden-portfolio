@@ -3,6 +3,7 @@ import { Inter_Tight, Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import CursorGlow from "@/components/ui/CursorGlow";
+import CookieConsent from "@/components/ui/CookieConsent";
 import { packages, seo, site } from "@/lib/content";
 import { ALLOW_INDEXING } from "@/lib/seo";
 
@@ -137,6 +138,7 @@ export default function RootLayout({
         {/* Cursor glow (auto-disables on touch / reduced motion) */}
         <CursorGlow />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <CookieConsent />
       </body>
     </html>
   );
