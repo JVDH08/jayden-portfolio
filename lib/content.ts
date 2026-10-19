@@ -7,6 +7,8 @@
  * Alles wat de klant nog moet bevestigen staat in CONTENT-CHECK.md.
  */
 
+import { TRACKING_ENABLED } from "./tracking";
+
 export const site = {
   brand: "Sixtyfold",
   name: "Sixtyfold",
@@ -21,7 +23,12 @@ export const site = {
   email: "jayden@sixtyfold.nl",
   url: "https://sixtyfold.nl",
   github: "https://github.com/JVDH08",
+  /** KvK-nummer. Leeg = nergens getoond; ingevuld komt het in de footer en de privacyverklaring. */
+  kvk: "",
 };
+
+/** Google Ads-meting: zie lib/tracking.ts. Aan zodra NEXT_PUBLIC_GADS_ID in Vercel staat. */
+const TRACKING = TRACKING_ENABLED;
 
 export const seo = {
   title: "Website laten maken Haarlem | Eerst zien, dan betalen",
@@ -537,6 +544,15 @@ export const contact = {
   },
 };
 
+export const cookieBanner = {
+  label: "Cookies",
+  text: "Mogen we meten of mensen via onze advertenties contact opnemen? Dat doen we met een cookie van Google Ads. Zonder jouw akkoord plaatsen we niets.",
+  more: "Meer in de privacyverklaring",
+  accept: "Akkoord",
+  decline: "Liever niet",
+  settings: "Cookie-instellingen",
+};
+
 export const footer = {
   tagline: "Websites op maat uit Haarlem.",
   navTitle: "Navigatie",
@@ -549,6 +565,7 @@ export const footer = {
     { label: "Privacy", href: "/privacy" },
   ],
   copyright: "Sixtyfold · Haarlem",
+  kvkLabel: "KvK",
   toTop: "Naar boven",
 };
 
@@ -850,7 +867,7 @@ export const cases: CaseStudy[] = [
 
 export const privacy = {
   path: "/privacy",
-  updated: "17 oktober 2026",
+  updated: TRACKING ? "19 oktober 2026" : "17 oktober 2026",
   seo: {
     title: "Privacyverklaring | Sixtyfold",
     description: "Hoe Sixtyfold omgaat met je gegevens: wat we bewaren, waarom, hoe lang en welke rechten je hebt.",
@@ -862,7 +879,7 @@ export const privacy = {
     {
       title: "Wie zijn wij",
       paragraphs: [
-        "Sixtyfold is een webstudio uit Haarlem van Jayden van den Hoek. Wij zijn verantwoordelijk voor de verwerking van je gegevens zoals in deze verklaring beschreven.",
+        `Sixtyfold is een webstudio uit Haarlem van Jayden van den Hoek${site.kvk ? ` (KvK ${site.kvk})` : ""}. Wij zijn verantwoordelijk voor de verwerking van je gegevens zoals in deze verklaring beschreven.`,
       ],
     },
     {
@@ -873,12 +890,20 @@ export const privacy = {
         "Dit doen we omdat je ons er zelf om vraagt (een verzoek vóór een overeenkomst) en, als je klant wordt, omdat het nodig is voor de overeenkomst.",
       ],
     },
-    {
-      title: "Geen cookies, geen tracking",
-      paragraphs: [
-        "Deze website plaatst geen cookies en gebruikt geen analytics of advertentietrackers. We volgen je dus niet. Onze hostingpartij houdt, zoals elke webserver, korte tijd technische logbestanden bij (zoals je IP-adres) om de site veilig en bereikbaar te houden.",
-      ],
-    },
+    TRACKING
+      ? {
+          title: "Cookies",
+          paragraphs: [
+            "We gebruiken alleen cookies als je daar in de cookiebanner \"Akkoord\" op zegt. Dan plaatst Google Ads een cookie waarmee we zien of iemand die via een advertentie van ons binnenkomt, daarna het contactformulier verstuurt. Zo weten we welke advertenties werken. We gebruiken dit niet om je te volgen op andere websites en zetten gepersonaliseerde advertenties uit.",
+            "Zeg je \"Liever niet\", dan laadt er niets van Google en plaatsen we geen cookies. Je keuze onthouden we in je browser. Je kunt hem altijd aanpassen via \"Cookie-instellingen\" onderaan de site. Onze hostingpartij houdt, zoals elke webserver, korte tijd technische logbestanden bij (zoals je IP-adres) om de site veilig en bereikbaar te houden.",
+          ],
+        }
+      : {
+          title: "Geen cookies, geen tracking",
+          paragraphs: [
+            "Deze website plaatst geen cookies en gebruikt geen analytics of advertentietrackers. We volgen je dus niet. Onze hostingpartij houdt, zoals elke webserver, korte tijd technische logbestanden bij (zoals je IP-adres) om de site veilig en bereikbaar te houden.",
+          ],
+        },
     {
       title: "Hoe lang we gegevens bewaren",
       paragraphs: [
@@ -888,7 +913,7 @@ export const privacy = {
     {
       title: "Met wie we gegevens delen",
       paragraphs: [
-        "We verkopen je gegevens nooit. We gebruiken een paar diensten die nodig zijn om de site en onze mail te laten werken: Vercel (hosting van de website), Resend (versturen van het contactformulier naar onze mailbox), Google (onze e-mail) en Telegram (een melding op onze telefoon, zodat we snel reageren). Deze partijen verwerken gegevens alleen voor ons en kunnen servers buiten de EU gebruiken; zij werken met de afspraken die de Europese regels daarvoor voorschrijven.",
+        `We verkopen je gegevens nooit. We gebruiken een paar diensten die nodig zijn om de site en onze mail te laten werken: Vercel (hosting van de website), Resend (versturen van het contactformulier naar onze mailbox), Google (onze e-mail${TRACKING ? ", en Google Ads als je cookies toestaat" : ""}) en Telegram (een melding op onze telefoon, zodat we snel reageren). Deze partijen verwerken gegevens alleen voor ons en kunnen servers buiten de EU gebruiken; zij werken met de afspraken die de Europese regels daarvoor voorschrijven.`,
       ],
     },
     {

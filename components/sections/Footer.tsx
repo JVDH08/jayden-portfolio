@@ -1,5 +1,6 @@
 import { site, footer, nav } from "@/lib/content";
 import { ArrowRightIcon } from "@/components/ui/Icons";
+import { CookieSettingsLink } from "@/components/ui/CookieConsent";
 
 const linkClass =
   "text-sm text-text-primary/80 transition-colors hover:text-accent-soft";
@@ -80,6 +81,8 @@ export default function Footer({ base = "" }: { base?: string } = {}) {
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-text-secondary sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {footer.copyright}
+            {site.kvk ? ` · ${footer.kvkLabel} ${site.kvk}` : null}
+            <CookieSettingsLink className="ml-3 underline-offset-4 transition-colors hover:text-accent-soft hover:underline" />
           </p>
           <a
             href="#top"
