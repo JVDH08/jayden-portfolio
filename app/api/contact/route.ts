@@ -151,5 +151,63 @@ export async function POST(request: Request) {
   if (!mailOk && !telegramOk) {
     return NextResponse.json({ ok: false, reason: "send" }, { status: 502 });
   }
+  // Pas als de aanvraag bij ons binnen is: een bevestiging naar de aanvrager.
+  // Mislukt die, dan is de aanvraag nog steeds goed aangekomen.
+  await sendConfirmation({ key, from, to: email, name, replyTo: to });
   return NextResponse.json({ ok: true });
+}
+
+/**
+ * Automatische ontvangstbevestiging naar wie het formulier invult, zodat die
+ * meteen weet dat de aanvraag binnen is en wat er gebeurt. Alleen via Resend.
+ */
+async function sendConfirmation(opts: {
+  key: string | undefined;
+  from: string;
+  to: string;
+  name: string;
+  replyTo: string;
+}) {
+  if (!opts.key) return false;
+  // Alleen een voornaam van letters: voorkomt dat iemand links of tekst via
+  // onze bevestiging naar een vreemd adres stuurt.
+  const first =
+    (opts.name.split(/\s+/)[0] ?? "").replace(/[^\p{L}'-]/gu, "").slice(0, 30) ||
+    "daar";
+  const text = [
+    `Hoi ${first},`,
+    "",
+    `Bedankt voor je aanvraag bij ${site.brand}. Hij is goed bij ons binnengekomen.`,
+    "",
+    "Zo gaat het verder:",
+    "1. Binnen 24 uur hoor je van ons, met een paar korte vragen over je zaak.",
+    "2. Daarna maken we gratis een demo van jouw nieuwe website.",
+    "3. Vind je de demo goed, dan krijg je een vaste prijs. Vind je hem niet goed, dan stopt het daar en betaal je niets.",
+    "",
+    "Wil je nog iets toevoegen, zoals je logo of een voorbeeld dat je mooi vindt? Antwoord dan gewoon op deze mail.",
+    "",
+    "Groet,",
+    `Jayden · ${site.brand}`,
+    site.url.replace(/^https:\/\//, ""),
+  ].join("\n");
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${opts.key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: opts.from,
+        to: opts.to,
+        reply_to: opts.replyTo,
+        subject: `We hebben je aanvraag ontvangen · ${site.brand}`,
+        text,
+      }),
+      signal: AbortSignal.timeout(8000),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }

@@ -24,7 +24,7 @@ met voorbeeld- of voorlopige inhoud toont, en wat er nog ingesteld moet worden.
 - [ ] **Betaling in twee delen**: helft bij akkoord op de demo, rest bij livegang.
 - [ ] **Reactietermijn**: "binnen 24 uur" (hero, contact, FAQ).
 - [ ] **Kennismaking**: gratis, 30 minuten, bij jou of online.
-- [ ] **Sixtyfold Care**: Care € 24,99 (hosting + SSL, 24/7 bewaking, maandrapport, updates/back-ups) en Care Plus € 49,99 (alles uit Care + tot 1 uur aanpassingen p/m, reactie binnen 1 werkdag, kwartaalcheck). Maandelijks automatisch afgeschreven (Stripe), maandelijks opzegbaar.
+- [ ] **Sixtyfold Care**: Care € 24,99 (hosting + SSL, 24/7 bewaking, maandrapport, updates/back-ups) en Care Plus € 49,99 (alles uit Care + tot 1 uur aanpassingen p/m, reactie binnen 1 werkdag, kwartaalcheck). Maandelijks automatisch afgeschreven (Mollie), maandelijks opzegbaar.
 - [ ] **Oprichter** in de structured data (`site.founders`): nu alleen Jayden van den Hoek.
 - [ ] **Betekenis van de naam** (Over ons): "zestigvoudig", 60 fps, zestig keer beter.
 - [ ] **Projectomschrijvingen en jaartallen** (VAEKST 2026, NOORDVAART 2026, TERRA 2025, Victor Brands 2025) en de live-links.
