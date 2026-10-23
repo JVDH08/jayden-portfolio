@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import { trackLead } from "@/lib/tracking";
 import { contact, site, type PackageId } from "@/lib/content";
 import { PACKAGE_EVENT, packageFromUrl } from "@/lib/packageSelect";
@@ -106,6 +107,7 @@ export default function Contact() {
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
   const [pkg, setPkg] = useState<string>("unknown");
   const [fallback, setFallback] = useState<string | null>(null);
+  const router = useRouter();
 
   // Pakket vooraf invullen: via ?pakket=… in de URL of via een klik op een pakketkaart.
   useEffect(() => {
@@ -151,6 +153,9 @@ export default function Contact() {
         setStatus("success");
         form.reset();
         setPkg("unknown");
+        // Eigen bedankpagina: Google Ads gebruikt /bedankt als conversiepagina.
+        // De succesmelding hierboven blijft staan als de navigatie onverhoopt faalt.
+        router.push("/bedankt");
         return;
       }
       if (res.status === 503) {
