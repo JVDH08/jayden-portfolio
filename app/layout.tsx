@@ -7,7 +7,7 @@ import CursorGlow from "@/components/ui/CursorGlow";
 import CookieConsent from "@/components/ui/CookieConsent";
 import { packages, seo, site } from "@/lib/content";
 import { ALLOW_INDEXING } from "@/lib/seo";
-import { CONSENT_DEFAULT_SCRIPT, GADS_ID } from "@/lib/tracking";
+import { CONSENT_DEFAULT_SCRIPT } from "@/lib/tracking";
 
 // Display: Inter Tight — modern, normale/compacte breedte, strak (niet expanded).
 const interTight = Inter_Tight({
@@ -126,11 +126,10 @@ export default function RootLayout({
   return (
     <html lang="nl" className={`${interTight.variable} ${inter.variable}`}>
       <body className="min-h-screen bg-bg text-text-primary antialiased">
-        {/* Google Ads: Consent Mode v2 staat eerst op denied, de tag meet pas na "Accepteren" (lib/tracking.ts). */}
+        {/* Google Ads: Consent Mode v2 staat eerst op denied; gtag.js laadt pas na "Accepteren" (lib/tracking.ts). */}
         <Script id="consent-default" strategy="beforeInteractive">
           {CONSENT_DEFAULT_SCRIPT}
         </Script>
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`} strategy="afterInteractive" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

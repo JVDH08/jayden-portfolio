@@ -1,10 +1,10 @@
 /**
  * Google Ads-conversiemeting met Consent Mode v2.
  *
- * - gtag.js laadt op elke pagina (app/layout.tsx), maar vooraf staat alle
- *   toestemming op "denied" (CONSENT_DEFAULT_SCRIPT).
- * - De Ads-tag zelf (`config`) gaat pas aan na "Accepteren". Zonder toestemming
- *   gaan er dus geen meetverzoeken naar Google Ads/DoubleClick, ook geen cookieloze.
+ * - Vooraf staat alle toestemming op "denied" (CONSENT_DEFAULT_SCRIPT, app/layout.tsx).
+ * - gtag.js en de Ads-tag (`config`) laden pas na "Accepteren", of meteen bij een
+ *   volgend bezoek als sf-consent al "granted" is. Zonder keuze of na "Weigeren"
+ *   gaat er geen enkel verzoek naar een Google-domein.
  * - De conversie telt Google Ads via het bezoek aan /bedankt; daar is geen
  *   eigen event voor nodig.
  */
@@ -35,9 +35,11 @@ const DENIED = {
   analytics_storage: "denied",
 } as const;
 
+const GTAG_SRC = `https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`;
+
 /**
- * Inline script dat vóór gtag.js draait: standaard alles denied. Een eerder
- * gegeven "Accepteren" wordt meteen toegepast, zodat ook /bedankt meetelt.
+ * Inline script in de root layout: standaard alles denied. Een eerder
+ * gegeven "Accepteren" wordt meteen toegepast en laadt gtag.js, zodat ook /bedankt meetelt.
  */
 export const CONSENT_DEFAULT_SCRIPT = `
 window.dataLayer = window.dataLayer || [];
@@ -50,6 +52,10 @@ try {
     gtag('consent', 'update', ${JSON.stringify(GRANTED)});
     gtag('config', '${GADS_ID}');
     window.__sfAdsConfigured = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '${GTAG_SRC}';
+    document.head.appendChild(s);
   }
 } catch (e) {}
 `;
@@ -80,12 +86,16 @@ declare global {
   }
 }
 
-/** Na "Accepteren": toestemming bijwerken en de Ads-tag aanzetten. */
+/** Na "Accepteren": toestemming bijwerken, de Ads-tag aanzetten en gtag.js laden. */
 export function grantConsent(): void {
   window.gtag?.("consent", "update", GRANTED);
   if (!window.__sfAdsConfigured) {
     window.gtag?.("config", GADS_ID);
     window.__sfAdsConfigured = true;
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = GTAG_SRC;
+    document.head.appendChild(s);
   }
 }
 
