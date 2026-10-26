@@ -2,7 +2,6 @@
 
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { trackLead } from "@/lib/tracking";
 import { contact, site, type PackageId } from "@/lib/content";
 import { PACKAGE_EVENT, packageFromUrl } from "@/lib/packageSelect";
 import Eyebrow from "@/components/ui/Eyebrow";
@@ -149,7 +148,6 @@ export default function Contact() {
       });
 
       if (res.ok) {
-        trackLead();
         setStatus("success");
         form.reset();
         setPkg("unknown");

@@ -1,23 +1,58 @@
 /**
- * Google Ads-conversiemeting, alleen met toestemming.
+ * Google Ads-conversiemeting met Consent Mode v2.
  *
- * - Uit zolang NEXT_PUBLIC_GADS_ID (bijv. "AW-123456789") niet in Vercel staat:
- *   dan geen banner, geen script en geen cookies, precies zoals de site was.
- * - Met ID: eerst een cookiebanner. Pas na "Akkoord" laadt het Google-script
- *   (basic consent mode). Bij "Liever niet" laadt er niets.
- * - Een verstuurd contactformulier telt als conversie
- *   (NEXT_PUBLIC_GADS_CONVERSION, bijv. "AW-123456789/AbCdEfGh").
+ * - gtag.js laadt op elke pagina (app/layout.tsx), maar vooraf staat alle
+ *   toestemming op "denied" (CONSENT_DEFAULT_SCRIPT).
+ * - De Ads-tag zelf (`config`) gaat pas aan na "Accepteren". Zonder toestemming
+ *   gaan er dus geen meetverzoeken naar Google Ads/DoubleClick, ook geen cookieloze.
+ * - De conversie telt Google Ads via het bezoek aan /bedankt; daar is geen
+ *   eigen event voor nodig.
  */
 
-export const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID ?? "";
-export const GADS_CONVERSION = process.env.NEXT_PUBLIC_GADS_CONVERSION ?? "";
-export const TRACKING_ENABLED = /^AW-\d+$/.test(GADS_ID);
+export const GADS_ID = "AW-18518875599";
 
 export type Consent = "granted" | "denied";
 
 const KEY = "sf-consent";
 /** Event om de banner opnieuw te tonen (link "Cookie-instellingen"). */
 export const CONSENT_OPEN_EVENT = "sf:consent-open";
+
+/**
+ * Wat "Accepteren" toestaat: alleen wat conversiemeting nodig heeft.
+ * Gepersonaliseerde advertenties en Analytics blijven uit.
+ */
+const GRANTED = {
+  ad_storage: "granted",
+  ad_user_data: "granted",
+  ad_personalization: "denied",
+  analytics_storage: "denied",
+} as const;
+
+const DENIED = {
+  ad_storage: "denied",
+  ad_user_data: "denied",
+  ad_personalization: "denied",
+  analytics_storage: "denied",
+} as const;
+
+/**
+ * Inline script dat vóór gtag.js draait: standaard alles denied. Een eerder
+ * gegeven "Accepteren" wordt meteen toegepast, zodat ook /bedankt meetelt.
+ */
+export const CONSENT_DEFAULT_SCRIPT = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
+gtag('consent', 'default', ${JSON.stringify(DENIED)});
+gtag('js', new Date());
+try {
+  if (localStorage.getItem('${KEY}') === 'granted') {
+    gtag('consent', 'update', ${JSON.stringify(GRANTED)});
+    gtag('config', '${GADS_ID}');
+    window.__sfAdsConfigured = true;
+  }
+} catch (e) {}
+`;
 
 export function readConsent(): Consent | null {
   try {
@@ -41,41 +76,28 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: Gtag;
+    __sfAdsConfigured?: boolean;
   }
 }
 
-let loaded = false;
-
-/** Laadt gtag.js. Alleen aanroepen ná toestemming. */
-export function loadGoogleAds(): void {
-  if (!TRACKING_ENABLED || loaded || typeof window === "undefined") return;
-  loaded = true;
-  window.dataLayer = window.dataLayer ?? [];
-  window.gtag = function gtag() {
-    // eslint-disable-next-line prefer-rest-params
-    window.dataLayer!.push(arguments);
-  };
-  window.gtag("consent", "default", {
-    ad_storage: "granted",
-    ad_user_data: "granted",
-    ad_personalization: "denied",
-    analytics_storage: "denied",
-  });
-  window.gtag("js", new Date());
-  window.gtag("config", GADS_ID);
-  const s = document.createElement("script");
-  s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GADS_ID)}`;
-  document.head.appendChild(s);
+/** Na "Accepteren": toestemming bijwerken en de Ads-tag aanzetten. */
+export function grantConsent(): void {
+  window.gtag?.("consent", "update", GRANTED);
+  if (!window.__sfAdsConfigured) {
+    window.gtag?.("config", GADS_ID);
+    window.__sfAdsConfigured = true;
+  }
 }
 
-/** Intrekken: Google stopt met meten in dit bezoek; bij het volgende bezoek laadt er niets. */
-export function revokeGoogleAds(): void {
-  window.gtag?.("consent", "update", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
-}
-
-/** Een aanvraag via het contactformulier. Doet niets zonder toestemming of zonder conversie-ID. */
-export function trackLead(): void {
-  if (!TRACKING_ENABLED || !GADS_CONVERSION || readConsent() !== "granted") return;
-  window.gtag?.("event", "conversion", { send_to: GADS_CONVERSION });
+/** Na "Weigeren" (ook bij intrekken): alles denied en de Ads-cookies van dit domein weg. */
+export function denyConsent(): void {
+  window.gtag?.("consent", "update", DENIED);
+  const host = window.location.hostname;
+  for (const c of document.cookie.split(";")) {
+    const name = c.split("=")[0].trim();
+    if (!name.startsWith("_gcl_")) continue;
+    for (const domain of ["", `; domain=${host}`, `; domain=.${host.replace(/^www\./, "")}`]) {
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domain}`;
+    }
+  }
 }

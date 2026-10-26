@@ -7,8 +7,6 @@
  * Alles wat de klant nog moet bevestigen staat in CONTENT-CHECK.md.
  */
 
-import { TRACKING_ENABLED } from "./tracking";
-
 export const site = {
   brand: "Sixtyfold",
   name: "Sixtyfold",
@@ -26,9 +24,6 @@ export const site = {
   /** KvK-nummer. Leeg = nergens getoond; ingevuld komt het in de footer en de privacyverklaring. */
   kvk: "",
 };
-
-/** Google Ads-meting: zie lib/tracking.ts. Aan zodra NEXT_PUBLIC_GADS_ID in Vercel staat. */
-const TRACKING = TRACKING_ENABLED;
 
 export const seo = {
   title: "Website laten maken Haarlem | Eerst zien, dan betalen",
@@ -546,10 +541,10 @@ export const contact = {
 
 export const cookieBanner = {
   label: "Cookies",
-  text: "Mogen we meten of mensen via onze advertenties contact opnemen? Dat doen we met een cookie van Google Ads. Zonder jouw akkoord plaatsen we niets.",
-  more: "Meer in de privacyverklaring",
-  accept: "Akkoord",
-  decline: "Liever niet",
+  text: "Mogen we meten welke advertentieklik tot een aanvraag leidt? Dat doen we met cookies van Google Ads. Zonder jouw akkoord meten we niets.",
+  more: "Meer over cookies",
+  accept: "Accepteren",
+  decline: "Weigeren",
   settings: "Cookie-instellingen",
 };
 
@@ -867,7 +862,7 @@ export const cases: CaseStudy[] = [
 
 export const privacy = {
   path: "/privacy",
-  updated: TRACKING ? "19 oktober 2026" : "17 oktober 2026",
+  updated: "26 oktober 2026",
   seo: {
     title: "Privacyverklaring | Sixtyfold",
     description: "Hoe Sixtyfold omgaat met je gegevens: wat we bewaren, waarom, hoe lang en welke rechten je hebt.",
@@ -890,20 +885,16 @@ export const privacy = {
         "Dit doen we omdat je ons er zelf om vraagt (een verzoek vóór een overeenkomst) en, als je klant wordt, omdat het nodig is voor de overeenkomst.",
       ],
     },
-    TRACKING
-      ? {
-          title: "Cookies",
-          paragraphs: [
-            "We gebruiken alleen cookies als je daar in de cookiebanner \"Akkoord\" op zegt. Dan plaatst Google Ads een cookie waarmee we zien of iemand die via een advertentie van ons binnenkomt, daarna het contactformulier verstuurt. Zo weten we welke advertenties werken. We gebruiken dit niet om je te volgen op andere websites en zetten gepersonaliseerde advertenties uit.",
-            "Zeg je \"Liever niet\", dan laadt er niets van Google en plaatsen we geen cookies. Je keuze onthouden we in je browser. Je kunt hem altijd aanpassen via \"Cookie-instellingen\" onderaan de site. Onze hostingpartij houdt, zoals elke webserver, korte tijd technische logbestanden bij (zoals je IP-adres) om de site veilig en bereikbaar te houden.",
-          ],
-        }
-      : {
-          title: "Geen cookies, geen tracking",
-          paragraphs: [
-            "Deze website plaatst geen cookies en gebruikt geen analytics of advertentietrackers. We volgen je dus niet. Onze hostingpartij houdt, zoals elke webserver, korte tijd technische logbestanden bij (zoals je IP-adres) om de site veilig en bereikbaar te houden.",
-          ],
-        },
+    {
+      id: "cookies",
+      title: "Cookies en Google Ads",
+      paragraphs: [
+        "We adverteren via Google Ads. Om te meten welke advertentieklik tot een aanvraag leidt, gebruiken we Google Ads-conversiemeting van Google Ireland Ltd. Dat gebeurt alleen als je in de cookiebanner op \"Accepteren\" klikt. Daarna plaatst Google cookies en ziet Google of je na een klik op onze advertentie het contactformulier verstuurt (je komt dan op onze bedankpagina). We gebruiken dit niet voor gepersonaliseerde advertenties en volgen je niet op andere websites; die instelling staat uit.",
+        "Welke cookies: _gcl_au en, als je via een advertentie binnenkomt, _gcl_aw. Ze bewaren een willekeurige code en de advertentieklik, zodat Google je aanvraag aan die klik kan koppelen. Ze verlopen na 90 dagen. Google kan daarnaast eigen cookies plaatsen op zijn domeinen (zoals IDE op doubleclick.net, maximaal 13 maanden). Google ontvangt daarbij ook technische gegevens zoals je IP-adres, je browser en de pagina die je bezoekt.",
+        "De grondslag is je toestemming. Klik je op \"Weigeren\", dan meet Google Ads niets en plaatsen we geen cookies; alleen het Google-script zelf wordt geladen, zonder te meten. Je keuze onthouden we in je browser (localStorage). Je kunt hem altijd aanpassen of intrekken via \"Cookie-instellingen\" onderaan de site; bij intrekken verwijderen we de Google Ads-cookies van onze site.",
+        "Onze hostingpartij houdt, zoals elke webserver, korte tijd technische logbestanden bij (zoals je IP-adres) om de site veilig en bereikbaar te houden.",
+      ],
+    },
     {
       title: "Hoe lang we gegevens bewaren",
       paragraphs: [
@@ -913,7 +904,7 @@ export const privacy = {
     {
       title: "Met wie we gegevens delen",
       paragraphs: [
-        `We verkopen je gegevens nooit. We gebruiken een paar diensten die nodig zijn om de site en onze mail te laten werken: Vercel (hosting van de website), Resend (versturen van het contactformulier naar onze mailbox), Google (onze e-mail${TRACKING ? ", en Google Ads als je cookies toestaat" : ""}) en Telegram (een melding op onze telefoon, zodat we snel reageren). Deze partijen verwerken gegevens alleen voor ons en kunnen servers buiten de EU gebruiken; zij werken met de afspraken die de Europese regels daarvoor voorschrijven.`,
+        `We verkopen je gegevens nooit. We gebruiken een paar diensten die nodig zijn om de site en onze mail te laten werken: Vercel (hosting van de website), Resend (versturen van het contactformulier naar onze mailbox), Google (onze e-mail, en Google Ads als je cookies accepteert) en Telegram (een melding op onze telefoon, zodat we snel reageren). Deze partijen verwerken gegevens alleen voor ons en kunnen servers buiten de EU gebruiken; zij werken met de afspraken die de Europese regels daarvoor voorschrijven.`,
       ],
     },
     {

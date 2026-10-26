@@ -39,7 +39,7 @@ export default function PrivacyPage() {
 
             <div className="mt-14 space-y-12">
               {privacy.sections.map((s) => (
-                <section key={s.title} className="border-t border-white/10 pt-8">
+                <section key={s.title} id={"id" in s ? s.id : undefined} className="scroll-mt-28 border-t border-white/10 pt-8">
                   <h2 className="font-display text-xl font-bold text-text-primary md:text-2xl">{s.title}</h2>
                   <div className="mt-4 space-y-4">
                     {s.paragraphs.map((p, i) => (

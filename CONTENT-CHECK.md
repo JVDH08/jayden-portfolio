@@ -11,6 +11,7 @@ met voorbeeld- of voorlopige inhoud toont, en wat er nog ingesteld moet worden.
 - [ ] **Indexeren**: staat aan (robots + sitemap). Zet `NOINDEX=1` op een preview-omgeving als je dat niet wilt. Vercel-previews krijgen sowieso `noindex`.
 - [ ] **Domein**: sixtyfold.nl koppelen in Vercel; `site.url` staat al op `https://sixtyfold.nl`.
 - [ ] **Google Search Console**: sitemap `https://sixtyfold.nl/sitemap.xml` indienen na livegang.
+- [ ] **Google Ads-conversie**: in Google Ads een conversieactie "Paginaweergave" met URL bevat `/bedankt` (tag AW-18518875599 staat op de site, `lib/tracking.ts`). Controleer de cookietekst in de privacyverklaring (cookies, bewaartermijn 90 dagen).
 
 ## Aanleveren (beeld)
 - [ ] **Portretfoto**: voorlopig niet. Over Sixtyfold heeft een studiokaart zonder foto en noemt geen aantal makers ("je praat direct met wie je site ontwerpt én bouwt"), dus dit hoeft niet aangepast als Bodhi later instapt.
