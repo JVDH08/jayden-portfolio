@@ -225,7 +225,7 @@ export default function Projects() {
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <ProjectCard project={featured} index={0} featured />
           {rest.map((p, i) => (
-            <ProjectCard key={p.name} project={p} index={i + 1} />
+            <ProjectCard key={p.name} project={p} index={i + 1} featured={!!p.featured} />
           ))}
         </div>
 

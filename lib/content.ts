@@ -276,6 +276,20 @@ export const projects: Project[] = [
     imagePosition: "50% 45%",
     caseSlug: "noordvaart",
   },
+  {
+    name: "Het Gebouw",
+    tagline: "Eigen project · een 3D-museum in je browser",
+    description:
+      "Scroll door vijf zalen, elk met een eigen ruimte en een eigen effect: glas dat barst, een boom van deeltjes, inkt op een bioscoopdoek, een showroom en een doek. Echt 3D in de browser, vloeiend op een gewone laptop en op je telefoon.",
+    url: "https://jayden-showcase-pearl.vercel.app",
+    year: "2026",
+    tags: ["3D", "WebGL", "Scroll"],
+    image: "/images/projecten/het-gebouw/gang.webp",
+    imageAlt:
+      "Verlichte gang met een gloeiende deur onder een nachtblauwe sterrenkoepel, beeld uit Het Gebouw",
+    imagePosition: "50% 50%",
+    featured: true,
+  },
 ];
 
 /**
