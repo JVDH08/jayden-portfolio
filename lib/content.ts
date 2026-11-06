@@ -172,7 +172,7 @@ export const process = {
     {
       no: "01",
       title: "Kennismaking",
-      text: "Gratis, 30 minuten, bij jou of online. We vragen naar je zaak, je klanten en wat je wilt uitstralen.",
+      text: "Gratis, 30 minuten, bij jou in de zaak of gewoon online via een videogesprek. We vragen naar je zaak, je klanten en wat je wilt uitstralen.",
     },
     {
       no: "02",
@@ -489,6 +489,10 @@ export const faq = {
       a: "Een onepager meestal binnen een week, grotere sites in twee tot drie weken.",
     },
     {
+      q: "Moeten we elkaar in het echt ontmoeten?",
+      a: "Nee, dat hoeft niet. De kennismaking, het bespreken van de demo en je feedback kunnen allemaal online, via een videogesprek of de mail. Zo werken we voor ondernemers in heel Nederland. Spreek je liever persoonlijk af? In Haarlem en omgeving komen we graag bij je langs.",
+    },
+    {
       q: "Kan ik zelf teksten aanpassen?",
       a: "Ja, vanaf Plus krijg je een eenvoudig CMS.",
     },
@@ -507,7 +511,7 @@ export const contact = {
   eyebrow: "Contact",
   title: "Benieuwd hoe jouw site eruit kan zien?",
   subtitle:
-    "Vertel kort over je zaak. Binnen 24 uur hoor je van ons, en daarna maken we gratis een demo.",
+    "Vertel kort over je zaak. Binnen 24 uur hoor je van ons, en daarna maken we gratis een demo. Overleggen kan gewoon online, waar je ook zit. In Haarlem en omgeving komen we ook graag langs.",
   form: {
     name: { label: "Je naam", placeholder: "Voor- en achternaam" },
     email: { label: "E-mailadres", placeholder: "naam@jouwzaak.nl" },
