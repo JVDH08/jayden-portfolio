@@ -3,7 +3,7 @@
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import LineReveal from "@/components/ui/LineReveal";
-import { CheckIcon } from "@/components/ui/Icons";
+import { ArrowRightIcon, CheckIcon } from "@/components/ui/Icons";
 
 type IntroContent = {
   eyebrow: string;
@@ -14,6 +14,9 @@ type IntroContent = {
   areasNote: string;
   forTitle: string;
   forList: string[];
+  /** Optioneel: links naar verwante pagina's, onder de tekst. */
+  linksTitle?: string;
+  links?: { label: string; href: string }[];
 };
 
 /**
@@ -45,6 +48,26 @@ export default function LocalIntro({ content }: { content: IntroContent }) {
                 </Reveal>
               ))}
             </div>
+            {content.links?.length ? (
+              <Reveal delay={0.25}>
+                <nav aria-label={content.linksTitle} className="mt-8 text-sm md:text-base">
+                  <span className="text-text-secondary">{content.linksTitle}: </span>
+                  <ul className="mt-3 flex flex-col gap-2.5">
+                    {content.links.map((link) => (
+                      <li key={link.href}>
+                        <a
+                          href={link.href}
+                          className="group inline-flex items-center gap-2 text-accent-soft underline-offset-4 hover:underline"
+                        >
+                          {link.label}
+                          <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </Reveal>
+            ) : null}
           </div>
 
           <Reveal delay={0.15} className="md:self-center">

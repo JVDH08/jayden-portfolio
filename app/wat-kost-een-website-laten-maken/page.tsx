@@ -90,12 +90,12 @@ export default function WatKostEenWebsite() {
         <Why />
         <Process />
         <Projects />
-        <Packages />
+        <Packages showMore={false} />
         <About />
         <Faq data={prijzen.faq} />
         <Contact />
       </main>
-      <Footer />
+      <Footer brandHref="/" />
     </>
   );
 }

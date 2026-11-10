@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { hero } from "@/lib/content";
 import HeroBackground from "@/components/ui/HeroBackground";
@@ -76,18 +76,22 @@ export default function Hero({ content = hero }: { content?: HeroContent } = {})
         <h1 className="shadow-ink mt-7 font-display text-[clamp(2rem,8.5vw,7rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
           {content.titleSeoPrefix ? <span className="sr-only">{content.titleSeoPrefix}</span> : null}
           {content.titleLines.map((line, i) => (
-            <motion.span
-              key={i}
-              custom={i}
-              variants={lineVariant}
-              initial="hidden"
-              animate="show"
-              className={`block pb-[0.04em] ${
-                i === content.highlightLine ? "text-gradient-accent" : "text-gradient"
-              }`}
-            >
-              {line}
-            </motion.span>
+            // De losse spatie tussen de regels is onzichtbaar (block-spans), maar houdt
+            // de tekst leesbaar voor Google en schermlezers: "… website onder € 3.000."
+            <Fragment key={i}>
+              {i > 0 ? " " : null}
+              <motion.span
+                custom={i}
+                variants={lineVariant}
+                initial="hidden"
+                animate="show"
+                className={`block pb-[0.04em] ${
+                  i === content.highlightLine ? "text-gradient-accent" : "text-gradient"
+                }`}
+              >
+                {line}
+              </motion.span>
+            </Fragment>
           ))}
         </h1>
 

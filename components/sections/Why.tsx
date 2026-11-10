@@ -62,8 +62,9 @@ export default function Why() {
         <Reveal delay={0.1} className="mt-14">
           <div className="glass overflow-hidden rounded-3xl">
             <div className="hidden grid-cols-[1fr_1.4fr_1.4fr] gap-4 border-b border-white/10 px-8 py-4 text-xs uppercase tracking-[0.2em] text-text-secondary md:grid">
-              <span>{compare.title}</span>
-              <span>{compare.columns.a}</span>
+              {/* De {" "} is onzichtbaar in een grid, maar voorkomt aan elkaar geplakte tekst. */}
+              <span>{compare.title}</span>{" "}
+              <span>{compare.columns.a}</span>{" "}
               <span className="text-accent-soft">{compare.columns.b}</span>
             </div>
             <ul>
@@ -74,12 +75,12 @@ export default function Why() {
                 >
                   <span className="font-display text-base font-semibold text-text-primary">
                     {row.label}
-                  </span>
+                  </span>{" "}
                   <span className="flex items-center gap-2.5 text-sm text-text-secondary">
                     <CrossIcon className="h-4 w-4 shrink-0 text-text-secondary/60" />
                     <span className="sr-only">{compare.columns.a}: </span>
                     {row.a}
-                  </span>
+                  </span>{" "}
                   <span className="flex items-center gap-2.5 text-sm text-text-primary">
                     <CheckIcon className="h-4 w-4 shrink-0 text-accent-soft" />
                     <span className="sr-only">{compare.columns.b}: </span>

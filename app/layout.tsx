@@ -37,12 +37,12 @@ export const metadata: Metadata = {
     locale: "nl_NL",
     url: site.url,
     siteName: site.brand,
-    title: `${site.brand} · ${seo.title}`,
+    title: seo.title,
     description: seo.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.brand} · ${seo.title}`,
+    title: seo.title,
     description: seo.description,
   },
   robots: ALLOW_INDEXING
@@ -110,6 +110,13 @@ const jsonLd = {
           valueAddedTaxIncluded: false,
         },
       })),
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        email: site.email,
+        availableLanguage: "nl",
+        areaServed: "NL",
+      },
       sameAs: [site.github],
     },
     {
@@ -117,6 +124,7 @@ const jsonLd = {
       "@id": `${site.url}/#website`,
       url: site.url,
       name: site.brand,
+      description: seo.description,
       inLanguage: "nl-NL",
       publisher: { "@id": `${site.url}/#organization` },
     },

@@ -95,7 +95,7 @@ export default function WebsiteLatenMakenHaarlem() {
         <Faq data={haarlem.faq} />
         <Contact />
       </main>
-      <Footer />
+      <Footer brandHref="/" />
     </>
   );
 }

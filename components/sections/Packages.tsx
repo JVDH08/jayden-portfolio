@@ -36,10 +36,13 @@ function Price({
           {prefix}
         </span>
       ) : null}
+      {/* Spaties alleen voor de tekstinhoud ("vanaf € 750"); in een flex-rij zijn ze onzichtbaar. */}
+      {prefix ? " " : null}
       <span className="mt-1 flex items-baseline gap-x-2">
         <span className="font-display text-4xl font-extrabold tracking-tight text-gradient">
           {value}
         </span>
+        {suffix ? " " : null}
         {suffix ? (
           <span className="text-sm text-text-secondary">{suffix}</span>
         ) : null}
@@ -48,7 +51,8 @@ function Price({
   );
 }
 
-export default function Packages() {
+/** `showMore={false}` op de prijspagina zelf: daar is de link naar die pagina overbodig. */
+export default function Packages({ showMore = true }: { showMore?: boolean } = {}) {
   const { care } = packages;
 
   return (
@@ -184,6 +188,16 @@ export default function Packages() {
           <p className="mt-8 text-center text-sm text-text-secondary">
             {packages.payment}
           </p>
+          {showMore ? (
+            <p className="mt-3 text-center text-sm">
+              <a
+                href={packages.more.href}
+                className="text-accent-soft underline-offset-4 hover:underline"
+              >
+                {packages.more.label}
+              </a>
+            </p>
+          ) : null}
         </Reveal>
       </div>
     </section>

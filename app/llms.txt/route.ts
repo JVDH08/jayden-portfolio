@@ -17,7 +17,17 @@ export function GET() {
   const work = cases
     .map((c) => `- [${c.project}](${site.url}/werk/${c.slug}): ${c.soort.toLowerCase()}, ${c.voor}`)
     .join("\n");
-  const questions = faq.items.map((i) => `- ${i.q} ${i.a}`).join("\n");
+  // Ook de vragen van de landingspagina's, elke vraag één keer.
+  const seen = new Set<string>();
+  const questions = [...faq.items, ...prijzen.faq.items, ...haarlem.faq.items]
+    .filter((i) => {
+      const key = i.q.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map((i) => `- ${i.q} ${i.a}`)
+    .join("\n");
 
   const body = `# ${site.brand}
 

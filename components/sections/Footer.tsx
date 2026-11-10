@@ -6,8 +6,14 @@ const linkClass =
   "text-sm text-text-primary/80 transition-colors hover:text-accent-soft";
 const headingClass = "text-xs uppercase tracking-[0.2em] text-text-secondary";
 
-/** `base` = "/" op subpagina's zonder de homepage-secties, zodat de ankers naar de homepage gaan. */
-export default function Footer({ base = "" }: { base?: string } = {}) {
+/**
+ * `base` = "/" op subpagina's zonder de homepage-secties, zodat de ankers naar de homepage gaan.
+ * `brandHref` = waar het logo heen gaat: "/" op elke pagina behalve de homepage zelf.
+ */
+export default function Footer({
+  base = "",
+  brandHref = base || "#top",
+}: { base?: string; brandHref?: string } = {}) {
   const year = new Date().getFullYear();
   return (
     <footer className="relative overflow-hidden border-t border-white/10 pt-14">
@@ -15,7 +21,7 @@ export default function Footer({ base = "" }: { base?: string } = {}) {
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-xs">
             <a
-              href="#top"
+              href={brandHref}
               className="inline-flex items-baseline gap-1.5 font-display text-lg font-bold"
             >
               {site.brand}

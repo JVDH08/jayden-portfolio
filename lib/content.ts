@@ -26,9 +26,9 @@ export const site = {
 };
 
 export const seo = {
-  title: "Website laten maken Haarlem | Eerst zien, dan betalen",
+  title: "Unieke website op maat laten maken | Sixtyfold Haarlem",
   description:
-    "Website laten maken in Haarlem? Maatwerk met scroll-animaties en een snelle laadtijd. Je ziet je site vóór je betaalt: vraag een gratis demo aan.",
+    "Unieke website op maat laten maken? Webstudio Sixtyfold uit Haarlem bouwt hem met scroll-animaties, voor een vaste prijs vanaf € 750. Eerst een gratis demo.",
   /** Plaatsen waar we werken (schema areaServed). */
   areaServed: ["Haarlem", "Heemstede", "Bloemendaal", "Zandvoort"],
   ogAlt: "Sixtyfold, websites op maat uit Haarlem",
@@ -47,7 +47,7 @@ export const navCta = { label: "Gratis demo", href: "#contact" };
 export const hero = {
   eyebrow: "Sixtyfold · Webstudio uit Haarlem",
   /** Alleen voor Google/schermlezers (sr-only), niet zichtbaar. */
-  titleSeoPrefix: "Website laten maken in Haarlem: ",
+  titleSeoPrefix: "Website op maat laten maken in Haarlem: ",
   titleLines: ["Websites die", "niemand wegklikt.", "Op maat. In beweging."],
   highlightLine: 1, // index of the line shown in accent
   subtitle:
@@ -445,6 +445,8 @@ export const packages = {
   },
   payment:
     "Betalen in twee delen: de helft bij akkoord op de demo, de rest bij livegang.",
+  /** Link onder de pakketten naar de prijspagina (niet op de prijspagina zelf). */
+  more: { label: "Lees meer over wat een website kost", href: "/wat-kost-een-website-laten-maken" },
 };
 
 export const about = {
@@ -596,7 +598,7 @@ export const haarlem = {
   seo: {
     title: "Website laten maken in Haarlem | Vanaf € 750 · Sixtyfold",
     description:
-      "Website laten maken in Haarlem? Sixtyfold bouwt websites op maat voor ondernemers in Haarlem en omgeving. Vaste prijzen vanaf € 750 en eerst een gratis demo.",
+      "Website laten maken in Haarlem? Sixtyfold bouwt websites op maat voor ondernemers in Haarlem en omgeving. Vaste prijs vanaf € 750, eerst een gratis demo.",
     breadcrumb: "Website laten maken Haarlem",
   },
   hero: {
@@ -630,6 +632,11 @@ export const haarlem = {
       "Kappers, salons en studio's",
       "Ambacht en lokale merken",
       "Coaches, trainers en dienstverleners",
+    ],
+    linksTitle: "Lees ook",
+    links: [
+      { label: "Wat kost een website laten maken?", href: "/wat-kost-een-website-laten-maken" },
+      { label: "Meer over Sixtyfold", href: "/" },
     ],
   },
   faq: {
@@ -680,9 +687,9 @@ export const haarlem = {
 export const prijzen = {
   path: "/wat-kost-een-website-laten-maken",
   seo: {
-    title: "Wat kost een website laten maken? Vaste prijzen vanaf € 750 · Sixtyfold",
+    title: "Wat kost een website laten maken? Vanaf € 750 | Sixtyfold",
     description:
-      "Wat kost een website laten maken in 2026? Bij Sixtyfold krijg je een unieke website op maat onder € 3.000: vanaf € 750, € 1.400 of € 2.500. Eerst een gratis demo, dan een vaste prijs.",
+      "Wat kost een website laten maken? Bij Sixtyfold een unieke website op maat onder € 3.000: vanaf € 750, € 1.400 of € 2.500. Eerst een gratis demo.",
     breadcrumb: "Wat kost een website laten maken",
   },
   hero: {
@@ -717,6 +724,11 @@ export const prijzen = {
       "Technische basis voor Google (SEO)",
       "Contactformulier en privacyverklaring",
       "Koppeling van je eigen domein",
+    ],
+    linksTitle: "Lees ook",
+    links: [
+      { label: "Website laten maken in Haarlem", href: "/website-laten-maken-haarlem" },
+      { label: "Meer over Sixtyfold", href: "/" },
     ],
   },
   faq: {
