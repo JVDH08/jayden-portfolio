@@ -493,8 +493,12 @@ export const faq = {
       a: "Nee, dat hoeft niet. De kennismaking, het bespreken van de demo en je feedback kunnen allemaal online, via een videogesprek of de mail. Zo werken we voor ondernemers in heel Nederland. Spreek je liever persoonlijk af? In Haarlem en omgeving komen we graag bij je langs.",
     },
     {
-      q: "Kan ik zelf teksten aanpassen?",
-      a: "Ja, vanaf Plus krijg je een eenvoudig CMS.",
+      q: "Wat is een CMS?",
+      a: "Een CMS is een simpel beheerscherm achter je website. Daarin pas je zelf teksten, foto's of prijzen aan, zonder dat je iets van code hoeft te weten. Inloggen, aanpassen, opslaan, en het staat direct live. Vanaf het pakket Plus zit het erbij. Liever niet zelf doen? Met Care Plus passen wij het elke maand voor je aan.",
+    },
+    {
+      q: "Wordt mijn website gevonden in Google?",
+      a: "Elke site bouwen we technisch klaar voor Google: snel, goed op je telefoon, met nette titels en beschrijvingen. Dat heet SEO. Vanaf Plus koppelen we ook Google Search Console, zodat je ziet op welke woorden mensen je vinden. Een plek bovenaan kan niemand garanderen, maar zo geef je je zaak de beste kans.",
     },
     {
       q: "Regelen jullie domein en hosting?",
@@ -651,6 +655,10 @@ export const haarlem = {
       {
         q: "Bouwen jullie in WordPress?",
         a: "Nee. We bouwen elke site op maat met moderne code. Daardoor laadt hij snel en is hij veilig. Wil je zelf teksten en foto's aanpassen? Vanaf het pakket Plus krijg je daar een eenvoudig CMS voor.",
+      },
+      {
+        q: "Wat is een CMS?",
+        a: "Een CMS is een simpel beheerscherm achter je website. Daarin pas je zelf teksten, foto's of prijzen aan, zonder dat je iets van code hoeft te weten. Inloggen, aanpassen, opslaan, en het staat direct live. Vanaf het pakket Plus zit het erbij. Liever niet zelf doen? Met Care Plus passen wij het elke maand voor je aan.",
       },
       {
         q: "Wordt mijn website goed gevonden in Google?",
