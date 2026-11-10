@@ -579,6 +579,7 @@ export const footer = {
   /** Losse pagina's, in de navigatiekolom onder de ankers. */
   pages: [
     { label: "Website laten maken Haarlem", href: "/website-laten-maken-haarlem" },
+    { label: "Wat kost een website?", href: "/wat-kost-een-website-laten-maken" },
     { label: "Privacy", href: "/privacy" },
   ],
   copyright: "Sixtyfold · Haarlem",
@@ -667,6 +668,89 @@ export const haarlem = {
       {
         q: "Ik heb al een website. Kunnen jullie die vernieuwen?",
         a: "Zeker. We laten je in de demo zien hoe je huidige site eruit kan zien als hij opnieuw wordt ontworpen. Je teksten en beelden kunnen we waar nodig meenemen.",
+      },
+    ],
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* Landingspagina: /wat-kost-een-website-laten-maken                    */
+/* ------------------------------------------------------------------ */
+
+export const prijzen = {
+  path: "/wat-kost-een-website-laten-maken",
+  seo: {
+    title: "Wat kost een website laten maken? Vaste prijzen vanaf € 750 · Sixtyfold",
+    description:
+      "Wat kost een website laten maken in 2026? Bij Sixtyfold krijg je een unieke website op maat onder € 3.000: vanaf € 750, € 1.400 of € 2.500. Eerst een gratis demo, dan een vaste prijs.",
+    breadcrumb: "Wat kost een website laten maken",
+  },
+  hero: {
+    eyebrow: "Prijzen · Website op maat",
+    titleSeoPrefix: "Wat kost een website laten maken? ",
+    titleLines: ["Een unieke website", "onder € 3.000.", "Met een vaste prijs."],
+    highlightLine: 1,
+    subtitle:
+      "Geen template, geen uurtje-factuurtje. Je kiest een pakket, ziet eerst gratis een demo van jouw site en krijgt daarna een vaste prijs. Zo weet je vooraf precies waar je aan toe bent.",
+    cta: { label: "Vraag je gratis demo aan", href: "#contact" },
+    ctaSecondary: { label: "Bekijk de pakketten", href: "#pakketten" },
+    trust: ["Vanaf € 750", "Gratis demo", "Vaste prijs vooraf"],
+    scrollHint: "Scroll",
+  },
+  intro: {
+    eyebrow: "Wat kost een website?",
+    title: "Waar betaal je eigenlijk voor bij een website?",
+    paragraphs: [
+      "De prijs van een website hangt vooral af van drie dingen: hoeveel pagina's je nodig hebt, hoeveel er op maat ontworpen wordt en of je zelf teksten wilt kunnen aanpassen. Een simpele onepager is sneller klaar dan een site met meerdere pagina's, animaties en eigen beeld.",
+      "Bij Sixtyfold zijn er drie pakketten: Start vanaf € 750 voor een onepager, Plus vanaf € 1.400 voor een site tot 5 pagina's met scroll-animaties en een CMS, en Signature vanaf € 2.500 voor volledig maatwerk met 3D of filmische scroll. Alle prijzen zijn excl. btw.",
+      "Wat je niet krijgt: een WordPress-thema dat ook bij honderd andere bedrijven draait. Elke site ontwerpen en bouwen we zelf, met moderne code. Daardoor laadt hij snel, ook op je telefoon, en is hij technisch klaar om gevonden te worden in Google.",
+      "Je betaalt pas als je de demo goed vindt: de helft bij akkoord, de rest bij livegang. Hosting en onderhoud kun je daarna regelen met Sixtyfold Care, vanaf € 24,99 per maand, maandelijks opzegbaar.",
+    ],
+    areasTitle: "Pakketten",
+    areas: ["Start · vanaf € 750", "Plus · vanaf € 1.400", "Signature · vanaf € 2.500"],
+    areasNote:
+      "Prijzen excl. btw. Na de gratis demo krijg je een vaste prijs, zonder verrassingen achteraf.",
+    forTitle: "Altijd inbegrepen",
+    forList: [
+      "Eigen ontwerp, geen template",
+      "Snel en goed op je telefoon",
+      "Technische basis voor Google (SEO)",
+      "Contactformulier en privacyverklaring",
+      "Koppeling van je eigen domein",
+    ],
+  },
+  faq: {
+    eyebrow: "Veelgestelde vragen",
+    title: "Vragen over de prijs van een website",
+    intro: "Staat je vraag er niet tussen? Mail ons, je hoort binnen 24 uur van ons.",
+    items: [
+      {
+        q: "Wat kost een website laten maken?",
+        a: "Bij Sixtyfold betaal je vanaf € 750 voor een onepager (Start), vanaf € 1.400 voor een site tot 5 pagina's met scroll-animaties en CMS (Plus) en vanaf € 2.500 voor volledig maatwerk (Signature). Prijzen zijn excl. btw. Na de gratis demo krijg je een vaste prijs.",
+      },
+      {
+        q: "Kan ik een website op maat laten maken onder € 3.000?",
+        a: "Ja. Al onze pakketten beginnen onder € 3.000, ook Signature, ons pakket voor volledig maatwerk met 3D of filmische scroll. Je krijgt een eigen ontwerp in plaats van een template, en je ziet eerst gratis een demo.",
+      },
+      {
+        q: "Waarom is een website op maat duurder dan een websitebouwer?",
+        a: "Met een websitebouwer of WordPress-thema betaal je minder, maar lijkt je site op die van veel anderen en doe je het werk zelf. Bij maatwerk wordt de site ontworpen rond jouw zaak, laadt hij sneller en wordt alles voor je geregeld. Daarom laten we je eerst gratis een demo zien, zodat je zelf kunt beslissen of het dat waard is.",
+      },
+      {
+        q: "Zijn er nog kosten na de oplevering?",
+        a: "Je domeinnaam kost een klein bedrag per jaar. Voor hosting, updates, back-ups en bewaking is er Sixtyfold Care vanaf € 24,99 per maand. Met Care Plus (€ 49,99 per maand) passen we ook elke maand tot een uur teksten, foto's of openingstijden voor je aan. Beide zijn maandelijks opzegbaar.",
+      },
+      {
+        q: "Wat is een CMS?",
+        a: "Een CMS is een simpel beheerscherm achter je website. Daarin pas je zelf teksten, foto's of prijzen aan, zonder dat je iets van code hoeft te weten. Vanaf het pakket Plus zit het erbij.",
+      },
+      {
+        q: "Moet ik betalen voor de demo?",
+        a: "Nee. Vind je de demo niet goed, dan stopt het daar en betaal je niets. Vind je hem wel goed, dan betaal je de helft bij akkoord en de rest bij livegang.",
+      },
+      {
+        q: "Werken jullie alleen in Haarlem?",
+        a: "Nee. We zitten in Haarlem, maar maken websites voor ondernemers in heel Nederland. Kennismaken, de demo bespreken en feedback geven kan allemaal online.",
       },
     ],
   },

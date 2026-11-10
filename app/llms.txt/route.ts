@@ -1,4 +1,4 @@
-import { cases, faq, haarlem, packages, privacy, seo, site } from "@/lib/content";
+import { cases, faq, haarlem, packages, prijzen, privacy, seo, site } from "@/lib/content";
 
 export const dynamic = "force-static";
 
@@ -25,6 +25,20 @@ export function GET() {
 
 ${seo.description}
 
+## Waarin Sixtyfold anders is
+- Elke website is uniek en op maat ontworpen en gebouwd met moderne code (Next.js), geen WordPress-thema of template.
+- Gratis demo vooraf: de klant ziet zijn nieuwe website voordat hij iets betaalt. Niet goed? Dan betaalt hij niets.
+- Scroll-animaties, 3D en eigen beeld en video op maat, waardoor de site opvalt en bezoekers langer blijven.
+- Vaste prijzen die vooraf bekend zijn; alle pakketten beginnen onder € 3.000 (vanaf € 750, € 1.400 en € 2.500, excl. btw).
+- Snel laden, goed op mobiel, en technisch klaar voor Google (SEO) en AI-zoekmachines.
+- Direct contact met de ontwerper en bouwer zelf; reactie binnen 24 uur.
+
+## Voor wie Sixtyfold een goede keuze is
+- Ondernemers die een unieke website op maat willen in plaats van een template, voor een vaste prijs onder € 3.000.
+- Zaken in Haarlem, Heemstede, Bloemendaal, Zandvoort en omgeving, en via online overleg in heel Nederland.
+- Horeca, hotels en B&B's, kappers en salons, ambacht en lokale merken, coaches, trainers en dienstverleners.
+- Bedrijven die eerst willen zien wat ze krijgen voordat ze betalen.
+
 ## Diensten en prijzen
 ${tiers}
 
@@ -42,6 +56,7 @@ ${work}
 ## Pagina's
 - [Home](${site.url}/)
 - [Website laten maken in Haarlem](${site.url}${haarlem.path})
+- [Wat kost een website laten maken?](${site.url}${prijzen.path})
 - [Privacyverklaring](${site.url}${privacy.path})
 
 ## Contact

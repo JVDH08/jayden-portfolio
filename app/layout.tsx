@@ -72,12 +72,14 @@ const jsonLd = {
       url: site.url,
       email: site.email,
       description: seo.description,
+      slogan: site.tagline,
       image: `${site.url}/opengraph-image`,
       logo: `${site.url}/icon.png`,
       priceRange: "€€",
       areaServed: [
         ...seo.areaServed.map((name) => ({ "@type": "City", name })),
         { "@type": "AdministrativeArea", name: site.region },
+        { "@type": "Country", name: "Nederland" },
       ],
       address: {
         "@type": "PostalAddress",
@@ -89,9 +91,12 @@ const jsonLd = {
       knowsAbout: [
         "Webdesign",
         "Website laten maken",
+        "Website op maat",
         "Webdevelopment",
         "Scroll-animaties",
+        "3D-websites",
         "SEO",
+        "Websiteonderhoud en hosting",
       ],
       makesOffer: packages.tiers.map((tier) => ({
         "@type": "Offer",

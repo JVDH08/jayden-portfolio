@@ -1,0 +1,33 @@
+# Meldt na elke productie-deploy alle URL's uit de sitemap aan bij IndexNow
+# (Bing, Yandex, Seznam e.a.). ChatGPT-zoekresultaten leunen deels op Bing,
+# dus nieuwe of gewijzigde pagina's worden zo sneller gevonden.
+name: IndexNow
+
+on:
+  deployment_status:
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    if: github.event.deployment_status.state == 'success' && startsWith(github.event.deployment.environment, 'Production')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wacht tot de nieuwe versie live staat
+        run: sleep 30
+      - name: Sitemap naar IndexNow sturen
+        env:
+          HOST: sixtyfold.nl
+          KEY: 6a8093fddabf08f0df0bdfc58767159e
+        run: |
+          set -euo pipefail
+          urls=$(curl -fsSL "https://$HOST/sitemap.xml" | grep -oE '<loc>[^<]+</loc>' | sed -E 's#</?loc>##g')
+          json=$(printf '%s\n' "$urls" | jq -R . | jq -s --arg host "$HOST" --arg key "$KEY" \
+            '{host: $host, key: $key, keyLocation: ("https://" + $host + "/" + $key + ".txt"), urlList: .}')
+          echo "$json" | jq '.urlList | length' | xargs echo "Aantal URL's:"
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' -d "$json")
+          echo "IndexNow antwoordde met HTTP $code"
+          case "$code" in 200|202) ;; *) exit 1 ;; esac
